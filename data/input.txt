@@ -1,13 +1,16 @@
-If a student is in obvious violations of copyright law by using a room's wired connection (ie ResNet) to distribute copyrighted materials, the room's connection will be disabled, and the issue could be sent to Housing Student Judicial Affairs
-Currently, the University of Illinois does not have any rate limits set in place
+Remove parental control from the network
+Do not allow people from dorms to access Instagram and YouTube
+Social media is blocked by the University firewall
+Set a minimum bandwidth of 10 Mbps for guests
+Block all bittorrent traffic on the network
+Set a maximum quota of 500 MB per week for gaming traffic
+Allow Netflix on the network for students only
 University Housing monitors only the amount of traffic
-CounterStrike server is blocked by the University firewall
 AIM chat and file transfering is allowed by the University firewall
 Battlenet is allowed by the University firewall
 H323 video conferencing is allowed by the University firewall
 Everquest is blocked by the University firewall
 HTTP and HTTPS are allowed by the University firewall
-IMAP and secure IMAP are allowed by the University firewall
 MSN audio and video are not allowed by the University firewall, but the MSN chat, application sharing and file transferring are not blocked
 Net2Phone is allowed by the University firewall
 PC-Telephone is allowed by the University firewall
@@ -19,7 +22,6 @@ Telnet is allowed by the University firewall
 Sorenson Videophone 200 is allowed by the University firewall
 FTP and SFTP servers are allowed by the University firewall
 Students data limit is 100 GB per week
-Students 10 GB a day download quotas are on 10 AM to Midnight
 The system passively monitors the network throughput when traffic is light
 There is a 6 GB per 24-hour period upload or download data transfer limit starting at midnight of each day, on all of your combined traffic on ResNet and UIC wireless
 Guests cannot run any file sharing/downloading program
@@ -27,13 +29,11 @@ No individual service or system running on the wired/wireless network should use
 The system will trigger an overuse notification if the average for either inbound or outbound usage exceeds 10 GB per week
 Quotas for students are 5000 Megabyte per hr download and 2000 Megabyte per hr upload
 Routers or anything else that does routing or NAT are prohibited from MITNet as they interfere with the operation of the network
-When a total of 18 gigabytes of data is reached, the individual's bandwidth rate limit is set to 2 Mbps
 The individual will have a 4 Mbps bandwidth rate limit
-RHIT-OPEN will work in labs, classrooms and residence halls but does not allow the user to access the internal Rose-Hulman network
 You may not run FTP, telnet, peer-to-peer, HTTP, IRC, DNS and mail servers on ResNet or UIC wireless-connected devices
 Students have 200 GB of Free monthly usage
 Faculty members have 500 Gb per week of free network use
-Students have a quota of 5 GB per day The quota is reset at  6am
+Students have a quota of 5 GB per day The quota is reset at 6am
 Internet is limited to 3 Mbps per host
 P2P application is separately capped at 30 Mbps for the entire campus
 Guests' network is rate-limited to 5 Mb/s per user

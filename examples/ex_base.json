@@ -8,8 +8,8 @@
         "answer": "Nile translation: \ndefine intent uniIntent: \n\tfor endpoint('university') \n\tadd middlebox('firewall') \n\tblock service('CounterStrike server')"
     },
     {
-        "query": "AIM chat and file transfering is allowed by the University firewall",
-        "answer": "Nile translation: \ndefine intent uniIntent: \n\tfor endpoint('university') \n\tadd middlebox('firewall') \n\tadd service('AIM chat'), service('file transfer')"
+        "query": "Currently, the University of Illinois does not have any rate limits set in place",
+        "answer": "Nile translation: \ndefine intent uniIntent: \n\tfor endpoint('university') \n\tunset bandwidth()"
     },
     {
         "query": "Students 10 GB a day download quotas are on 10 AM to Midnight",

@@ -106,6 +106,7 @@ def compare_dictionaries(intent1, intent2):
     # All key-value pairs are either the same or synonyms
     return True
 
+# Takes the LLM output and extracts the translation answer
 def extract_translation(string):
     substring = "Nile translation: "
     if substring in string:
@@ -114,15 +115,22 @@ def extract_translation(string):
     else:
         return string
 
+# Takes the LLM output and extracts the CoT as a list of steps
 def extract_cot(string):
     substring = "Reasoning: "
     if substring in string:
         index = string.index(substring)
         steps_string = string[index + len(substring):]
         # Regular expression pattern to match the steps
-        pattern = r"\d+\.\s(.*?)(?=\d+\.\s|$)"
+        pattern = r"\b((?<!Rule\s)\d\.\s[A-Za-z].*?)(?=\b(?<!Rule\s)\d\.\s[A-Za-z]|$)"
         # Extract the steps using regex
         steps = re.findall(pattern, steps_string, re.DOTALL)
+        if len(steps) < 5:
+            for i in range(5 - len(steps)):
+                steps.append([""])
+        if len(steps) != 5:
+            print(steps)
+            print("Number of steps is not 5.")
         return steps
     else:
         return [""] * 5
@@ -165,9 +173,9 @@ def main():
     step_3s = []
     step_4s = []
     step_5s = []
+    
     for output in outputs:
         translations.append(output["translation"])
-        #print(output["steps"])
         step_1s.append(output["steps"][0])
         step_2s.append(output["steps"][1])
         step_3s.append(output["steps"][2])
@@ -187,8 +195,16 @@ def main():
         relaxed_matches.append(compare_dictionaries(parse_intent(outputs[i]["translation"]), parse_intent(niles[i])))
     exact_matches_ser = pd.Series(exact_matches)
     relaxed_matches_ser = pd.Series(relaxed_matches)
-    print("Exact Match Accuracy: " + str(exact_matches.count(True) / len(exact_matches)))
-    print("Relaxed Match Accuracy: " + str(relaxed_matches.count(True) / len(relaxed_matches)))
+  
+    # reading the csv file
+    df = pd.read_csv("results/results.csv")
+    # Extract the desired part of the filename
+    col_name = sys.argv[3][sys.argv[3].find('_') + 1 : sys.argv[3].rfind('.')]
+    # updating the column value/data
+    df.loc[0, col_name] = str(exact_matches.count(True) / len(exact_matches))
+    df.loc[1, col_name] = str(relaxed_matches.count(True) / len(relaxed_matches))
+    # writing into the file
+    df.to_csv("results/results.csv", index=False)
 
     data = {
         "Intents": intents,
