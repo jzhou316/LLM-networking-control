@@ -57,7 +57,7 @@ def parse_add_host(input_string):
 		return name, ip_address
 	else:
 		# If no match, return None for both name and IP address
-		return None, None 
+		return None, None
 
 def run():
 	with grpc.insecure_channel('localhost:50051') as channel:
