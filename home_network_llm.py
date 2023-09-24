@@ -1,5 +1,6 @@
 import json
 import sys
+import re
 from langchain.chat_models import ChatOpenAI
 from langchain import PromptTemplate, LLMChain
 from langchain.prompts.chat import (
@@ -81,14 +82,29 @@ class Chat:
                 print("\033[32m\033[1mAI:\033[0m")
                 print(ai_message)
 
-	def parse_intent(self, intent: str):
-		# Split the intent into expressions
-		expressions = intent.split('\n')
+    def parse_intent(self, intent: str):
+        # Define entities and operations
+        entities = ['endpoint', 'link', 'group', 'bandwidth']
+        operations = ['add', 'remove', 'for', 'set', 'from', 'to']
 
-		# For each expression, split into operation and entity
-		operations = []
-		for expr in expressions:
-			op, entity = expr.split(' ', 1)
-			operations.append((op, entity.strip()))
+        # Split the intent into expressions
+        expressions = intent.split('\n')
 
-		return operations
+        # For each expression, split into operation and entity
+        parsed_intent = {}
+        for expr in expressions:
+            op, rest = expr.strip().split(' ', 1)
+            if op not in operations: 
+                continue
+            # Further split the rest into entity and arguments
+            entity_args = re.findall(r"(\w+)\(\'(.*?)\'\)", rest)
+            print(rest)
+            print(entity_args)
+            entity_list = []
+            for entity, args in entity_args:
+                if entity in entities:
+                    args = args.split(', ')
+                    entity_list.append((entity, args))
+            parsed_intent[op] = entity_list
+
+        return parsed_intent

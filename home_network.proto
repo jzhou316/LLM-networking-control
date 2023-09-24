@@ -21,6 +21,9 @@ service HomeNetwork {
 
 	// Method to add a link
 	rpc AddLink(Link) returns (Link);
+
+	// Method to add a group
+	rpc AddGroup(Group) returns (Group);
 }
 
 // Define an empty message.
@@ -44,4 +47,8 @@ message Link {
 message Topology {
 	repeated Host hosts = 1;
 	repeated Link links = 2; 
+}
+
+message Group {
+	string name = 1;
 }

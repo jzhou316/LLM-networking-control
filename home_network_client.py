@@ -89,7 +89,24 @@ def run():
 				stub.StopNetwork(home_network_pb2.Empty())
 				sys.exit(0)
 			else:
-				print(chat.query(config_request))
+				nile = chat.query(config_request)
+				parsed_intent = chat.parse_intent(nile)
+				if 'add' in parsed_intent.keys():
+					image_container.empty()
+					for entity, args in parsed_intent['add']:
+						match entity:
+							case 'endpoint':
+								new_host = stub.AddDevice(home_network_pb2.Host(name=args[0], ip_address="1.1.1.1"))
+							case 'group':
+								new_group = stub.AddGroup(home_network_pb2.Group(name=args[0]))
+				elif 'remove' in parsed_intent.keys():
+					continue
+				elif 'set' in parsed_intent.keys():
+					continue
+				else:
+					print("Unable to parse Nile")
+				print(parsed_intent)
+				topology = stub.GetTopology(home_network_pb2.Empty())
 				with image_container.container():
 					draw_topology(topology)
 
