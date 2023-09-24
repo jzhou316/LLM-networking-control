@@ -4,10 +4,10 @@ import re
 import streamlit as st
 import networkx as nx
 import matplotlib
-matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import home_network_pb2
 import home_network_pb2_grpc
+from home_network_llm import Chat
 
 # Takes a Topology protobuf object, extracts the nodes and links, and draws it using NetworkX
 def draw_topology(topology):
@@ -60,6 +60,7 @@ def parse_add_host(input_string):
 		return None, None
 
 def run():
+	chat = Chat()
 	with grpc.insecure_channel('localhost:50051') as channel:
 		# Streamlit application components
 		st.title("Home Network Simulation")
@@ -91,12 +92,16 @@ def run():
 			if config_request == "exit":
 				stub.StopNetwork(home_network_pb2.Empty())
 				sys.exit(0)
-			name, ip_address = parse_add_host(config_request)
-			if name and ip_address:
-				image_container.empty()
-				new_host = stub.AddDevice(home_network_pb2.Host(name=name, ip_address=ip_address))
-				print(f"Added host with name {name} and ip address {ip_address} on the client side")
-				topology = stub.GetTopology(home_network_pb2.Empty())
+			# name, ip_address = parse_add_host(config_request)
+			# if name and ip_address:
+			# 	image_container.empty()
+			# 	new_host = stub.AddDevice(home_network_pb2.Host(name=name, ip_address=ip_address))
+			# 	print(f"Added host with name {name} and ip address {ip_address} on the client side")
+			# 	topology = stub.GetTopology(home_network_pb2.Empty())
+			# 	with image_container.container():
+			# 		draw_topology(topology)
+			else:
+				print(chat.query(config_request))
 				with image_container.container():
 					draw_topology(topology)
 
