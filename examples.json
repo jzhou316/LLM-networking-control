@@ -1,0 +1,14 @@
+[
+    {
+        "query": "Hi, can you add a new camera to the living room?",
+        "answer": "for group('living room') \nadd endpoint('camera')"
+    }, 
+    {
+        "query": "I would like to disconnect the printer from my home.",
+        "answer": "for group('network')\n remove endpoint('printer')"
+    },
+    {
+        "query": "Please make sure that the bandwidth between the router and the laptop is limited to just 10 mbps",
+        "answer": "from endpoint('router')\n to endpoint('laptop')\n set bandwidth('10', 'mbps')"
+    }
+]
