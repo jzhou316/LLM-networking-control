@@ -16,6 +16,9 @@ service HomeNetwork {
 	// Method to add a device
 	rpc AddDevice(Host) returns (Host);
 
+	// Method to remove a device
+	rpc RemoveDevice(Host) returns (Empty);
+
 	// Method to add a link
 	rpc AddLink(Link) returns (Link);
 }
