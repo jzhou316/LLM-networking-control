@@ -15,9 +15,9 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 		self.net = None
 		self.host_counter = 1
 		# keys are user-given names ("Laptop", "Camera") and values are mininet names ("h1", "h2")
-		self.user_to_mininet = {}
+		self.name_to_node = {}
 		# keys are mininet names ("h1", "h3") and values are user-given names ("Laptop", "Camera") 
-		self.mininet_to_user = {}
+		self.node_to_name = {}
 		# keys are group names and values are user-given names
 		self.groups = {"network": []}
 		print("Server initiated")
@@ -40,13 +40,13 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 			   'Lights': '10.0.0.4/8'}
 		for device in map.keys():
 			host_name = self._CreateHostName()
-			self.user_to_mininet[device] = host_name
-			self.mininet_to_user[host_name] = device
+			self.name_to_node[device] = host_name
+			self.node_to_name[host_name] = device
 			self.groups["network"].append(device)
 			self.net.addHost(host_name, ip=map[device])
 
-		self.user_to_mininet['Switch'] = 's1'
-		self.mininet_to_user['s1'] = 'Switch'
+		self.name_to_node['Switch'] = 's1'
+		self.node_to_name['s1'] = 'Switch'
 		self.net.addSwitch('s1')
 		self.groups["network"].append('Switch')
 
@@ -94,23 +94,25 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 			nodes_lookup[nodename] = ip_addr
 		nodes_list = []
 		for key in nodes_lookup.keys():
-			nodes_list.append(home_network_pb2.Host(name=self.mininet_to_user[key], ip_address=nodes_lookup[key]))
-
+			print(key)
+			print(self.node_to_name[key])
+			print(nodes_lookup[key])
+			nodes_list.append(home_network_pb2.Host(name=self.node_to_name[key], ip_address=nodes_lookup[key]))
 		# Get the links
 		links_list = []
 		for link in self.net.links:
 			node1, intf1 = link.intf1.name.split('-')
 			node2, intf2 = link.intf2.name.split('-')
-			node_obj1 = home_network_pb2.Host(name=self.mininet_to_user[node1], ip_address=nodes_lookup[node1])
-			node_obj2 = home_network_pb2.Host(name=self.mininet_to_user[node2], ip_address=nodes_lookup[node2])
+			node_obj1 = home_network_pb2.Host(name=self.node_to_name[node1], ip_address=nodes_lookup[node1])
+			node_obj2 = home_network_pb2.Host(name=self.node_to_name[node2], ip_address=nodes_lookup[node2])
 			links_list.append(home_network_pb2.Link(host1=node_obj1, host2=node_obj2))
 		return home_network_pb2.Topology(hosts=nodes_list, links=links_list)
 
 	# Add new device to network 
 	def AddDevice(self, request, context):
 		new_host = self._CreateHostName()
-		self.mininet_to_user[new_host] = request.name
-		self.user_to_mininet[request.name] = new_host
+		self.node_to_name[new_host] = request.name
+		self.name_to_node[request.name] = new_host
 		added_host = self.net.addHost(new_host)
 		self.groups["network"].append(request.name)
 
@@ -120,6 +122,10 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 		print(f"Added host {request.name} on server side")
 		print(self.net.hosts)
 		return home_network_pb2.Host(name=request.name, ip_address=request.ip_address)
+
+	# Create new group in network
+	def CreateGroup(self, request, context):
+		self.groups
 
 def serve():
 	server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

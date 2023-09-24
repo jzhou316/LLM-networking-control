@@ -11,7 +11,6 @@ from home_network_llm import Chat
 
 # Takes a Topology protobuf object, extracts the nodes and links, and draws it using NetworkX
 def draw_topology(topology):
-	print("draw_topology() function run!")
 	# Create an empty graph
 	G = nx.Graph()
 
@@ -64,19 +63,16 @@ def run():
 	with grpc.insecure_channel('localhost:50051') as channel:
 		# Streamlit application components
 		st.title("Home Network Simulation")
+		st.markdown("This simulation interface is designed to help you configure a home network using natural language. Enter your configuration commands in the left side panel and see the network topology changes in real-time.")
 		st.sidebar.title("Network Configuration")
-		config_request = st.sidebar.text_area("Configure the network in natural language")
-		st.sidebar.write("Currently implemented examples")
-		st.sidebar.markdown(
-		"""
-		- add host with name <string> and ip address <10.0.0.X/8>
-		- exit 
-		"""
-		)
-		#st.sidebar.write("Example: add host with name <string> and ip address <10.0.0.X/8>")
+		config_request = st.sidebar.text_area("Enter your request here. For example, you can say \"hi, can you please connect a new camera to my home?\"")
 
 		# Container for the topology image
 		image_container = st.empty()
+
+		# Panel to show network status
+		with st.expander("Network status", expanded=True):
+			st.write("Not implemented yet")
 
 		# gRPC Client Code
 		stub = home_network_pb2_grpc.HomeNetworkStub(channel)
@@ -92,14 +88,6 @@ def run():
 			if config_request == "exit":
 				stub.StopNetwork(home_network_pb2.Empty())
 				sys.exit(0)
-			# name, ip_address = parse_add_host(config_request)
-			# if name and ip_address:
-			# 	image_container.empty()
-			# 	new_host = stub.AddDevice(home_network_pb2.Host(name=name, ip_address=ip_address))
-			# 	print(f"Added host with name {name} and ip address {ip_address} on the client side")
-			# 	topology = stub.GetTopology(home_network_pb2.Empty())
-			# 	with image_container.container():
-			# 		draw_topology(topology)
 			else:
 				print(chat.query(config_request))
 				with image_container.container():

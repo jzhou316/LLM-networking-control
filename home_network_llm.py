@@ -20,7 +20,7 @@ class Chat:
         # system message is the instruction
         with open('instr.txt', 'r') as f:
             instr = f.read()
-        
+
         system_message_prompt = SystemMessagePromptTemplate.from_template(instr)
         self.message_chain.append(system_message_prompt)
 
@@ -35,8 +35,8 @@ class Chat:
             example_ai = AIMessagePromptTemplate.from_template(example_ai)
             self.message_chain.append(example_human)
             self.message_chain.append(example_ai)
-    
-    def query(self, input):
+
+    def query(self, input: str):
         # human prompt is the suffix
         prompt_template = PromptTemplate(
             input_variables=["query"],
@@ -58,9 +58,9 @@ class Chat:
         ai_answer = chain.run({
             'query': input
         })
-        
+
         return ai_answer
-    
+
     def print_message_chain(self):
         chat_prompt = ChatPromptTemplate.from_messages(self.message_chain)
         chain = LLMChain(llm=self.chat, prompt=chat_prompt)
@@ -80,3 +80,15 @@ class Chat:
                 ai_message = message.prompt.template
                 print("\033[32m\033[1mAI:\033[0m")
                 print(ai_message)
+
+	def parse_intent(self, intent: str):
+		# Split the intent into expressions
+		expressions = intent.split('\n')
+
+		# For each expression, split into operation and entity
+		operations = []
+		for expr in expressions:
+			op, entity = expr.split(' ', 1)
+			operations.append((op, entity.strip()))
+
+		return operations
