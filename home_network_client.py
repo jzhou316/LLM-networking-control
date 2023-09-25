@@ -10,7 +10,6 @@ import matplotlib.colors as mcolors
 from matplotlib.lines import Line2D
 import home_network_pb2
 import home_network_pb2_grpc
-
 from home_network_llm import Chat
 
 # Takes a Topology protobuf object, extracts the nodes and links, and draws it using NetworkX
@@ -67,21 +66,32 @@ def draw_topology(topology, group_colors):
 	return
 
 def draw_legend(group_colors):
-	plt.figure(figsize=(8, 1))
+	plt.figure(figsize=(1, 3))
 	legend_elements = []
 	for group, color in group_colors.items():
 		legend_elements.append(Line2D([0], [0], marker='o', color='w', label=group, markerfacecolor=color, markersize=10))
 	plt.legend(handles=legend_elements, loc='upper center')
 	plt.axis("off")
-	plt.tight_layout()
 	st.pyplot(plt.gcf())
 
 def run():
 	chat = Chat()
 	with grpc.insecure_channel('localhost:50051') as channel:
 		# Streamlit application components
+		st.markdown("""
+					<style>
+						.block-container {
+							padding-top: 0.2rem;
+							padding-bottom: 0rem;
+							padding-left: 0.2rem;
+							padding-right: 0.2rem;
+						}
+					</style>
+					""", unsafe_allow_html=True)
 		st.title("Home Network Simulation")
 		st.markdown("This simulation interface is designed to help you configure a home network using natural language. Enter your configuration commands in the left side panel and see the network topology changes in real-time.")
+		col1, col2 = st.columns([6, 1])
+
 		st.sidebar.title("Network Configuration")
 		config_request = st.sidebar.text_area("Enter your request here. For example, you can say \"hi, can you please connect a new printer to my home?\"")
 		st.sidebar.write('')
@@ -90,13 +100,20 @@ def run():
 		st.sidebar.write('')
 		st.sidebar.divider()
 
-		# Container for the topology image
-		image_container = st.empty()
+		with col1:
+			# Container for the topology image
+			image_container = st.empty()
 
 		# gRPC Client Code
 		stub = home_network_pb2_grpc.HomeNetworkStub(channel)
-		st.sidebar.header("Network Status")
-		st.sidebar.write("Not implemented yet")
+		st.sidebar.header("Chat History")
+
+		with col2:
+			st.write("")
+			st.write("")
+			st.markdown("**Groups**")
+			# Container for the key
+			key_container = st.empty()
 
 		# Check the configuration request and process it
 		if config_request:
@@ -145,11 +162,19 @@ def run():
 		for i in range(len(groups)):
 			group_colors[groups[i]] = colors[i]
 
-		st.header("Groups")
-		draw_legend(group_colors)
+		with key_container.container():
+			draw_legend(group_colors)
 		topology = stub.GetTopology(home_network_pb2.Empty())
 		with image_container.container():
 			draw_topology(topology, group_colors)
+
+		st.subheader("Network Status")
+		st.write("Not implemented")
+
+		chat_history = chat.get_chat_history()
+		for user_msg, ai_msg in chat_history.items():
+			st.sidebar.chat_message("user").write(user_msg)
+			st.sidebar.chat_message("assistant").write(ai_msg)
 
 if __name__ == "__main__":
 	run()

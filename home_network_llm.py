@@ -17,6 +17,7 @@ class Chat:
                                openai_api_key="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"
                                )
         self.message_chain = []
+        self.chat_history = {}
 
         # system message is the instruction
         with open('instr.txt', 'r') as f:
@@ -60,6 +61,7 @@ class Chat:
             'query': input
         })
 
+        self.chat_history[input] = ai_answer
         print(ai_answer)
         return ai_answer
 
@@ -109,3 +111,6 @@ class Chat:
             parsed_intent[op] = entity_list
 
         return parsed_intent
+
+    def get_chat_history(self):
+        return self.chat_history
