@@ -14,16 +14,16 @@ service HomeNetwork {
 	rpc GetTopology(Empty) returns (Topology);
 
 	// Method to add a device
-	rpc AddDevice(Host) returns (Host);
+	rpc AddDevice(Host) returns (Empty);
 
 	// Method to remove a device
 	rpc RemoveDevice(Host) returns (Empty);
 
-	// Method to add a link
-	rpc AddLink(Link) returns (Link);
-
 	// Method to add a group
 	rpc AddGroup(Group) returns (Empty);
+
+	// Method to remove a group
+	rpc RemoveGroup(Group) returns (Empty);
 
 	// Method to get list of all groups
 	rpc GetGroups(Empty) returns (Groups);

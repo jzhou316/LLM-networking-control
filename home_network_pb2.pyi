@@ -46,3 +46,15 @@ class Groups(_message.Message):
     GROUPS_FIELD_NUMBER: _ClassVar[int]
     groups: _containers.RepeatedCompositeFieldContainer[Group]
     def __init__(self, groups: _Optional[_Iterable[_Union[Group, _Mapping]]] = ...) -> None: ...
+
+class SrcDst(_message.Message):
+    __slots__ = ["src", "dst"]
+    SRC_FIELD_NUMBER: _ClassVar[int]
+    DST_FIELD_NUMBER: _ClassVar[int]
+    src: Host
+    dst: Host
+    def __init__(self, src: _Optional[_Union[Host, _Mapping]] = ..., dst: _Optional[_Union[Host, _Mapping]] = ...) -> None: ...
+
+class Bandwidth(_message.Message):
+    __slots__ = []
+    def __init__(self) -> None: ...

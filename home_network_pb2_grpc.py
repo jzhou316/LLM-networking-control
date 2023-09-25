@@ -33,20 +33,20 @@ class HomeNetworkStub(object):
         self.AddDevice = channel.unary_unary(
                 '/home_network.HomeNetwork/AddDevice',
                 request_serializer=home__network__pb2.Host.SerializeToString,
-                response_deserializer=home__network__pb2.Host.FromString,
+                response_deserializer=home__network__pb2.Empty.FromString,
                 )
         self.RemoveDevice = channel.unary_unary(
                 '/home_network.HomeNetwork/RemoveDevice',
                 request_serializer=home__network__pb2.Host.SerializeToString,
                 response_deserializer=home__network__pb2.Empty.FromString,
                 )
-        self.AddLink = channel.unary_unary(
-                '/home_network.HomeNetwork/AddLink',
-                request_serializer=home__network__pb2.Link.SerializeToString,
-                response_deserializer=home__network__pb2.Link.FromString,
-                )
         self.AddGroup = channel.unary_unary(
                 '/home_network.HomeNetwork/AddGroup',
+                request_serializer=home__network__pb2.Group.SerializeToString,
+                response_deserializer=home__network__pb2.Empty.FromString,
+                )
+        self.RemoveGroup = channel.unary_unary(
+                '/home_network.HomeNetwork/RemoveGroup',
                 request_serializer=home__network__pb2.Group.SerializeToString,
                 response_deserializer=home__network__pb2.Empty.FromString,
                 )
@@ -54,6 +54,11 @@ class HomeNetworkStub(object):
                 '/home_network.HomeNetwork/GetGroups',
                 request_serializer=home__network__pb2.Empty.SerializeToString,
                 response_deserializer=home__network__pb2.Groups.FromString,
+                )
+        self.GetBandwidth = channel.unary_unary(
+                '/home_network.HomeNetwork/GetBandwidth',
+                request_serializer=home__network__pb2.SrcDst.SerializeToString,
+                response_deserializer=home__network__pb2.Bandwidth.FromString,
                 )
 
 
@@ -96,13 +101,6 @@ class HomeNetworkServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def AddLink(self, request, context):
-        """Method to add a link
-        """
-        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
-
     def AddGroup(self, request, context):
         """Method to add a group
         """
@@ -110,8 +108,22 @@ class HomeNetworkServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def RemoveGroup(self, request, context):
+        """Method to remove a group
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def GetGroups(self, request, context):
         """Method to get list of all groups
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def GetBandwidth(self, request, context):
+        """Method to get bandwidth between two nodes
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -138,20 +150,20 @@ def add_HomeNetworkServicer_to_server(servicer, server):
             'AddDevice': grpc.unary_unary_rpc_method_handler(
                     servicer.AddDevice,
                     request_deserializer=home__network__pb2.Host.FromString,
-                    response_serializer=home__network__pb2.Host.SerializeToString,
+                    response_serializer=home__network__pb2.Empty.SerializeToString,
             ),
             'RemoveDevice': grpc.unary_unary_rpc_method_handler(
                     servicer.RemoveDevice,
                     request_deserializer=home__network__pb2.Host.FromString,
                     response_serializer=home__network__pb2.Empty.SerializeToString,
             ),
-            'AddLink': grpc.unary_unary_rpc_method_handler(
-                    servicer.AddLink,
-                    request_deserializer=home__network__pb2.Link.FromString,
-                    response_serializer=home__network__pb2.Link.SerializeToString,
-            ),
             'AddGroup': grpc.unary_unary_rpc_method_handler(
                     servicer.AddGroup,
+                    request_deserializer=home__network__pb2.Group.FromString,
+                    response_serializer=home__network__pb2.Empty.SerializeToString,
+            ),
+            'RemoveGroup': grpc.unary_unary_rpc_method_handler(
+                    servicer.RemoveGroup,
                     request_deserializer=home__network__pb2.Group.FromString,
                     response_serializer=home__network__pb2.Empty.SerializeToString,
             ),
@@ -159,6 +171,11 @@ def add_HomeNetworkServicer_to_server(servicer, server):
                     servicer.GetGroups,
                     request_deserializer=home__network__pb2.Empty.FromString,
                     response_serializer=home__network__pb2.Groups.SerializeToString,
+            ),
+            'GetBandwidth': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetBandwidth,
+                    request_deserializer=home__network__pb2.SrcDst.FromString,
+                    response_serializer=home__network__pb2.Bandwidth.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -235,7 +252,7 @@ class HomeNetwork(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/home_network.HomeNetwork/AddDevice',
             home__network__pb2.Host.SerializeToString,
-            home__network__pb2.Host.FromString,
+            home__network__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -257,23 +274,6 @@ class HomeNetwork(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def AddLink(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/home_network.HomeNetwork/AddLink',
-            home__network__pb2.Link.SerializeToString,
-            home__network__pb2.Link.FromString,
-            options, channel_credentials,
-            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
-
-    @staticmethod
     def AddGroup(request,
             target,
             options=(),
@@ -285,6 +285,23 @@ class HomeNetwork(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/home_network.HomeNetwork/AddGroup',
+            home__network__pb2.Group.SerializeToString,
+            home__network__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def RemoveGroup(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/home_network.HomeNetwork/RemoveGroup',
             home__network__pb2.Group.SerializeToString,
             home__network__pb2.Empty.FromString,
             options, channel_credentials,
@@ -304,5 +321,22 @@ class HomeNetwork(object):
         return grpc.experimental.unary_unary(request, target, '/home_network.HomeNetwork/GetGroups',
             home__network__pb2.Empty.SerializeToString,
             home__network__pb2.Groups.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetBandwidth(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/home_network.HomeNetwork/GetBandwidth',
+            home__network__pb2.SrcDst.SerializeToString,
+            home__network__pb2.Bandwidth.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

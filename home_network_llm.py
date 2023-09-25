@@ -60,6 +60,7 @@ class Chat:
             'query': input
         })
 
+        print(ai_answer)
         return ai_answer
 
     def print_message_chain(self):

@@ -114,46 +114,59 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 
 	# Add new device to network
 	def AddDevice(self, request, context):
-		new_host = self._CreateHostName()
-		self.mininet_to_user[new_host] = request.name
-		self.user_to_mininet[request.name] = new_host
-		self.net.addHost(new_host)
-		added_host = self._GetNode(request.name)
-		self.group_to_host["network"].append(request.name)
-		self.host_to_group[request.name] = ["network"]
+		if request.name not in self.user_to_mininet.keys():
+			# Add a new device to the network
+			new_host = self._CreateHostName()
+			self.mininet_to_user[new_host] = request.name
+			self.user_to_mininet[request.name] = new_host
+			self.net.addHost(new_host)
+			added_host = self._GetNode(request.name)
+			# Connect the new device to the switch
+			self.net.addLink(added_host, self._GetNode('switch'))
+			added_host.setIP(self.available_ips.pop())
+			print(f"Added host {request.name} on server side")
+			# All devices should be added to the group "network"
+			self.group_to_host["network"].append(request.name)
+			self.host_to_group[request.name] = ["network"]
 
-		# Connect the new device to the switch
-		self.net.addLink(added_host, self._GetNode('switch'))
-		added_host.setIP(self.available_ips.pop())
-		print(f"Added host {request.name} on server side")
+		# Add to another group if specified by user (assumes group alr exists)
+		if request.groups[0].name != "network":
+			self.group_to_host[request.groups[0].name].append(request.name)
+			self.host_to_group[request.name].append(request.groups[0].name)
+
 		print(self.net.hosts)
-		node1, node2 = self.net.get(new_host, self.user_to_mininet['laptop'])
-		#dumpNodeConnections(self.net.hosts)
-		#self.net.pingAll()
+		print(self.group_to_host)
+		print(self.host_to_group)
 		return home_network_pb2.Host(name=request.name, ip_address=request.ip_address)
 
 	# Remove a device from the network
 	def RemoveDevice(self, request, context):
-		# Restore IP address and remove device from all groups
-		removed_host = self._GetNode(request.name)
-		for _, hosts in self.group_to_host.items():
-			if request.name in hosts:
-				hosts.remove(request.name)
-		self.available_ips.add(removed_host.IP())
-		print(f"Added back {removed_host.IP} to available IPs!")
-		# Remove all links with the node
-		for link in self.net.links:
-			node1, intf1 = link.intf1.name.split('-')
-			node2, intf2 = link.intf2.name.split('-')
-			removed_mn = self.user_to_mininet[request.name]
-			if node1 == removed_mn or node2 == removed_mn:
-				self.net.delLink(link)
+		if request.groups[0].name != "network":
+			group_name = request.groups[0].name
+			self.group_to_host[group_name].remove(request.name)
+			self.host_to_group[request.name].remove(group_name)
+		else:
+			# Restore IP address and remove device from all groups
+			removed_host = self._GetNode(request.name)
+			for _, hosts in self.group_to_host.items():
+				if request.name in hosts:
+					hosts.remove(request.name)
+			self.available_ips.add(removed_host.IP())
+			print(f"Added back {removed_host.IP} to available IPs!")
+			# Remove all links with the node
+			for link in self.net.links:
+				node1, intf1 = link.intf1.name.split('-')
+				node2, intf2 = link.intf2.name.split('-')
+				removed_mn = self.user_to_mininet[request.name]
+				if node1 == removed_mn or node2 == removed_mn:
+					self.net.delLink(link)
 
-		# Remove the device from the network
-		self.net.delHost(removed_host)
-		print(f"Removed host {request.name} on server side")
-		print(self.net.hosts)
-		print(self.net.links)
+			# Remove the device from the network
+			self.net.delHost(removed_host)
+			print(f"Removed host {request.name} on server side")
+			print(self.net.hosts)
+			print(self.net.links)
+
 		return home_network_pb2.Empty()
 
 	# Get a list of all groups in the network

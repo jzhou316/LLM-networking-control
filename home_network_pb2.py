@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12home_network.proto\x12\x0chome_network\"\x07\n\x05\x45mpty\"M\n\x04Host\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x12\n\nip_address\x18\x02 \x01(\t\x12#\n\x06groups\x18\x03 \x03(\x0b\x32\x13.home_network.Group\"L\n\x04Link\x12!\n\x05host1\x18\x01 \x01(\x0b\x32\x12.home_network.Host\x12!\n\x05host2\x18\x02 \x01(\x0b\x32\x12.home_network.Host\"P\n\x08Topology\x12!\n\x05hosts\x18\x01 \x03(\x0b\x32\x12.home_network.Host\x12!\n\x05links\x18\x02 \x03(\x0b\x32\x12.home_network.Link\"\x15\n\x05Group\x12\x0c\n\x04name\x18\x01 \x01(\t\"-\n\x06Groups\x12#\n\x06groups\x18\x01 \x03(\x0b\x32\x13.home_network.Group2\xcb\x03\n\x0bHomeNetwork\x12\x38\n\x0cStartNetwork\x12\x13.home_network.Empty\x1a\x13.home_network.Empty\x12\x37\n\x0bStopNetwork\x12\x13.home_network.Empty\x1a\x13.home_network.Empty\x12:\n\x0bGetTopology\x12\x13.home_network.Empty\x1a\x16.home_network.Topology\x12\x33\n\tAddDevice\x12\x12.home_network.Host\x1a\x12.home_network.Host\x12\x37\n\x0cRemoveDevice\x12\x12.home_network.Host\x1a\x13.home_network.Empty\x12\x31\n\x07\x41\x64\x64Link\x12\x12.home_network.Link\x1a\x12.home_network.Link\x12\x34\n\x08\x41\x64\x64Group\x12\x13.home_network.Group\x1a\x13.home_network.Empty\x12\x36\n\tGetGroups\x12\x13.home_network.Empty\x1a\x14.home_network.Groupsb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x12home_network.proto\x12\x0chome_network\"\x07\n\x05\x45mpty\"M\n\x04Host\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x12\n\nip_address\x18\x02 \x01(\t\x12#\n\x06groups\x18\x03 \x03(\x0b\x32\x13.home_network.Group\"L\n\x04Link\x12!\n\x05host1\x18\x01 \x01(\x0b\x32\x12.home_network.Host\x12!\n\x05host2\x18\x02 \x01(\x0b\x32\x12.home_network.Host\"P\n\x08Topology\x12!\n\x05hosts\x18\x01 \x03(\x0b\x32\x12.home_network.Host\x12!\n\x05links\x18\x02 \x03(\x0b\x32\x12.home_network.Link\"\x15\n\x05Group\x12\x0c\n\x04name\x18\x01 \x01(\t\"-\n\x06Groups\x12#\n\x06groups\x18\x01 \x03(\x0b\x32\x13.home_network.Group\"J\n\x06SrcDst\x12\x1f\n\x03src\x18\x01 \x01(\x0b\x32\x12.home_network.Host\x12\x1f\n\x03\x64st\x18\x02 \x01(\x0b\x32\x12.home_network.Host\"\x0b\n\tBandwidth2\x91\x04\n\x0bHomeNetwork\x12\x38\n\x0cStartNetwork\x12\x13.home_network.Empty\x1a\x13.home_network.Empty\x12\x37\n\x0bStopNetwork\x12\x13.home_network.Empty\x1a\x13.home_network.Empty\x12:\n\x0bGetTopology\x12\x13.home_network.Empty\x1a\x16.home_network.Topology\x12\x34\n\tAddDevice\x12\x12.home_network.Host\x1a\x13.home_network.Empty\x12\x37\n\x0cRemoveDevice\x12\x12.home_network.Host\x1a\x13.home_network.Empty\x12\x34\n\x08\x41\x64\x64Group\x12\x13.home_network.Group\x1a\x13.home_network.Empty\x12\x37\n\x0bRemoveGroup\x12\x13.home_network.Group\x1a\x13.home_network.Empty\x12\x36\n\tGetGroups\x12\x13.home_network.Empty\x1a\x14.home_network.Groups\x12=\n\x0cGetBandwidth\x12\x14.home_network.SrcDst\x1a\x17.home_network.Bandwidthb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -33,6 +33,10 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_GROUP']._serialized_end=305
   _globals['_GROUPS']._serialized_start=307
   _globals['_GROUPS']._serialized_end=352
-  _globals['_HOMENETWORK']._serialized_start=355
-  _globals['_HOMENETWORK']._serialized_end=814
+  _globals['_SRCDST']._serialized_start=354
+  _globals['_SRCDST']._serialized_end=428
+  _globals['_BANDWIDTH']._serialized_start=430
+  _globals['_BANDWIDTH']._serialized_end=441
+  _globals['_HOMENETWORK']._serialized_start=444
+  _globals['_HOMENETWORK']._serialized_end=973
 # @@protoc_insertion_point(module_scope)
