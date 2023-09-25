@@ -50,6 +50,11 @@ class HomeNetworkStub(object):
                 request_serializer=home__network__pb2.Group.SerializeToString,
                 response_deserializer=home__network__pb2.Group.FromString,
                 )
+        self.GetGroups = channel.unary_unary(
+                '/home_network.HomeNetwork/GetGroups',
+                request_serializer=home__network__pb2.Empty.SerializeToString,
+                response_deserializer=home__network__pb2.Groups.FromString,
+                )
 
 
 class HomeNetworkServicer(object):
@@ -105,6 +110,13 @@ class HomeNetworkServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def GetGroups(self, request, context):
+        """Method to get list of all groups
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
 
 def add_HomeNetworkServicer_to_server(servicer, server):
     rpc_method_handlers = {
@@ -142,6 +154,11 @@ def add_HomeNetworkServicer_to_server(servicer, server):
                     servicer.AddGroup,
                     request_deserializer=home__network__pb2.Group.FromString,
                     response_serializer=home__network__pb2.Group.SerializeToString,
+            ),
+            'GetGroups': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetGroups,
+                    request_deserializer=home__network__pb2.Empty.FromString,
+                    response_serializer=home__network__pb2.Groups.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -270,5 +287,22 @@ class HomeNetwork(object):
         return grpc.experimental.unary_unary(request, target, '/home_network.HomeNetwork/AddGroup',
             home__network__pb2.Group.SerializeToString,
             home__network__pb2.Group.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def GetGroups(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/home_network.HomeNetwork/GetGroups',
+            home__network__pb2.Empty.SerializeToString,
+            home__network__pb2.Groups.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

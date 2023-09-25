@@ -46,19 +46,6 @@ def draw_topology(topology):
 
 	return
 
-def parse_add_host(input_string):
-	pattern = r"add host with name (\S+) and ip address (\S+)"
-	match = re.match(pattern, input_string)
-
-	# If there is a match, proceed with extracting the name and IP address
-	if match:
-		name = match.group(1)
-		ip_address = match.group(2)
-		return name, ip_address
-	else:
-		# If no match, return None for both name and IP address
-		return None, None
-
 def run():
 	chat = Chat()
 	with grpc.insecure_channel('localhost:50051') as channel:
@@ -67,6 +54,11 @@ def run():
 		st.markdown("This simulation interface is designed to help you configure a home network using natural language. Enter your configuration commands in the left side panel and see the network topology changes in real-time.")
 		st.sidebar.title("Network Configuration")
 		config_request = st.sidebar.text_area("Enter your request here. For example, you can say \"hi, can you please connect a new printer to my home?\"")
+		st.sidebar.write('')
+		st.sidebar.write('')
+		st.sidebar.write('')
+		st.sidebar.write('')
+		st.sidebar.divider()
 
 		# Container for the topology image
 		image_container = st.empty()
@@ -77,6 +69,14 @@ def run():
 
 		# gRPC Client Code
 		stub = home_network_pb2_grpc.HomeNetworkStub(channel)
+		st.sidebar.header("Groups")
+		groups = [group.name for group in stub.GetGroups(home_network_pb2.Empty()).groups]
+		assert len(groups) <= 3
+		colors = ['blue', 'red', 'orange']
+		s = ''
+		for i in range(len(groups)):
+			s += (f"- {groups[i]}: :{colors[i]}[{colors[i]}]\n")
+		st.sidebar.markdown(s)
 		stub.StartNetwork(home_network_pb2.Empty())
 
 		# Check the configuration request and process it
@@ -92,14 +92,14 @@ def run():
 					image_container.empty()
 					for entity, args in parsed_intent['add']:
 						if entity == 'endpoint':
-							new_host = stub.AddDevice(home_network_pb2.Host(name=args[0], ip_address=""))
+							new_host = stub.AddDevice(home_network_pb2.Host(name=args[0]))
 						elif entity == 'group':
 							new_group = stub.AddGroup(home_network_pb2.Group(name=args[0]))
 				elif 'remove' in parsed_intent.keys():
 					image_container.empty()
 					for entity, args in parsed_intent['remove']:
 						if entity == 'endpoint':
-							new_host = stub.RemoveDevice(home_network_pb2.Host(name=args[0], ip_address=""))
+							new_host = stub.RemoveDevice(home_network_pb2.Host(name=args[0]))
 				elif 'set' in parsed_intent.keys():
 					print("not implemented")
 				else:

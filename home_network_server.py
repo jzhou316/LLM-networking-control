@@ -22,7 +22,8 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 		self.user_to_mininet = {}
 		self.mininet_to_user = {}
 		# group names and members
-		self.groups = {"network": []}
+		self.group_to_host = {'network': []}
+		self.host_to_group = {}
 		print("Server initiated")
 
 	# Creates a host name with format "h[number]"
@@ -49,14 +50,16 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 		self.user_to_mininet['switch'] = 's1'
 		self.mininet_to_user['s1'] = 'switch'
 		self.net.addSwitch('s1')
-		self.groups["network"].append('switch')
+		self.group_to_host['network'].append('switch')
+		self.host_to_group['switch'] = ['network']
 		switch = self._GetNode('switch')
 
 		for device in map:
 			host_name = self._CreateHostName()
 			self.user_to_mininet[device] = host_name
 			self.mininet_to_user[host_name] = device
-			self.groups["network"].append(device)
+			self.group_to_host['network'].append(device)
+			self.host_to_group[device] = ['network']
 			self.net.addHost(host_name, ip=self.available_ips.pop())
 
 			new_device = self._GetNode(device)
@@ -95,7 +98,8 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 			nodes_lookup[nodename] = ip_addr
 		nodes_list = []
 		for key in nodes_lookup.keys():
-			nodes_list.append(home_network_pb2.Host(name=self.mininet_to_user[key], ip_address=nodes_lookup[key]))
+			groups_list = [home_network_pb2.Group(name=group) for group in self.host_to_group[self.mininet_to_user[key]]]
+			nodes_list.append(home_network_pb2.Host(name=self.mininet_to_user[key], ip_address=nodes_lookup[key], groups=groups_list))
 
 		# Get the links
 		links_list = []
@@ -146,6 +150,11 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 		print(self.net.hosts)
 		print(self.net.links)
 		return home_network_pb2.Empty()
+
+	# Get a list of all groups in the network
+	def GetGroups(self, request, context):
+		groups_list = [home_network_pb2.Group(name=group) for group in self.group_to_host.keys()]
+		return home_network_pb2.Groups(groups=groups_list)
 
 def serve():
 	server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
