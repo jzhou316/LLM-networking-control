@@ -23,10 +23,13 @@ service HomeNetwork {
 	rpc AddLink(Link) returns (Link);
 
 	// Method to add a group
-	rpc AddGroup(Group) returns (Group);
+	rpc AddGroup(Group) returns (Empty);
 
 	// Method to get list of all groups
 	rpc GetGroups(Empty) returns (Groups);
+
+	// Method to get bandwidth between two nodes
+	rpc GetBandwidth(SrcDst) returns (Bandwidth);
 }
 
 // Define an empty message.
@@ -59,4 +62,13 @@ message Group {
 
 message Groups {
 	repeated Group groups = 1;
+}
+
+message SrcDst {
+	Host src = 1;
+	Host dst = 2;
+}
+
+message Bandwidth {
+
 }

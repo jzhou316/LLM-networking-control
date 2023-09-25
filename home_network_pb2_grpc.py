@@ -48,7 +48,7 @@ class HomeNetworkStub(object):
         self.AddGroup = channel.unary_unary(
                 '/home_network.HomeNetwork/AddGroup',
                 request_serializer=home__network__pb2.Group.SerializeToString,
-                response_deserializer=home__network__pb2.Group.FromString,
+                response_deserializer=home__network__pb2.Empty.FromString,
                 )
         self.GetGroups = channel.unary_unary(
                 '/home_network.HomeNetwork/GetGroups',
@@ -153,7 +153,7 @@ def add_HomeNetworkServicer_to_server(servicer, server):
             'AddGroup': grpc.unary_unary_rpc_method_handler(
                     servicer.AddGroup,
                     request_deserializer=home__network__pb2.Group.FromString,
-                    response_serializer=home__network__pb2.Group.SerializeToString,
+                    response_serializer=home__network__pb2.Empty.SerializeToString,
             ),
             'GetGroups': grpc.unary_unary_rpc_method_handler(
                     servicer.GetGroups,
@@ -286,7 +286,7 @@ class HomeNetwork(object):
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/home_network.HomeNetwork/AddGroup',
             home__network__pb2.Group.SerializeToString,
-            home__network__pb2.Group.FromString,
+            home__network__pb2.Empty.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 

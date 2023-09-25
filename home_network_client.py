@@ -70,14 +70,6 @@ def run():
 		# gRPC Client Code
 		stub = home_network_pb2_grpc.HomeNetworkStub(channel)
 		st.sidebar.header("Groups")
-		groups = [group.name for group in stub.GetGroups(home_network_pb2.Empty()).groups]
-		assert len(groups) <= 3
-		colors = ['blue', 'red', 'orange']
-		s = ''
-		for i in range(len(groups)):
-			s += (f"- {groups[i]}: :{colors[i]}[{colors[i]}]\n")
-		st.sidebar.markdown(s)
-		stub.StartNetwork(home_network_pb2.Empty())
 
 		# Check the configuration request and process it
 		if config_request:
@@ -105,6 +97,15 @@ def run():
 				else:
 					print("Unable to parse Nile")
 				print(parsed_intent)
+
+		groups = [group.name for group in stub.GetGroups(home_network_pb2.Empty()).groups]
+		assert len(groups) <= 3
+		colors = ['blue', 'red', 'orange']
+		s = ''
+		for i in range(len(groups)):
+			s += (f"- {groups[i]}: :{colors[i]}[{colors[i]}]\n")
+		st.sidebar.markdown(s)
+		stub.StartNetwork(home_network_pb2.Empty())
 
 		topology = stub.GetTopology(home_network_pb2.Empty())
 		with image_container.container():

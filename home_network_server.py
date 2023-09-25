@@ -9,7 +9,8 @@ from mininet.topo import Topo
 from mininet.net import Mininet
 from mininet.link import TCLink, Intf
 from mininet.cli import CLI
-from mininet.clean import cleanup
+from mininet.node import CPULimitedHost
+from mininet.util import dumpNodeConnections
 
 class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 	def __init__(self):
@@ -69,7 +70,7 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 	# Starts the network with the basic topology
 	def StartNetwork(self, request, context):
 		if self.net == None:
-			self.net = Mininet(link=TCLink)
+			self.net = Mininet(host=CPULimitedHost, link=TCLink)
 			self._GenerateIPAddresses()
 			self._BuildBasicTopo()
 
@@ -118,22 +119,26 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 		self.user_to_mininet[request.name] = new_host
 		self.net.addHost(new_host)
 		added_host = self._GetNode(request.name)
-		self.groups["network"].append(request.name)
+		self.group_to_host["network"].append(request.name)
+		self.host_to_group[request.name] = ["network"]
 
 		# Connect the new device to the switch
 		self.net.addLink(added_host, self._GetNode('switch'))
 		added_host.setIP(self.available_ips.pop())
 		print(f"Added host {request.name} on server side")
 		print(self.net.hosts)
+		node1, node2 = self.net.get(new_host, self.user_to_mininet['laptop'])
+		#dumpNodeConnections(self.net.hosts)
+		#self.net.pingAll()
 		return home_network_pb2.Host(name=request.name, ip_address=request.ip_address)
 
 	# Remove a device from the network
 	def RemoveDevice(self, request, context):
 		# Restore IP address and remove device from all groups
 		removed_host = self._GetNode(request.name)
-		for group in self.groups:
-			if request.name in group:
-				group.remove(request.name)
+		for _, hosts in self.group_to_host.items():
+			if request.name in hosts:
+				hosts.remove(request.name)
 		self.available_ips.add(removed_host.IP())
 		print(f"Added back {removed_host.IP} to available IPs!")
 		# Remove all links with the node
@@ -155,6 +160,11 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 	def GetGroups(self, request, context):
 		groups_list = [home_network_pb2.Group(name=group) for group in self.group_to_host.keys()]
 		return home_network_pb2.Groups(groups=groups_list)
+
+	# Add a new group to the network
+	def AddGroup(self, request, context):
+		self.group_to_host[request.name] = []
+		return home_network_pb2.Empty()
 
 def serve():
 	server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
