@@ -9,7 +9,7 @@ from mininet.topo import Topo
 from mininet.net import Mininet
 from mininet.link import TCLink, Intf
 from mininet.cli import CLI
-from mininet.node import CPULimitedHost
+from mininet.node import CPULimitedHost, DefaultController
 from mininet.util import dumpNodeConnections
 
 class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
@@ -65,12 +65,13 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 
 			new_device = self._GetNode(device)
 			self.net.addLink(switch, new_device)
+			self.net.pingAll()
 		return
 
 	# Starts the network with the basic topology
 	def StartNetwork(self, request, context):
 		if self.net == None:
-			self.net = Mininet(host=CPULimitedHost, link=TCLink)
+			self.net = Mininet(host=CPULimitedHost, link=TCLink, controller=DefaultController)
 			self._GenerateIPAddresses()
 			self._BuildBasicTopo()
 

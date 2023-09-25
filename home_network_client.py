@@ -89,11 +89,11 @@ def run():
 					</style>
 					""", unsafe_allow_html=True)
 		st.title("Home Network Simulation")
-		st.markdown("This simulation interface is designed to help you configure a home network using natural language. Enter your configuration commands in the left side panel and see the network topology changes in real-time.")
+		st.markdown("This simulation interface is designed to help you configure a home network using natural language. Talk to your network in the left side panel and see the changes in real-time.")
 		col1, col2 = st.columns([6, 1])
 
-		st.sidebar.title("Network Configuration")
-		config_request = st.sidebar.text_area("Enter your request here. For example, you can say \"hi, can you please connect a new printer to my home?\"")
+		st.sidebar.title("Configuration")
+		config_request = st.sidebar.text_area("Configure your network here. For example, you can say \"hi, can you please connect a new printer to my home?\"")
 		st.sidebar.write('')
 		st.sidebar.write('')
 		st.sidebar.write('')
