@@ -123,6 +123,30 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 		print(self.net.hosts)
 		return home_network_pb2.Host(name=request.name, ip_address=request.ip_address)
 
+	# Remove a device from the network
+	def RemoveDevice(self, request, context):
+		# Restore IP address and remove device from all groups
+		removed_host = self._GetNode(request.name)
+		for group in self.groups:
+			if request.name in group:
+				group.remove(request.name)
+		self.available_ips.add(removed_host.IP())
+		print(f"Added back {removed_host.IP} to available IPs!")
+		# Remove all links with the node
+		for link in self.net.links:
+			node1, intf1 = link.intf1.name.split('-')
+			node2, intf2 = link.intf2.name.split('-')
+			removed_mn = self.user_to_mininet[request.name]
+			if node1 == removed_mn or node2 == removed_mn:
+				self.net.delLink(link)
+
+		# Remove the device from the network
+		self.net.delHost(removed_host)
+		print(f"Removed host {request.name} on server side")
+		print(self.net.hosts)
+		print(self.net.links)
+		return home_network_pb2.Empty()
+
 def serve():
 	server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
 	home_network_pb2_grpc.add_HomeNetworkServicer_to_server(HomeNetworkServicer(), server)

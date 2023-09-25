@@ -35,10 +35,20 @@ class HomeNetworkStub(object):
                 request_serializer=home__network__pb2.Host.SerializeToString,
                 response_deserializer=home__network__pb2.Host.FromString,
                 )
+        self.RemoveDevice = channel.unary_unary(
+                '/home_network.HomeNetwork/RemoveDevice',
+                request_serializer=home__network__pb2.Host.SerializeToString,
+                response_deserializer=home__network__pb2.Empty.FromString,
+                )
         self.AddLink = channel.unary_unary(
                 '/home_network.HomeNetwork/AddLink',
                 request_serializer=home__network__pb2.Link.SerializeToString,
                 response_deserializer=home__network__pb2.Link.FromString,
+                )
+        self.AddGroup = channel.unary_unary(
+                '/home_network.HomeNetwork/AddGroup',
+                request_serializer=home__network__pb2.Group.SerializeToString,
+                response_deserializer=home__network__pb2.Group.FromString,
                 )
 
 
@@ -74,8 +84,22 @@ class HomeNetworkServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
+    def RemoveDevice(self, request, context):
+        """Method to remove a device
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
     def AddLink(self, request, context):
         """Method to add a link
+        """
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def AddGroup(self, request, context):
+        """Method to add a group
         """
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -104,10 +128,20 @@ def add_HomeNetworkServicer_to_server(servicer, server):
                     request_deserializer=home__network__pb2.Host.FromString,
                     response_serializer=home__network__pb2.Host.SerializeToString,
             ),
+            'RemoveDevice': grpc.unary_unary_rpc_method_handler(
+                    servicer.RemoveDevice,
+                    request_deserializer=home__network__pb2.Host.FromString,
+                    response_serializer=home__network__pb2.Empty.SerializeToString,
+            ),
             'AddLink': grpc.unary_unary_rpc_method_handler(
                     servicer.AddLink,
                     request_deserializer=home__network__pb2.Link.FromString,
                     response_serializer=home__network__pb2.Link.SerializeToString,
+            ),
+            'AddGroup': grpc.unary_unary_rpc_method_handler(
+                    servicer.AddGroup,
+                    request_deserializer=home__network__pb2.Group.FromString,
+                    response_serializer=home__network__pb2.Group.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -189,6 +223,23 @@ class HomeNetwork(object):
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
+    def RemoveDevice(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/home_network.HomeNetwork/RemoveDevice',
+            home__network__pb2.Host.SerializeToString,
+            home__network__pb2.Empty.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
     def AddLink(request,
             target,
             options=(),
@@ -202,5 +253,22 @@ class HomeNetwork(object):
         return grpc.experimental.unary_unary(request, target, '/home_network.HomeNetwork/AddLink',
             home__network__pb2.Link.SerializeToString,
             home__network__pb2.Link.FromString,
+            options, channel_credentials,
+            insecure, call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def AddGroup(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/home_network.HomeNetwork/AddGroup',
+            home__network__pb2.Group.SerializeToString,
+            home__network__pb2.Group.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

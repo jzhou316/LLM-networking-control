@@ -96,7 +96,10 @@ def run():
 						elif entity == 'group':
 							new_group = stub.AddGroup(home_network_pb2.Group(name=args[0]))
 				elif 'remove' in parsed_intent.keys():
-					print("not implemented")
+					image_container.empty()
+					for entity, args in parsed_intent['remove']:
+						if entity == 'endpoint':
+							new_host = stub.RemoveDevice(home_network_pb2.Host(name=args[0], ip_address=""))
 				elif 'set' in parsed_intent.keys():
 					print("not implemented")
 				else:
