@@ -1,6 +1,7 @@
 import grpc
 import time
 import itertools
+import ipaddress
 import home_network_pb2
 import home_network_pb2_grpc
 from concurrent import futures
@@ -13,12 +14,14 @@ from mininet.clean import cleanup
 class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 	def __init__(self):
 		self.net = None
+		self.base_ip = "192.0.2.0"
+		self.subnet_mask = 24
 		self.host_counter = 1
-		# keys are user-given names ("Laptop", "Camera") and values are mininet names ("h1", "h2")
+		self.available_ips = set()
+		# keep track of user-given name and mininet name pairs
 		self.user_to_mininet = {}
-		# keys are mininet names ("h1", "h3") and values are user-given names ("Laptop", "Camera") 
 		self.mininet_to_user = {}
-		# keys are group names and values are user-given names
+		# group names and members
 		self.groups = {"network": []}
 		print("Server initiated")
 
@@ -30,43 +33,41 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 
 	# Takes in a name like "h1" and returns the host/switch Mininet object
 	def _GetNode(self, name):
-		return self.net.get(self.name_to_node[name])
+		return self.net.get(self.user_to_mininet[name])
+
+	def _GenerateIPAddresses(self):
+		ips = list(ipaddress.ip_network(f'{self.base_ip}/{self.subnet_mask}').hosts())
+		self.available_ips = set(str(ip) for ip in ips)
+
+	def _ReleaseIP(self, ip):
+		if ip not in self.available_ips:
+			self.available_ips.add(ip)
 
 	def _BuildBasicTopo(self):
 		# Add hosts in basic home network
-		map = {'Home Router': '10.0.0.1/8',
-			   'Laptop': '10.0.0.2/8',
-			   'Camera': '10.0.0.3/8',
-			   'Lights': '10.0.0.4/8'}
-		for device in map.keys():
+		map = ['home router','laptop', 'camera', 'lights']
+		self.user_to_mininet['switch'] = 's1'
+		self.mininet_to_user['s1'] = 'switch'
+		self.net.addSwitch('s1')
+		self.groups["network"].append('switch')
+		switch = self._GetNode('switch')
+
+		for device in map:
 			host_name = self._CreateHostName()
 			self.user_to_mininet[device] = host_name
 			self.mininet_to_user[host_name] = device
 			self.groups["network"].append(device)
-			self.net.addHost(host_name, ip=map[device])
+			self.net.addHost(host_name, ip=self.available_ips.pop())
 
-		self.user_to_mininet['Switch'] = 's1'
-		self.mininet_to_user['s1'] = 'Switch'
-		self.net.addSwitch('s1')
-		self.groups["network"].append('Switch')
-
-		home_router = self._GetNode('Home Router')
-		laptop = self._GetNode('Laptop')
-		camera = self._GetNode('Camera')
-		lights = self._GetNode('Lights')
-		switch = self._GetNode('Switch')
-
-		# Add links from switch to every other device
-		self.net.addLink(home_router, switch)
-		self.net.addLink(switch, laptop)
-		self.net.addLink(switch, camera)
-		self.net.addLink(switch, lights)
+			new_device = self._GetNode(device)
+			self.net.addLink(switch, new_device)
 		return
 
 	# Starts the network with the basic topology
 	def StartNetwork(self, request, context):
 		if self.net == None:
 			self.net = Mininet(link=TCLink)
+			self._GenerateIPAddresses()
 			self._BuildBasicTopo()
 
 			# Start the network
@@ -106,17 +107,18 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 			links_list.append(home_network_pb2.Link(host1=node_obj1, host2=node_obj2))
 		return home_network_pb2.Topology(hosts=nodes_list, links=links_list)
 
-	# Add new device to network 
+	# Add new device to network
 	def AddDevice(self, request, context):
 		new_host = self._CreateHostName()
 		self.mininet_to_user[new_host] = request.name
 		self.user_to_mininet[request.name] = new_host
-		added_host = self.net.addHost(new_host)
+		self.net.addHost(new_host)
+		added_host = self._GetNode(request.name)
 		self.groups["network"].append(request.name)
 
 		# Connect the new device to the switch
-		self.net.addLink(added_host, self._GetNode('Switch'))
-		added_host.setIP(request.ip_address)
+		self.net.addLink(added_host, self._GetNode('switch'))
+		added_host.setIP(self.available_ips.pop())
 		print(f"Added host {request.name} on server side")
 		print(self.net.hosts)
 		return home_network_pb2.Host(name=request.name, ip_address=request.ip_address)

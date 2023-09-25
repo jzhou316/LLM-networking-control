@@ -1,6 +1,7 @@
 import grpc
 import sys
 import re
+import time
 import streamlit as st
 import networkx as nx
 import matplotlib
@@ -65,7 +66,7 @@ def run():
 		st.title("Home Network Simulation")
 		st.markdown("This simulation interface is designed to help you configure a home network using natural language. Enter your configuration commands in the left side panel and see the network topology changes in real-time.")
 		st.sidebar.title("Network Configuration")
-		config_request = st.sidebar.text_area("Enter your request here. For example, you can say \"hi, can you please connect a new camera to my home?\"")
+		config_request = st.sidebar.text_area("Enter your request here. For example, you can say \"hi, can you please connect a new printer to my home?\"")
 
 		# Container for the topology image
 		image_container = st.empty()
@@ -77,10 +78,6 @@ def run():
 		# gRPC Client Code
 		stub = home_network_pb2_grpc.HomeNetworkStub(channel)
 		stub.StartNetwork(home_network_pb2.Empty())
-
-		topology = stub.GetTopology(home_network_pb2.Empty())
-		with image_container.container():
-			draw_topology(topology)
 
 		# Check the configuration request and process it
 		if config_request:
@@ -94,21 +91,21 @@ def run():
 				if 'add' in parsed_intent.keys():
 					image_container.empty()
 					for entity, args in parsed_intent['add']:
-						match entity:
-							case 'endpoint':
-								new_host = stub.AddDevice(home_network_pb2.Host(name=args[0], ip_address="1.1.1.1"))
-							case 'group':
-								new_group = stub.AddGroup(home_network_pb2.Group(name=args[0]))
+						if entity == 'endpoint':
+							new_host = stub.AddDevice(home_network_pb2.Host(name=args[0], ip_address=""))
+						elif entity == 'group':
+							new_group = stub.AddGroup(home_network_pb2.Group(name=args[0]))
 				elif 'remove' in parsed_intent.keys():
-					continue
+					print("not implemented")
 				elif 'set' in parsed_intent.keys():
-					continue
+					print("not implemented")
 				else:
 					print("Unable to parse Nile")
 				print(parsed_intent)
-				topology = stub.GetTopology(home_network_pb2.Empty())
-				with image_container.container():
-					draw_topology(topology)
+
+		topology = stub.GetTopology(home_network_pb2.Empty())
+		with image_container.container():
+			draw_topology(topology)
 
 if __name__ == "__main__":
 	run()
