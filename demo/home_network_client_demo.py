@@ -30,14 +30,16 @@ def draw_topology(topology, group_colors, node_shapes):
 
 	# Draw nodes with labels and edges
 	node_labels = nx.get_node_attributes(G, "label")
-	node_types = nx.get_node_attributes(G, "type")
-	for node_type, shape in node_shapes:
-		specific_nodes = []
-		for host in topology["hosts"]:
-			if host["type"] == node_type:
-				specific_nodes.append(host["name"])
-		nx.draw_networkx_nodes(G, pos=pos, nodelist=specific_nodes, node_color="lightblue", node_size=NODE_SIZE, node_shape='o')
-		nx.draw_networkx_labels(G, pos=pos, labels=node_labels, font_size=10, font_color="black")
+	nx.draw_networkx_nodes(G, pos=pos, node_color="lightblue", node_size=NODE_SIZE, node_shape='o')
+	nx.draw_networkx_labels(G, pos=pos, labels=node_labels, font_size=10, font_color="black")
+	# node_types = nx.get_node_attributes(G, "type")
+	# for node_type, shape in node_shapes:
+	# 	specific_nodes = []
+	# 	for host in topology["hosts"]:
+	# 		if host["type"] == node_type:
+	# 			specific_nodes.append(host["name"])
+	# 	nx.draw_networkx_nodes(G, pos=pos, nodelist=specific_nodes, node_color="lightblue", node_size=NODE_SIZE, node_shape='o')
+	# 	nx.draw_networkx_labels(G, pos=pos, labels=node_labels, font_size=10, font_color="black")
 
 	edge_styles = nx.get_edge_attributes(G, 'style')
 	for (host1, host2, style) in G.edges(data=True):
