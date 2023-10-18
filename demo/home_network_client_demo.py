@@ -31,8 +31,11 @@ def draw_topology(topology, group_colors, node_shapes):
 	# Draw nodes with labels and edges
 	node_labels = nx.get_node_attributes(G, "label")
 	node_types = nx.get_node_attributes(G, "type")
-	for node_type, shape in node_shapes.items():
-		specific_nodes = [node for node, type_ in node_types.items() if type_ == node_type]
+	for node_type, shape in node_shapes:
+		specific_nodes = []
+		for host in topology["hosts"]:
+			if host["type"] == node_type:
+				specific_nodes.append(host["name"])
 		nx.draw_networkx_nodes(G, pos=pos, nodelist=specific_nodes, node_color="lightblue", node_size=NODE_SIZE, node_shape=shape)
 		nx.draw_networkx_labels(G, pos=pos, labels=node_labels, font_size=10, font_color="black")
 
@@ -113,17 +116,17 @@ def run():
 	#--------------------------------------- NETWORK CONFIG ---------------------------------------#
 
 	hosts = [{"name": "internet", "ip_address": "", "groups": ["network"], "type": "internet"},
-			   {"name": "router", "ip_address": "", "groups": ["network"], "type": "router"},	
-			   {"name": "motion-sensor", "ip_address": "", "groups": ["network", "home-security-system"], "type": "device"},
-			   {"name": "alarm", "ip_address": "", "groups": ["network", "home-security-system"], "type": "device"},
-			   {"name": "smart-lock", "ip_address": "", "groups": ["network", "home-security-system"], "type": "device"},
-			   {"name": "phone", "ip_address": "", "groups": ["network"], "type": "device"},
-			   {"name": "game-console", "ip_address": "", "groups": ["network", "living-room"], "type": "device"},
-			   {"name": "guest-laptop-1", "ip_address": "", "groups": ["network"], "type": "device"},
-			   {"name": "guest-laptop-2", "ip_address": "", "groups": ["network"], "type": "device"},
-			   {"name": "game-console", "ip_address": "", "groups": ["network"], "type": "device"},
-			   {"name": "work-laptop", "ip_address": "", "groups": ["network"], "type": "device"},
-			   {"name": "printer", "ip_address": "", "groups": ["network"], "type": "device"},
+			 {"name": "router", "ip_address": "", "groups": ["network"], "type": "router"},	
+			 {"name": "motion-sensor", "ip_address": "", "groups": ["network", "home-security-system"], "type": "device"},
+			 {"name": "alarm", "ip_address": "", "groups": ["network", "home-security-system"], "type": "device"},
+			 {"name": "smart-lock", "ip_address": "", "groups": ["network", "home-security-system"], "type": "device"},
+			 {"name": "phone", "ip_address": "", "groups": ["network"], "type": "device"},
+			 {"name": "game-console", "ip_address": "", "groups": ["network", "living-room"], "type": "device"},
+			 {"name": "guest-laptop-1", "ip_address": "", "groups": ["network"], "type": "device"},
+			 {"name": "guest-laptop-2", "ip_address": "", "groups": ["network"], "type": "device"},
+			 {"name": "game-console", "ip_address": "", "groups": ["network"], "type": "device"},
+			 {"name": "work-laptop", "ip_address": "", "groups": ["network"], "type": "device"},
+			 {"name": "printer", "ip_address": "", "groups": ["network"], "type": "device"},
 	]
 
 	links = [{"link": ('internet', 'router'), "connection": ""}, 
