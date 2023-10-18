@@ -1,4 +1,3 @@
-import grpc
 import sys
 import re
 import time
@@ -8,9 +7,6 @@ import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from matplotlib.lines import Line2D
-import home_network_pb2
-import home_network_pb2_grpc
-from home_network_llm import Chat
 
 # Takes a Topology protobuf object, extracts the nodes and links, and draws it using NetworkX
 def draw_topology(topology, group_colors, node_shapes):
@@ -106,7 +102,6 @@ def run():
 		image_container = st.empty()
 
 	# gRPC Client Code
-	stub = home_network_pb2_grpc.HomeNetworkStub(channel)
 	st.sidebar.header("Chat History")
 
 	with col2:
@@ -119,7 +114,7 @@ def run():
 
 	#--------------------------------------- NETWORK CONFIG ---------------------------------------#
 
-	devices = [{"name": "internet", "ip_address": "", "groups": ["network"], "type": "internet"},
+	hosts = [{"name": "internet", "ip_address": "", "groups": ["network"], "type": "internet"},
 			   {"name": "router", "ip_address": "", "groups": ["network"], "type": "router"},	
 			   {"name": "motion-sensor", "ip_address": "", "groups": ["network", "home-security-system"], "type": "device"},
 			   {"name": "alarm", "ip_address": "", "groups": ["network", "home-security-system"], "type": "device"},
@@ -175,9 +170,9 @@ def run():
 	with key_container.container():
 		draw_legend(group_colors)
 	
-	topology = stub.GetTopology(home_network_pb2.Empty())
+	topology = {"hosts": hosts, "links": links}
 	with image_container.container():
-		draw_topology(topology, group_colors)
+		draw_topology(topology, group_colors, node_shapes)
 
 	st.subheader("Network Status")
 	st.write("Not implemented")
