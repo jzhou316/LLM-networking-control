@@ -35,7 +35,7 @@ def draw_topology(topology, group_colors, node_shapes):
 		G.add_edge(link["link"][0], link["link"][1], style=style)
 
 	# Visualize the network
-	pos = nx.multipartite_layout(G, subset_key="layer", align="horizontal", scale="0.5")
+	pos = nx.multipartite_layout(G, subset_key="layer", align="horizontal")
 	plt.figure(figsize=(8, 6))
 
 	# Draw nodes with labels and edges
