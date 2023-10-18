@@ -36,7 +36,7 @@ def draw_topology(topology, group_colors, node_shapes):
 		for host in topology["hosts"]:
 			if host["type"] == node_type:
 				specific_nodes.append(host["name"])
-		nx.draw_networkx_nodes(G, pos=pos, nodelist=specific_nodes, node_color="lightblue", node_size=NODE_SIZE/3, node_shape='o')
+		nx.draw_networkx_nodes(G, pos=pos, nodelist=specific_nodes, node_color="lightblue", node_size=NODE_SIZE, node_shape='o')
 		nx.draw_networkx_labels(G, pos=pos, labels=node_labels, font_size=10, font_color="black")
 
 	edge_styles = nx.get_edge_attributes(G, 'style')
@@ -115,30 +115,29 @@ def run():
 	#--------------------------------------- NETWORK CONFIG ---------------------------------------#
 
 	hosts = [{"name": "internet", "ip_address": "", "groups": ["network"], "type": "internet"},
-			 {"name": "router", "ip_address": "", "groups": ["network"], "type": "router"},	
-			 {"name": "motion-sensor", "ip_address": "", "groups": ["network", "home-security-system"], "type": "device"},
-			 {"name": "alarm", "ip_address": "", "groups": ["network", "home-security-system"], "type": "device"},
-			 {"name": "smart-lock", "ip_address": "", "groups": ["network", "home-security-system"], "type": "device"},
-			 {"name": "phone", "ip_address": "", "groups": ["network"], "type": "device"},
-			 {"name": "game-console", "ip_address": "", "groups": ["network", "living-room"], "type": "device"},
-			 {"name": "guest-laptop-1", "ip_address": "", "groups": ["network"], "type": "device"},
-			 {"name": "guest-laptop-2", "ip_address": "", "groups": ["network"], "type": "device"},
-			 {"name": "game-console", "ip_address": "", "groups": ["network"], "type": "device"},
-			 {"name": "work-laptop", "ip_address": "", "groups": ["network"], "type": "device"},
-			 {"name": "printer", "ip_address": "", "groups": ["network"], "type": "device"},
+			 {"name": "router", "ip_address": "192.168.1.1", "groups": ["network"], "type": "router"},	
+			 {"name": "motion-sensor", "ip_address": "192.168.1.2", "groups": ["network", "home-security-system"], "type": "device"},
+			 {"name": "alarm", "ip_address": "192.168.1.3", "groups": ["network", "home-security-system"], "type": "device"},
+			 {"name": "smart-lock", "ip_address": "192.168.1.4", "groups": ["network", "home-security-system"], "type": "device"},
+			 {"name": "phone", "ip_address": "192.168.1.5", "groups": ["network"], "type": "device"},
+			 {"name": "game-console", "ip_address": "192.168.1.6", "groups": ["network", "living-room"], "type": "device"},
+			 {"name": "guest-laptop-1", "ip_address": "192.168.1.7", "groups": ["network"], "type": "device"},
+			 {"name": "guest-laptop-2", "ip_address": "192.168.1.8", "groups": ["network"], "type": "device"},
+			 {"name": "work-laptop", "ip_address": "192.168.1.9", "groups": ["network"], "type": "device"},
+			 {"name": "printer", "ip_address": "192.168.1.10", "groups": ["network"], "type": "device"},
 	]
 
-	links = [{"link": ('internet', 'router'), "connection": ""}, 
-			 {"link": ('router', 'motion-sensor'), "connection": ""}, 
-			 {"link": ('router', 'alarm'), "connection": ""}, 
-			 {"link": ('router', 'smart-lock'), "connection": ""}, 
-			 {"link": ('router', 'phone'), "connection": ""}, 
-			 {"link": ('router', 'game-console'), "connection": ""}, 
-			 {"link": ('router', 'guest-laptop-1'), "connection": ""}, 
-			 {"link": ('router', 'guest-laptop-2'), "connection": ""}, 
-			 {"link": ('router', 'game-console'), "connection": ""}, 
-			 {"link": ('router', 'work-laptop'), "connection": ""}, 
-			 {"link": ('router', 'printer'), "connection": ""}, 
+	links = [{"link": ('internet', 'router'), "connection": "wired"}, 
+			 {"link": ('router', 'motion-sensor'), "connection": "wireless"}, 
+			 {"link": ('router', 'alarm'), "connection": "wireless"}, 
+			 {"link": ('router', 'smart-lock'), "connection": "wireless"}, 
+			 {"link": ('router', 'phone'), "connection": "wireless"}, 
+			 {"link": ('router', 'game-console'), "connection": "wireless"}, 
+			 {"link": ('router', 'guest-laptop-1'), "connection": "wireless"}, 
+			 {"link": ('router', 'guest-laptop-2'), "connection": "wireless"}, 
+			 {"link": ('router', 'game-console'), "connection": "wireless"}, 
+			 {"link": ('router', 'work-laptop'), "connection": "wireless"}, 
+			 {"link": ('router', 'printer'), "connection": "wired"}, 
 	]
 
 	groups = ['network', 'home-security-system', 'living-room']
