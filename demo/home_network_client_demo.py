@@ -30,7 +30,8 @@ def draw_topology(topology, group_colors, node_shapes):
 
 	# Draw nodes with labels and edges
 	node_labels = nx.get_node_attributes(G, "label")
-	nx.draw_networkx_nodes(G, pos=pos, node_color="lightblue", node_size=NODE_SIZE, node_shape='o')
+
+	nx.draw_networkx_nodes(G, pos=pos, node_color="lightblue", node_size=NODE_SIZE, node_shape=len(topology["hosts"]) * ['o'])
 	nx.draw_networkx_labels(G, pos=pos, labels=node_labels, font_size=10, font_color="black")
 	# node_types = nx.get_node_attributes(G, "type")
 	# for node_type, shape in node_shapes:
