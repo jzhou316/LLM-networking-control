@@ -177,9 +177,8 @@ def run():
 	st.subheader("Network Status")
 	st.write("Not implemented")
 
-	for user_msg, ai_msg in chat_history.items():
-		st.sidebar.chat_message("user").write("placeholder")
-		st.sidebar.chat_message("assistant").write("placeholder")
+	st.sidebar.chat_message("user").write("placeholder")
+	st.sidebar.chat_message("assistant").write("placeholder")
 
 if __name__ == "__main__":
 	run()
