@@ -29,6 +29,7 @@ def draw_topology(topology, group_colors, node_shapes):
 		else:
 			layer = 1
 		G.add_node(node["name"], ip_addr=node["ip_address"], label=label, groups=node["groups"], type=node["type"], layer=layer)
+		print((node["name"], layer))
 
 	# Add edges between existing nodes
 	for link in topology["links"]:
