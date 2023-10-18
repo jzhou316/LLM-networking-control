@@ -65,7 +65,7 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 
 			new_device = self._GetNode(device)
 			self.net.addLink(switch, new_device)
-			self.net.pingAll()
+
 		return
 
 	# Starts the network with the basic topology
