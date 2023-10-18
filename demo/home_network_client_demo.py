@@ -20,13 +20,13 @@ def draw_topology(topology, group_colors, node_shapes):
 		if node["ip_address"] != "":
 			label += ("\n" + node["ip_address"])
 		if node["type"] == "internet":
-			layer = 1
-		elif node["type"] == "firewall":
-			layer = 2
-		elif node["type"] == "router":
-			layer = 3
-		else:
 			layer = 4
+		elif node["type"] == "firewall":
+			layer = 3
+		elif node["type"] == "router":
+			layer = 2
+		else:
+			layer = 1
 		G.add_node(node["name"], ip_addr=node["ip_address"], label=label, groups=node["groups"], type=node["type"], layer=layer)
 
 	# Add edges between existing nodes
