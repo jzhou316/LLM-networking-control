@@ -16,8 +16,18 @@ def draw_topology(topology, group_colors, node_shapes):
 
 	# Add devices as nodes to the graph
 	for node in topology["hosts"]:
-		label = node["name"] + "\n" + node["ip_address"]
-		G.add_node(node["name"], ip_addr=node["ip_address"], label=label, groups=node["groups"], type=node["type"])
+		label = node["name"]
+		if node["ip_address"] != "":
+			label += ("\n" + node["ip_address"])
+		if node["type"] == "internet":
+			layer = 1
+		elif node["type"] == "firewall":
+			layer = 2
+		elif node["type"] == "router":
+			layer = 3
+		else:
+			layer = 4
+		G.add_node(node["name"], ip_addr=node["ip_address"], label=label, groups=node["groups"], type=node["type"], layer=layer)
 
 	# Add edges between existing nodes
 	for link in topology["links"]:
@@ -25,7 +35,7 @@ def draw_topology(topology, group_colors, node_shapes):
 		G.add_edge(link["link"][0], link["link"][1], style=style)
 
 	# Visualize the network
-	pos = nx.spring_layout(G, seed=42)
+	pos = nx.multipartite_layout(G, subset_key="layer")
 	plt.figure(figsize=(8, 6))
 
 	# Draw nodes with labels and edges
@@ -116,7 +126,7 @@ def run():
 
 	#--------------------------------------- NETWORK CONFIG ---------------------------------------#
 
-	hosts = [{"name": "internet", "ip_address": "", "groups": ["network"], "type": "internet"},
+	hosts = [{"name": "internet", "ip_address": "", "groups": [], "type": "internet"},
 			 {"name": "router", "ip_address": "192.168.1.1", "groups": ["network"], "type": "router"},	
 			 {"name": "motion-sensor", "ip_address": "192.168.1.2", "groups": ["network", "home-security-system"], "type": "device"},
 			 {"name": "alarm", "ip_address": "192.168.1.3", "groups": ["network", "home-security-system"], "type": "device"},
