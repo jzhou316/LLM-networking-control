@@ -32,7 +32,7 @@ def draw_topology(topology, group_colors, node_shapes):
 	node_labels = nx.get_node_attributes(G, "label")
 
 	node_types = nx.get_node_attributes(G, "type")
-	for node_type, shape in node_shapes:
+	for node_type, shape in node_shapes.items():
 		specific_nodes = []
 		for host in topology["hosts"]:
 			if host["type"] == node_type:
@@ -143,11 +143,7 @@ def run():
 	]
 
 	groups = ['network', 'home-security-system', 'living-room']
-	node_shapes = [{"type": "internet", "shape": "s"},
-				   {"type": "router", "shape": "D"},
-				   {"type": "firewall", "shape": "^"},
-				   {"type": "device", "shape": "o"}
-	]
+	node_shapes = {"internet": "s", "router": "D", "firewall": "^", "device": "o"}
 
 	# Check the configuration request and process it
 	if config_request:
