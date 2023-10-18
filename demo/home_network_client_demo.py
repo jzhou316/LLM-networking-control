@@ -50,12 +50,12 @@ def draw_topology(topology, group_colors, node_shapes):
 			if host["type"] == node_type:
 				specific_nodes.append(host["name"])
 		print(specific_nodes)
-		nx.draw_networkx_nodes(G, pos=pos, nodelist=specific_nodes, node_color="lightblue", node_size=NODE_SIZE, node_shape=shape)
+		nx.draw_networkx_nodes(G, pos=pos, nodelist=specific_nodes, node_color="lightblue", node_size=NODE_SIZE, node_shape=shape, alpha=0.8)
 		nx.draw_networkx_labels(G, pos=pos, labels=node_labels, font_size=8, font_color="black")
 
 	edge_styles = nx.get_edge_attributes(G, 'style')
 	for (host1, host2, style) in G.edges(data=True):
-		nx.draw_networkx_edges(G, pos=pos, edgelist=[(host1, host2)], edge_color='k', style=style['style'])
+		nx.draw_networkx_edges(G, pos=pos, edgelist=[(host1, host2)], edge_color='k', style=style['style'], alpha=0.8)
 
 	ax = plt.gca()
 
