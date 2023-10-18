@@ -10,7 +10,7 @@ from matplotlib.lines import Line2D
 
 # Takes a Topology protobuf object, extracts the nodes and links, and draws it using NetworkX
 def draw_topology(topology, group_colors, node_shapes):
-	NODE_SIZE = 3100
+	NODE_SIZE = 1500
 	# Create an empty graph
 	G = nx.Graph()
 
