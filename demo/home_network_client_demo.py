@@ -51,7 +51,7 @@ def draw_topology(topology, group_colors, node_shapes):
 				specific_nodes.append(host["name"])
 		print(specific_nodes)
 		nx.draw_networkx_nodes(G, pos=pos, nodelist=specific_nodes, node_color="lightblue", node_size=NODE_SIZE, node_shape=shape)
-		nx.draw_networkx_labels(G, pos=pos, labels=node_labels, font_size=10, font_color="black")
+		nx.draw_networkx_labels(G, pos=pos, labels=node_labels, font_size=8, font_color="black")
 
 	edge_styles = nx.get_edge_attributes(G, 'style')
 	for (host1, host2, style) in G.edges(data=True):
@@ -79,7 +79,7 @@ def draw_topology(topology, group_colors, node_shapes):
 	return
 
 def draw_legend(group_colors):
-	plt.figure(figsize=(1, 3))
+	plt.figure(figsize=(2, 6))
 	legend_elements = []
 	for group, color in group_colors.items():
 		legend_elements.append(Line2D([0], [0], marker='o', color='w', label=group, markerfacecolor=color, markersize=10))
