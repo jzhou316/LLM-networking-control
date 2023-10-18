@@ -7,6 +7,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from matplotlib.lines import Line2D
+from random import randint
 
 # Takes a Topology protobuf object, extracts the nodes and links, and draws it using NetworkX
 def draw_topology(topology, group_colors, node_shapes):
@@ -20,7 +21,7 @@ def draw_topology(topology, group_colors, node_shapes):
 		if node["ip_address"] != "":
 			label += ("\n" + node["ip_address"])
 		if node["type"] == "internet":
-			layer = 4
+			layer = randint(0, 1) + 4
 		elif node["type"] == "firewall":
 			layer = 3
 		elif node["type"] == "router":
