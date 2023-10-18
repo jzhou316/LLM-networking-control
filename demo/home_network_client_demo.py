@@ -21,13 +21,13 @@ def draw_topology(topology, group_colors, node_shapes):
 		if node["ip_address"] != "":
 			label += ("\n" + node["ip_address"])
 		if node["type"] == "internet":
-			layer = randint(0, 1) + 4
+			layer = 5
 		elif node["type"] == "firewall":
-			layer = 3
+			layer = 4
 		elif node["type"] == "router":
-			layer = 2
+			layer = 3
 		else:
-			layer = 1
+			layer = randint(1, 2)
 		G.add_node(node["name"], ip_addr=node["ip_address"], label=label, groups=node["groups"], type=node["type"], layer=layer)
 		print((node["name"], layer))
 
