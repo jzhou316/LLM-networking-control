@@ -87,17 +87,17 @@ def draw_legend(group_colors):
 
 def run():
 	# Streamlit application components
+	st.set_page_config(page_title="Home Network Simulation", layout="wide")
+	st.title("Home Network Simulation")
 	st.markdown("""
 				<style>
 					.block-container {
-						padding-top: 0.2rem;
-						padding-bottom: 0rem;
-						padding-left: 0.2rem;
-						padding-right: 0.2rem;
-					}
+						padding-top: 2rem;
+						padding-bottom: 2rem;
+						padding-left: 1rem;
+						padding-right: 1rem;
 				</style>
 				""", unsafe_allow_html=True)
-	st.title("Home Network Simulation")
 	st.markdown("This simulation interface is designed to help you configure a home network using natural language. Talk to your network in the left side panel and see the changes in real-time.")
 	col1, col2 = st.columns([6, 1])
 
@@ -163,21 +163,33 @@ def run():
 	if config_request:
 		print(f"Config request checked: {config_request}")
 		user_msg = config_request
+		indent = "  "
 		if config_request == "I've got a new IoT security camera that I want to connect to my network. It should only interact with my phone and the home security system.":
-			ai_msg = "add device('security camera') to group('home security system')\nset policy('camera-traffic') {\n\tallow traffic(device('security-camera'), [device('phone'), group('home security system')])\n\tallow traffic([device('phone'), group('home security system')], device('security-camera'))\n}"
+			ai_msg = "add device('security camera') to group('home security system')\nset policy('camera-traffic') { \n" + indent + "allow traffic(device('security-camera'), [device('phone'), group('home security system')])\n" + indent + "allow traffic([device('phone'), group('home security system')], device('security-camera'))\n}"
 		elif config_request == "I want to create a new subnet for my home office devices. This should include my work laptop, printer, and my phone. Also, make sure this subnet has priority access to the bandwidth during office hours.":
-			ai_msg = "add device('work laptop') to group('home office')\nadd device('printer') to group('home office')\nadd device('phone') to group('home office')\nset policy('office hours') {\n\tfor group('home office') {\n\t\tfrom hour('09:00') to hour('17:00')\n\t\tset bandwidth('min', '100', 'mbps') \n\t}\n}"
+			ai_msg = "add device('work laptop') to group('home office')\nadd device('printer') to group('home office')\nadd device('phone') to group('home office')\nset policy('office hours') {\n" + indent + "for group('home office') {\n" + (indent * 2)  + "from hour('09:00') to hour('17:00')\n" + (indent * 2) + "set bandwidth('min', '100', 'mbps')\n" + indent + "}\n}"
 		elif config_request == "I want to set up a guest Wi-Fi network that should only provide internet access and nothing more. It should also have limited bandwidth because I don't want it to get in the way of my main network's performance.":
-			ai_msg = "add group('guest network')\nset policy('guest bandwidth') {\n\tfor group('guest network') {\n\t\tset bandwidth('max', '5', 'mbps')\n\t}\n}"
+			ai_msg = "add group('guest network')\nset policy('guest bandwidth') {\n" + indent + "for group('guest network') {\n" + (indent * 2) + "set bandwidth('max', '5', 'mbps')\n" + indent + "}\n}"
 		elif config_request == "My child does a lot of online gaming and it seems to be slowing down the internet for everyone else. Can you limit the amount of internet he can use?":
-			ai_msg = "set policy('gaming bandwidth') {\n\tfor device('gaming console') {\n\t\tset bandwidth('max', '5', 'mbps')\n\t}\n}"
-		elif config_request == "I've been hearing a lot about cyber threats on the news lately. Can you do something to make sure my personal information is safe when I'm online?":
-			ai_msg = "add middlebox('firewall') to group('network')\nset policy('web-browsing-security') {\n\tfor middlebox('firewall') {\n\t\tallow traffic(group('network'), group('internet'))\n\t\tblock traffic(group('internet'), group('network'))\n\t}\n}"
+			ai_msg = "set policy('gaming bandwidth') {\n" + indent + "for device('gaming console') {\n" + (indent * 2) + "set bandwidth('max', '5', 'mbps')\n" + indent + "}\n}"
+		elif config_request == "I've been hearing a lot about cyber threats on the news lately. I want to browse the web safely, but I don't want any strangers connecting to my devices from the internet.":
+			ai_msg = "add middlebox('firewall') to group('network')\n" + "set policy('web-browsing-security') {\n" + indent + "for middlebox('firewall') {\n" + (indent * 2) + "allow traffic(group('network'), group('internet'))\n" + (indent * 2) + "block traffic(group('internet'), group('network'))\n" + indent + "}\n}"
 		else:
 			print(config_request)
 
-		st.sidebar.chat_message("user").write(user_msg)
-		st.sidebar.chat_message("assistant").write(ai_msg)
+		with st.sidebar.chat_message("user"):
+			st.markdown(user_msg)
+
+		with st.sidebar.chat_message("assistant"):
+			st.code(ai_msg, language="None")
+
+	st.markdown("""
+				<style>
+					code {
+						font-size: smaller !important;
+					}
+				</style>
+			    """, unsafe_allow_html=True)
 
 	colors = list(mcolors.TABLEAU_COLORS.values())
 	group_colors = {}
