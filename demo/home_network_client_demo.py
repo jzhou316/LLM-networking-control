@@ -45,7 +45,7 @@ def draw_topology(topology, group_colors, node_shapes):
 	node_types = nx.get_node_attributes(G, "type")
 	for node_type, shape in node_shapes.items():
 		specific_nodes = []
-		for name, node in topology["hosts"]:
+		for name, node in topology["hosts"].items():
 			if node["type"] == node_type:
 				specific_nodes.append(node["name"])
 		nx.draw_networkx_nodes(G, pos=pos, nodelist=specific_nodes, node_color="lightblue", node_size=NODE_SIZE, node_shape=shape, alpha=0.8)
@@ -167,10 +167,10 @@ def run():
 		user_msg = config_request
 		indent = "  "
 		if config_request == "I've got a new IoT security camera that I want to connect to my network. It should only interact with my phone and the home security system.":
-			hosts_dict.append({"security-camera": {"name": "security-camera",
-						  						"ip_address": "192.168.1.11",
-						  						"groups": ["network", "home-security-system"],
-						  						"type": "device"}})
+			hosts_dict["security-camera"] = {"name": "security-camera",
+						  					"ip_address": "192.168.1.11",
+						  					"groups": ["network", "home-security-system"],
+						  					"type": "device"}
 			links.append({"link": ('router', 'security-camera'), "connection": "wireless"})
 			ai_msg = "add device('security-camera') to group('home-security-system')\nset policy('camera-traffic') { \n" + indent + "allow traffic(device('security-camera'), [device('phone'), group('home-security-system')])\n" + indent + "allow traffic([device('phone'), group('home-security-system')], device('security-camera'))\n}"
 		elif config_request == "I want to create a new subnet for my home office devices. This should include my work laptop, printer, and my phone. Also, make sure this subnet has priority access to the bandwidth during office hours.":
