@@ -79,7 +79,7 @@ def draw_topology(topology, group_colors, node_shapes):
 	return
 
 def draw_legend(group_colors):
-	plt.figure(figsize=(2, 6))
+	plt.figure(figsize=(1, 1))
 	legend_elements = []
 	for group, color in group_colors.items():
 		legend_elements.append(Line2D([0], [0], marker='o', color='w', label=group, markerfacecolor=color, markersize=10))
