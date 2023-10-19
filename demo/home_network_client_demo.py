@@ -24,8 +24,6 @@ def draw_topology(topology, group_colors, node_shapes):
 		style = 'solid' if link["connection"] == "wired" else "dotted"
 		G.add_edge(link["link"][0], link["link"][1], style=style)
 
-	G.add_edges_from(connections)
-
 	# Visualize the network
 	pos = nx.spring_layout(G, seed=42)
 	plt.figure(figsize=(8, 6))
@@ -37,7 +35,7 @@ def draw_topology(topology, group_colors, node_shapes):
 		specific_nodes = [node for node, type_ in node_types.items() if type_ == node_type]
 		nx.draw_networkx_nodes(G, pos=pos, nodelist=specific_nodes, node_color="lightblue", node_size=NODE_SIZE, node_shape=shape)
 		nx.draw_networkx_labels(G, pos=pos, labels=node_labels, font_size=10, font_color="black")
-	
+
 	edge_styles = nx.get_edge_attributes(G, 'style')
 	for (host1, host2, style) in G.edges(data=True):
 		nx.draw_networkx_edges(G, pos=pos, edgelist=[(host1, host2)], edge_color='k', style=style['style'])
@@ -127,7 +125,7 @@ def run():
 			   {"name": "work-laptop", "ip_address": "", "groups": ["network"], "type": "device"},
 			   {"name": "printer", "ip_address": "", "groups": ["network"], "type": "device"},
 	]
-	
+
 	links = [{"link": ('internet', 'router'), "connection": ""}, 
 			 {"link": ('router', 'motion-sensor'), "connection": ""}, 
 			 {"link": ('router', 'alarm'), "connection": ""}, 
@@ -142,10 +140,10 @@ def run():
 	]
 
 	groups = ['network', 'home-security-system', 'living-room']
-	node_shapes = [{type: "internet", shape: "s"},
-				   {type: "router", shape: "D"},
-				   {type: "firewall", shape: "^"},
-				   {type: "device", shape: "o"}
+	node_shapes = [{"type": "internet", "shape": "s"},
+				   {"type": "router", "shape": "D"},
+				   {"type": "firewall", "shape": "^"},
+				   {"type": "device", "shape": "o"}
 	]
 
 	# Check the configuration request and process it
@@ -161,7 +159,7 @@ def run():
 			pass
 		elif config_request == "I've been hearing a lot about cyber threats on the news lately. Can you do something to make sure my personal information is safe when I'm online?":
 			pass
-	
+
 	colors = list(mcolors.TABLEAU_COLORS.values())
 	group_colors = {}
 	for i in range(len(groups)):
@@ -169,7 +167,7 @@ def run():
 
 	with key_container.container():
 		draw_legend(group_colors)
-	
+
 	topology = {"hosts": hosts, "links": links}
 	with image_container.container():
 		draw_topology(topology, group_colors, node_shapes)
