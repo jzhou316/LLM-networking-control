@@ -165,9 +165,15 @@ def run():
 		user_msg = config_request
 		indent = "  "
 		if config_request == "I've got a new IoT security camera that I want to connect to my network. It should only interact with my phone and the home security system.":
-			ai_msg = "add device('security camera') to group('home security system')\nset policy('camera-traffic') { \n" + indent + "allow traffic(device('security-camera'), [device('phone'), group('home security system')])\n" + indent + "allow traffic([device('phone'), group('home security system')], device('security-camera'))\n}"
+			hosts.append({"name": "security-camera",
+						  "ip_address": "192.168.1.11",
+						  "groups": ["network", "home-security-system"],
+						  "type": "device"})
+			links.append({"link": ('router', 'security-camera'), "connection": "wireless"})
+			ai_msg = "add device('security-camera') to group('home-security-system')\nset policy('camera-traffic') { \n" + indent + "allow traffic(device('security-camera'), [device('phone'), group('home-security-system')])\n" + indent + "allow traffic([device('phone'), group('home-security-system')], device('security-camera'))\n}"
 		elif config_request == "I want to create a new subnet for my home office devices. This should include my work laptop, printer, and my phone. Also, make sure this subnet has priority access to the bandwidth during office hours.":
-			ai_msg = "add device('work laptop') to group('home office')\nadd device('printer') to group('home office')\nadd device('phone') to group('home office')\nset policy('office hours') {\n" + indent + "for group('home office') {\n" + (indent * 2)  + "from hour('09:00') to hour('17:00')\n" + (indent * 2) + "set bandwidth('min', '100', 'mbps')\n" + indent + "}\n}"
+			groups.append('home-office')
+			ai_msg = "add group('home-office')\nadd device('work-laptop') to group('home-office')\nadd device('printer') to group('home office')\nadd device('phone') to group('home office')\nset policy('office hours') {\n" + indent + "for group('home office') {\n" + (indent * 2)  + "from hour('09:00') to hour('17:00')\n" + (indent * 2) + "set bandwidth('min', '100', 'mbps')\n" + indent + "}\n}"
 		elif config_request == "I want to set up a guest Wi-Fi network that should only provide internet access and nothing more. It should also have limited bandwidth because I don't want it to get in the way of my main network's performance.":
 			ai_msg = "add group('guest network')\nset policy('guest bandwidth') {\n" + indent + "for group('guest network') {\n" + (indent * 2) + "set bandwidth('max', '5', 'mbps')\n" + indent + "}\n}"
 		elif config_request == "My child does a lot of online gaming and it seems to be slowing down the internet for everyone else. Can you limit the amount of internet he can use?":
