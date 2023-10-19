@@ -52,7 +52,6 @@ def draw_topology(topology, group_colors, node_shapes):
 			distances = [(i - len(groups) // 2) * distance for i in range(len(groups))]
 		else:
 			distances = [(-i * distance) if i <= 0 else (i * distance) for i in range(-(len(groups) // 2), (len(groups) // 2) + 1)]
-		groups = [group.name for group in groups]
 		idx = 0
 		for group in group_colors.keys():
 			if group in groups:
