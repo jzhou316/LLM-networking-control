@@ -186,7 +186,7 @@ def run():
 			ai_msg = "set policy('gaming bandwidth') {\n" + indent + "for device('gaming console') {\n" + (indent * 2) + "set bandwidth('max', '5', 'mbps')\n" + indent + "}\n}"
 		elif config_request == "I've been hearing a lot about cyber threats on the news lately. I want to browse the web safely, but I don't want any strangers connecting to my devices from the internet.":
 			hosts_dict["firewall"] = {"name": "firewall",
-									  "ip-address": "192.168.1.12",
+									  "ip_address": "192.168.1.12",
 									  "groups": ["network"],
 									  "type": "firewall"}
 			links.remove({"link": ('internet', 'router'), "connection": "wired"})
