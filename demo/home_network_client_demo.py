@@ -247,11 +247,11 @@ def run():
 				device_status = "offline"
 
 			st.markdown(f"**Device Name:** {device_name}")
-			st.markdown(f"**IP Address:** {ip_address}")
+			st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;**- IP Address:** {ip_address}")
 			if device_status == "online":
-				st.markdown(f"**Device Status:** :green[{device_status}]")
+				st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;**- Device Status:** :green[{device_status}]")
 			else:
-				st.markdown(f"**Device Status:** :red[{device_status}]")
+				st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;**- Device Status:** :red[{device_status}]")
 			st.write("")
 
 	with tab2:
