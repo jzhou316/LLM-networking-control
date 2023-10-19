@@ -20,6 +20,8 @@ def draw_topology(topology, group_colors, node_shapes):
 	for name, node in topology["hosts"].items():
 		locs[node["name"]] = node["loc"]
 		label = node["name"]
+		if label == "security-camera":
+			label = "security-\ncamera"
 		if node["ip_address"] != "":
 			label += ("\n" + node["ip_address"])
 		G.add_node(node["name"], ip_addr=node["ip_address"], label=label, groups=node["groups"], type=node["type"])
@@ -30,7 +32,7 @@ def draw_topology(topology, group_colors, node_shapes):
 		G.add_edge(link["link"][0], link["link"][1], style=style)
 
 	# Visualize the network
-	pos = nx.spring_layout(G, pos=locations, fixed=locs.keys())
+	pos = nx.spring_layout(G, pos=locs, fixed=locs.keys())
 	plt.figure(figsize=(8, 6))
 
 	# Draw nodes with labels and edges
@@ -47,12 +49,12 @@ def draw_topology(topology, group_colors, node_shapes):
 
 	edge_styles = nx.get_edge_attributes(G, 'style')
 	for (host1, host2, style) in G.edges(data=True):
-		nx.draw_networkx_edges(G, pos=pos, edgelist=[(host1, host2)], edge_color='k', style=style['style'], alpha=0.4)
+		nx.draw_networkx_edges(G, pos=pos, edgelist=[(host1, host2)], edge_color='k', style=style['style'], alpha=0.3)
 
 	ax = plt.gca()
 
 	node_groups = nx.get_node_attributes(G, 'groups')
-	distance = NODE_SIZE / 50000
+	distance = NODE_SIZE / 15000
 	for node, groups in node_groups.items():
 		if len(groups) % 2:
 			distances = [(i - len(groups) // 2) * distance for i in range(len(groups))]
@@ -61,7 +63,7 @@ def draw_topology(topology, group_colors, node_shapes):
 		idx = 0
 		for group in group_colors.keys():
 			if group in groups:
-				ax.plot(pos[node][0] + distances[idx], pos[node][1] - NODE_SIZE / 10000, color=group_colors[group], marker='o', markersize=NODE_SIZE/500)
+				ax.plot(pos[node][0] + distances[idx], pos[node][1] - (distance * 6.5), color=group_colors[group], marker='o', markersize=NODE_SIZE/500)
 				idx += 1
 
 	# Show the graph
@@ -126,12 +128,12 @@ def run():
 			 {"name": "alarm", "ip_address": "192.168.1.3", "groups": ["network", "home-security-system"], "type": "device", "loc": (2, -1)},
 			 {"name": "smart-lock", "ip_address": "192.168.1.4", "groups": ["network", "home-security-system"], "type": "device", "loc": (2, 1)},
 			 {"name": "phone", "ip_address": "192.168.1.5", "groups": ["network"], "type": "device", "loc": (-2, 0)},
-			 {"name": "game-console", "ip_address": "192.168.1.6", "groups": ["network", "living-room"], "type": "device", "loc": (0, -2)},
-			 {"name": "guest-laptop-1", "ip_address": "192.168.1.7", "groups": ["network"], "type": "device", "loc": (3, -3)},
+			 {"name": "game-console", "ip_address": "192.168.1.6", "groups": ["network", "living-room"], "type": "device", "loc": (0, -3)},
+			 {"name": "guest-laptop-1", "ip_address": "192.168.1.7", "groups": ["network"], "type": "device", "loc": (1, -4)},
 			 {"name": "guest-laptop-2", "ip_address": "192.168.1.8", "groups": ["network"], "type": "device", "loc": (2, -4)},
-			 {"name": "work-laptop", "ip_address": "192.168.1.9", "groups": ["network"], "type": "device", "loc": (-2, -2)},
+			 {"name": "work-laptop", "ip_address": "192.168.1.9", "groups": ["network"], "type": "device", "loc": (-2, -3)},
 			 {"name": "printer", "ip_address": "192.168.1.10", "groups": ["network"], "type": "device", "loc": (-3, -1)},
-			 {"name": "PC-desktop", "ip_address": "192.168.1.11", "groups": ["network"], "type": "device", "loc": (-1, -2)}
+			 {"name": "PC-desktop", "ip_address": "192.168.1.11", "groups": ["network"], "type": "device", "loc": (-3, -3)}
 	]
 
 	hosts_dict = {host["name"]: host for host in hosts}
@@ -174,7 +176,7 @@ def run():
 						  					"ip_address": "192.168.1.12",
 						  					"groups": ["network", "home-security-system"],
 						  					"type": "device",
-											"loc": (3, 2)}
+											"loc": (3, -2)}
 			st.session_state["links"].append({"link": ('router', 'security-camera'), "connection": "wireless"})
 			ai_msg = "add device('security-camera') to group('network')\nadd device('security-camera') to group('home-security-system')\nset policy('camera-traffic') { \n" + indent + "allow traffic(device('security-camera'), [device('phone'), group('home-security-system')])\n" + indent + "allow traffic([device('phone'), group('home-security-system')], device('security-camera'))\n}"
 		elif config_request == "I want to create a new subnet for my home office devices. This should include my work laptop, printer, and my phone. Also, make sure this subnet has priority access to the bandwidth during office hours.":
@@ -196,6 +198,7 @@ def run():
 									  "groups": ["network"],
 									  "type": "firewall",
 									  "loc": (0, 2)}
+			st.session_state["hosts_dict"]["internet"]["loc"] = (0, 4)
 			st.session_state["links"].remove({"link": ('internet', 'router'), "connection": "wired"})
 			st.session_state["links"].append({"link": ('internet', 'firewall'), "connection": "wired"})
 			st.session_state["links"].append({"link": ('firewall', 'router'), "connection": "wired"})
