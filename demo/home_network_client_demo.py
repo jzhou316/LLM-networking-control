@@ -27,9 +27,8 @@ def draw_topology(topology, group_colors, node_shapes):
 		elif node["type"] == "router":
 			layer = 3
 		else:
-			layer = randint(1, 2)
+			layer = -1 * (int(node["ip_address"][-1]) % 2) + 2
 		G.add_node(node["name"], ip_addr=node["ip_address"], label=label, groups=node["groups"], type=node["type"], layer=layer)
-		print((node["name"], layer))
 
 	# Add edges between existing nodes
 	for link in topology["links"]:
@@ -49,18 +48,17 @@ def draw_topology(topology, group_colors, node_shapes):
 		for host in topology["hosts"]:
 			if host["type"] == node_type:
 				specific_nodes.append(host["name"])
-		print(specific_nodes)
 		nx.draw_networkx_nodes(G, pos=pos, nodelist=specific_nodes, node_color="lightblue", node_size=NODE_SIZE, node_shape=shape, alpha=0.8)
 		nx.draw_networkx_labels(G, pos=pos, labels=node_labels, font_size=8, font_color="black")
 
 	edge_styles = nx.get_edge_attributes(G, 'style')
 	for (host1, host2, style) in G.edges(data=True):
-		nx.draw_networkx_edges(G, pos=pos, edgelist=[(host1, host2)], edge_color='k', style=style['style'], alpha=0.8)
+		nx.draw_networkx_edges(G, pos=pos, edgelist=[(host1, host2)], edge_color='k', style=style['style'], alpha=0.4)
 
 	ax = plt.gca()
 
 	node_groups = nx.get_node_attributes(G, 'groups')
-	distance = NODE_SIZE / 100000
+	distance = NODE_SIZE / 50000
 	for node, groups in node_groups.items():
 		if len(groups) % 2:
 			distances = [(i - len(groups) // 2) * distance for i in range(len(groups))]
@@ -69,7 +67,7 @@ def draw_topology(topology, group_colors, node_shapes):
 		idx = 0
 		for group in group_colors.keys():
 			if group in groups:
-				ax.plot(pos[node][0] + distances[idx], pos[node][1] - NODE_SIZE / 10000, color=group_colors[group], marker='o', markersize=NODE_SIZE/1000)
+				ax.plot(pos[node][0] + distances[idx], pos[node][1] - NODE_SIZE / 10000, color=group_colors[group], marker='o', markersize=NODE_SIZE/500)
 				idx += 1
 
 	# Show the graph
@@ -157,19 +155,29 @@ def run():
 	groups = ['network', 'home-security-system', 'living-room']
 	node_shapes = {"internet": "s", "router": "D", "firewall": "^", "device": "o"}
 
+
+	user_msg = ""
+	ai_msg = ""
+
 	# Check the configuration request and process it
 	if config_request:
 		print(f"Config request checked: {config_request}")
+		user_msg = config_request
 		if config_request == "I've got a new IoT security camera that I want to connect to my network. It should only interact with my phone and the home security system.":
-			pass
+			ai_msg = "add device('security-camera') to group('home-security-system')\n\n set policy('camera-traffic') {\n\t for device('camera')\n\t allow traffic[device('phone'), group('home-security-system')]\n}"
 		elif config_request == "I want to create a new subnet for my home office devices. This should include my work laptop, printer, and my phone. Also, make sure this subnet has priority access to the bandwidth during office hours.":
-			pass
+			ai_msg = "add device('work-laptop') to group('home-office')\n add device('printer') to group('home office')\n add device('phone') to group('home office')\n set policy('office hours') {\n\t for group('home')\n\t from hour('09:00') to hour('17:00')\n\t set bandwidth('min', '100', 'mbps')\n}"
 		elif config_request == "I want to set up a guest Wi-Fi network that should only provide internet access and nothing more. It should also have limited bandwidth because I don't want it to get in the way of my main network's performance.":
-			pass
+			ai_msg = "add group('guest-network')\n set policy('guest bandwidth') {\n\t for group('guest-network')\n\t set bandwidth('max', '5', 'mbps')\n}"
 		elif config_request == "My child does a lot of online gaming and it seems to be slowing down the internet for everyone else. Can you limit the amount of internet he can use?":
-			pass
+			ai_msg = "set policy('gaming-bandwidth') {\n\t for device('gaming-console')\n\t set bandwidth('max', '5', 'mbps')\n}}"
 		elif config_request == "I've been hearing a lot about cyber threats on the news lately. Can you do something to make sure my personal information is safe when I'm online?":
-			pass
+			ai_msg = "add middlebox('firewall') to group('network')\n set policy('access-control-list') {\n}"
+		else:
+			print(config_request)
+
+		st.sidebar.chat_message("user").write(user_msg)
+		st.sidebar.chat_message("assistant").write(ai_msg)
 
 	colors = list(mcolors.TABLEAU_COLORS.values())
 	group_colors = {}
@@ -185,9 +193,6 @@ def run():
 
 	st.subheader("Network Status")
 	st.write("Not implemented")
-
-	st.sidebar.chat_message("user").write("placeholder")
-	st.sidebar.chat_message("assistant").write("placeholder")
 
 if __name__ == "__main__":
 	run()
