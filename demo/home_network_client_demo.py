@@ -122,7 +122,7 @@ def run():
 
 	#--------------------------------------- NETWORK CONFIG ---------------------------------------#
 
-	hosts = [{"name": "internet", "ip_address": "", "groups": ["internet"], "type": "internet", "loc": (0, 3)},
+	hosts = [{"name": "internet", "ip_address": "", "groups": [], "type": "internet", "loc": (0, 3)},
 			 {"name": "router", "ip_address": "192.168.1.1", "groups": ["network"], "type": "router", "loc": (0, 0)},	
 			 {"name": "motion-sensor", "ip_address": "192.168.1.2", "groups": ["network", "home-security-system"], "type": "device", "loc": (3, 0)},
 			 {"name": "alarm", "ip_address": "192.168.1.3", "groups": ["network", "home-security-system"], "type": "device", "loc": (2, -1)},
@@ -151,7 +151,7 @@ def run():
 			 {"link": ('router', 'PC-desktop'), "connection": "wired"} 
 	]
 
-	groups = ['network', 'internet', 'home-security-system', 'living-room']
+	groups = ['network', 'home-security-system', 'living-room']
 	node_shapes = {"internet": "s", "router": "D", "firewall": "^", "device": "o"}
 
 	if "hosts_dict" not in st.session_state:
