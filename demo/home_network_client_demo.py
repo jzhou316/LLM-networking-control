@@ -233,7 +233,36 @@ def run():
 		draw_topology(topology, group_colors, node_shapes)
 
 	st.subheader("Network Status")
-	st.write(st.session_state)
+	tab1, tab2, tab3, tab4 = st.tabs(["Device Information", "Groups (Subnets)", "QoS Policies", "Security Policies"])
+	with tab1:
+		devices = st.session_state["hosts_dict"]
+		if not devices:
+			st.write("No devices configured")
+		for device_name, device_info in devices.items():
+			if device_name == "internet":
+				continue
+			ip_address = device_info["ip_address"]
+			device_status = "online"
+			if device_name in ["printer"]:
+				device_status = "offline"
+
+			st.markdown(f"**Device Name:** {device_name}")
+			st.markdown(f"**IP Address:** {ip_address}")
+			if device_status == "online":
+				st.markdown(f"**Device Status:** :green[{device_status}]")
+			else:
+				st.markdown(f"**Device Status:** :red[{device_status}]")
+			st.write("")
+
+	with tab2:
+		group_devices = {group: [] for group in st.session_state['groups']}
+		for device_name, device_details in st.session_state["hosts_dict"].items():
+			for group in device_details["groups"]:
+				group_devices[group].append(device_name)
+		for group, devices in group_devices.items():
+			st.markdown(f"**Group: {group}**")
+			for device in devices:
+				st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;- {device}")
 
 if __name__ == "__main__":
 	run()
