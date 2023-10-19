@@ -157,15 +157,15 @@ def run():
 	if config_request:
 		print(f"Config request checked: {config_request}")
 		if config_request == "I've got a new IoT security camera that I want to connect to my network. It should only interact with my phone and the home security system.":
-			# do something
-		elif config_request == "I want to create a new subnet for my home office devices. This should include my work laptop, printer, and my phone. Also, make sure this subnet has priority access to the bandwidth during office hours."
-			# do something
+			pass
+		elif config_request == "I want to create a new subnet for my home office devices. This should include my work laptop, printer, and my phone. Also, make sure this subnet has priority access to the bandwidth during office hours.":
+			pass
 		elif config_request == "I want to set up a guest Wi-Fi network that should only provide internet access and nothing more. It should also have limited bandwidth because I don't want it to get in the way of my main network's performance.":
-			# do something
+			pass
 		elif config_request == "My child does a lot of online gaming and it seems to be slowing down the internet for everyone else. Can you limit the amount of internet he can use?":
-			# do something
+			pass
 		elif config_request == "I've been hearing a lot about cyber threats on the news lately. Can you do something to make sure my personal information is safe when I'm online?":
-			# do something
+			pass
 	
 	colors = list(mcolors.TABLEAU_COLORS.values())
 	group_colors = {}
