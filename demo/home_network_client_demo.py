@@ -220,7 +220,7 @@ def run():
 
 	colors = list(mcolors.TABLEAU_COLORS.values())
 	group_colors = {}
-	for i in range(len(groups)):
+	for i in range(len(st.session_state["groups"])):
 		group_colors[st.session_state["groups"][i]] = colors[i]
 
 	with key_container.container():
