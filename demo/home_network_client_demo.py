@@ -137,6 +137,7 @@ def run():
 			 {"name": "guest-laptop-2", "ip_address": "192.168.1.8", "groups": ["network"], "type": "device"},
 			 {"name": "work-laptop", "ip_address": "192.168.1.9", "groups": ["network"], "type": "device"},
 			 {"name": "printer", "ip_address": "192.168.1.10", "groups": ["network"], "type": "device"},
+			 {"name": "PC-desktop", "ip_address": "192.168.1.11", "groups": ["network"], "type": "device"}
 	]
 
 	hosts_dict = {host["name"]: host for host in hosts}
@@ -152,6 +153,7 @@ def run():
 			 {"link": ('router', 'game-console'), "connection": "wireless"}, 
 			 {"link": ('router', 'work-laptop'), "connection": "wireless"}, 
 			 {"link": ('router', 'printer'), "connection": "wired"}, 
+			 {"link": ('router', 'PC-desktop'), "connection": "wired"}
 	]
 
 	groups = ['network', 'internet', 'home-security-system', 'living-room']
@@ -176,7 +178,7 @@ def run():
 		indent = "  "
 		if config_request == "I've got a new IoT security camera that I want to connect to my network. It should only interact with my phone and the home security system.":
 			st.session_state["hosts_dict"]["security-camera"] = {"name": "security-camera",
-						  					"ip_address": "192.168.1.11",
+						  					"ip_address": "192.168.1.12",
 						  					"groups": ["network", "home-security-system"],
 						  					"type": "device"}
 			st.session_state["links"].append({"link": ('router', 'security-camera'), "connection": "wireless"})
@@ -196,7 +198,7 @@ def run():
 			ai_msg = "set policy('gaming bandwidth') {\n" + indent + "for device('gaming console') {\n" + (indent * 2) + "set bandwidth('max', '5', 'mbps')\n" + indent + "}\n}"
 		elif config_request == "I've been hearing a lot about cyber threats on the news lately. I want to browse the web safely, but I don't want any strangers connecting to my devices from the internet.":
 			st.session_state["hosts_dict"]["firewall"] = {"name": "firewall",
-									  "ip_address": "192.168.1.12",
+									  "ip_address": "192.168.1.13",
 									  "groups": ["network"],
 									  "type": "firewall"}
 			st.session_state["links"].remove({"link": ('internet', 'router'), "connection": "wired"})
