@@ -157,6 +157,14 @@ def run():
 	groups = ['network', 'internet', 'home-security-system', 'living-room']
 	node_shapes = {"internet": "s", "router": "D", "firewall": "^", "device": "o"}
 
+	if "hosts_dict" not in st.session_state:
+		st.session_state["hosts_dict"] = hosts_dict
+	
+	if "links" not in st.session_state:
+		st.session_state["links"] = links
+
+	if "groups" not in st.session_state:
+		st.session_state["groups"] = groups
 
 	user_msg = ""
 	ai_msg = ""
@@ -172,15 +180,20 @@ def run():
 						  					"groups": ["network", "home-security-system"],
 						  					"type": "device"}
 			links.append({"link": ('router', 'security-camera'), "connection": "wireless"})
+			st.session_state["hosts_dict"] = hosts_dict
+			st.session_state["links"] = links
 			ai_msg = "add device('security-camera') to group('home-security-system')\nset policy('camera-traffic') { \n" + indent + "allow traffic(device('security-camera'), [device('phone'), group('home-security-system')])\n" + indent + "allow traffic([device('phone'), group('home-security-system')], device('security-camera'))\n}"
 		elif config_request == "I want to create a new subnet for my home office devices. This should include my work laptop, printer, and my phone. Also, make sure this subnet has priority access to the bandwidth during office hours.":
 			groups.append('home-office')
 			hosts_dict["work-laptop"]["groups"].append("home-office")
 			hosts_dict["printer"]["groups"].append("home-office")
 			hosts_dict["phone"]["groups"].append("home-office")
+			st.session_state["groups"] = groups
+			st.session_state["hosts_dict"] = hosts_dict
 			ai_msg = "add group('home-office')\nadd device('work-laptop') to group('home-office')\nadd device('printer') to group('home office')\nadd device('phone') to group('home office')\nset policy('office hours') {\n" + indent + "for group('home office') {\n" + (indent * 2)  + "from hour('09:00') to hour('17:00')\n" + (indent * 2) + "set bandwidth('min', '100', 'mbps')\n" + indent + "}\n}"
 		elif config_request == "I want to set up a guest Wi-Fi network that should only provide internet access and nothing more. It should also have limited bandwidth because I don't want it to get in the way of my main network's performance.":
 			groups.append('guest-network')
+			st.session_state["groups"] = groups
 			ai_msg = "add group('guest-network')\nset policy('guest bandwidth') {\n" + indent + "for group('guest-network') {\n" + (indent * 2) + "set bandwidth('max', '5', 'mbps')\n" + indent + "}\n}"
 		elif config_request == "My child does a lot of online gaming and it seems to be slowing down the internet for everyone else. Can you limit the amount of internet he can use?":
 			ai_msg = "set policy('gaming bandwidth') {\n" + indent + "for device('gaming console') {\n" + (indent * 2) + "set bandwidth('max', '5', 'mbps')\n" + indent + "}\n}"
@@ -192,6 +205,8 @@ def run():
 			links.remove({"link": ('internet', 'router'), "connection": "wired"})
 			links.append({"link": ('internet', 'firewall'), "connection": "wired"})
 			links.append({"link": ('firewall', 'router'), "connection": "wired"})
+			st.session_state["hosts_dict"] = hosts_dict
+			st.session_state["links"] = links
 			ai_msg = "add middlebox('firewall') to group('network')\n" + "set policy('web-browsing-security') {\n" + indent + "for middlebox('firewall') {\n" + (indent * 2) + "allow traffic(group('network'), group('internet'))\n" + (indent * 2) + "block traffic(group('internet'), group('network'))\n" + indent + "}\n}"
 		else:
 			print(config_request)
@@ -218,7 +233,7 @@ def run():
 	with key_container.container():
 		draw_legend(group_colors)
 
-	topology = {"hosts": hosts_dict, "links": links}
+	topology = {"hosts": st.session_state["hosts_dict"], "links": st.session_state["links"]}
 	with image_container.container():
 		draw_topology(topology, group_colors, node_shapes)
 
