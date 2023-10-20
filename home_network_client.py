@@ -129,32 +129,13 @@ def run():
 					try:
 						if 'add' in parsed_intent.keys():
 							image_container.empty()
-							if parsed_intent['add'][0] == 'endpoint':
-								target = parsed_intent['add'][1]
-								target_groups = [parsed_intent['to'][1]]
+							if parsed_intent['add'][0][0] == 'endpoint':
+								target = parsed_intent['add'][0][1]
+								target_groups = [home_network_pb2.Group(name=parsed_intent['to'][0][1])]
 								new_host = stub.AddDevice(home_network_pb2.Host(name=target, groups=target_groups))
-							elif parsed_intent['add'][0] == 'group':
-								group = parsed_intent['add'][1]
+							elif parsed_intent['add'][0][0] == 'group':
+								group = parsed_intent['add'][0][1]
 								new_group = stub.AddGroup(home_network_pb2.Group(name=group))
-						# 	for entity, arg in parsed_intent['add']:
-						# 		if entity == 'endpoint':
-						# 			target = arg
-						# 		elif entity == 'group':
-						# 			groups.append()
-						# if 'add' in parsed_intent.keys():
-						# 	image_container.empty()
-						# 	for entity, args in parsed_intent['add']:
-						# 		if entity == 'endpoint':
-						# 			if 'to' not in parsed_intent:
-						# 				print("Incorrect Nile")
-						# 				break
-						# 			f_entity, f_args = parsed_intent['to'][0]
-						# 			groups = [home_network_pb2.Group(name=f_args[0])]
-						# 			print("DEBUGGING")
-						# 			print(groups)
-						# 			new_host = stub.AddDevice(home_network_pb2.Host(name=args[0], groups=groups))
-						# 		elif entity == 'group':
-						# 			new_group = stub.AddGroup(home_network_pb2.Group(name=args[0]))
 						elif 'remove' in parsed_intent.keys():
 							image_container.empty()
 							for entity, args in parsed_intent['remove']:
