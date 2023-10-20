@@ -163,6 +163,9 @@ def run():
 	if "groups" not in st.session_state:
 		st.session_state["groups"] = groups
 
+	if "policy_counter" not in st.session_state:
+		st.session_state["policy_counter"] = 0
+
 	user_msg = ""
 	ai_msg = ""
 
@@ -178,19 +181,23 @@ def run():
 						  					"type": "device",
 											"loc": (3, -2)}
 			st.session_state["links"].append({"link": ('router', 'security-camera'), "connection": "wireless"})
+			st.session_state["policy_counter"] += 1
 			ai_msg = "add endpoint('security-camera') to group('network')\nadd endpoint('security-camera') to group('home-security-system')\nset policy('IoT Security Camera Traffic') { \n" + indent + "allow traffic(endpoint('security-camera'), [endpoint('phone'), group('home-security-system')])\n" + indent + "allow traffic([endpoint('phone'), group('home-security-system')], endpoint('security-camera'))\n}"
 		elif config_request == "I want to create a new subnet for my home office devices. This should include my work laptop, printer, and my phone. Also, make sure this subnet has priority access to the bandwidth during office hours.":
 			st.session_state["groups"].append('home-office')
 			st.session_state["hosts_dict"]["work-laptop"]["groups"].append("home-office")
 			st.session_state["hosts_dict"]["printer"]["groups"].append("home-office")
 			st.session_state["hosts_dict"]["phone"]["groups"].append("home-office")
+			st.session_state["policy_counter"] += 1
 			ai_msg = "add group('home-office')\nadd endpoint('work-laptop') to group('home-office')\nadd endpoint('printer') to group('home office')\nadd endpoint('phone') to group('home office')\nset policy('Home Office Subnet') {\n" + indent + "for group('home office') {\n" + (indent * 2)  + "from hour('09:00') to hour('17:00')\n" + (indent * 2) + "set bandwidth('min', '100', 'mbps')\n" + indent + "}\n}"
 		elif config_request == "I want to set up a guest Wi-Fi network that should only provide internet access and nothing more. It should also have limited bandwidth because I don't want it to get in the way of my main network's performance.":
 			st.session_state["groups"].append('guest-network')
 			st.session_state["hosts_dict"]["guest-laptop-1"]["groups"].append("guest-network")
 			st.session_state["hosts_dict"]["guest-laptop-2"]["groups"].append("guest-network")
+			st.session_state["policy_counter"] += 1
 			ai_msg = "add group('guest-network')\nadd endpoint('guest-laptop-1') to group('guest-network')\nadd endpoint('guest-laptop-2') to group('guest-network')\nset policy('Guest Wi-Fi Network Bandwidth') {\n" + indent + "for group('guest-network') {\n" + (indent * 2) + "set bandwidth('max', '5', 'mbps')\n" + indent + "}\n}"
 		elif config_request == "My child does a lot of online gaming and it seems to be slowing down the internet for everyone else. Can you limit the amount of internet he can use?":
+			st.session_state["policy_counter"] += 1
 			ai_msg = "set policy('Gaming Console Bandwidth') {\n" + indent + "for endpoint('gaming console') {\n" + (indent * 2) + "set bandwidth('max', '5', 'mbps')\n" + indent + "}\n}"
 		elif config_request == "I've been hearing a lot about cyber threats on the news lately. I want to browse the web safely, but I don't want any strangers connecting to my devices from the internet.":
 			st.session_state["hosts_dict"]["firewall"] = {"name": "firewall",
@@ -202,6 +209,7 @@ def run():
 			st.session_state["links"].remove({"link": ('internet', 'router'), "connection": "wired"})
 			st.session_state["links"].append({"link": ('internet', 'firewall'), "connection": "wired"})
 			st.session_state["links"].append({"link": ('firewall', 'router'), "connection": "wired"})
+			st.session_state["policy_counter"] += 1
 			ai_msg = "add middlebox('firewall') to group('network')\n" + "set policy('Web Browsing Security') {\n" + indent + "for middlebox('firewall') {\n" + (indent * 2) + "allow traffic(group('network'), endpoint('internet'))\n" + (indent * 2) + "block traffic(endpoint('internet'), group('network'))\n" + indent + "}\n}"
 		else:
 			print(config_request)
@@ -243,7 +251,7 @@ def run():
 				continue
 			ip_address = device_info["ip_address"]
 			device_status = "online"
-			if device_name in ["printer"]:
+			if device_name in ["printer"] and st.session_state["policy_counter"] < 2:
 				device_status = "offline"
 
 			st.markdown(f"**Device Name:** {device_name}")
@@ -266,12 +274,16 @@ def run():
 
 	with open('policies.txt', 'r') as file:
 		qos_policies = file.read()
-	
-	qos_policies = re.split(r'\d+\.', markdown_string)[1:]
-	print(qos_policies)
+
+	qos_policies = re.split(r'~', qos_policies)[1:]
 
 	with tab3:
-		st.markdown(qos_policies)
+		for i in range(min(4, st.session_state["policy_counter"])):
+			st.markdown(qos_policies[i])
+
+	with tab4:
+		if st.session_state["policy_counter"] == 5:
+			st.markdown(qos_policies[4])
 
 if __name__ == "__main__":
 	run()
