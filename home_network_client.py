@@ -14,7 +14,7 @@ from home_network_llm import Chat
 
 # Takes a Topology protobuf object, extracts the nodes and links, and draws it using NetworkX
 def draw_topology(topology, group_colors):
-	NODE_SIZE = 3100
+	NODE_SIZE = 1500
 	# Create an empty graph
 	G = nx.Graph()
 
@@ -40,13 +40,13 @@ def draw_topology(topology, group_colors):
 	# Draw nodes with labels and edges
 	node_labels = nx.get_node_attributes(G, "label")
 	nx.draw_networkx_nodes(G, pos=pos, node_color="lightblue", node_size=NODE_SIZE)
-	nx.draw_networkx_labels(G, pos=pos, labels=node_labels, font_size=10, font_color="black")
+	nx.draw_networkx_labels(G, pos=pos, labels=node_labels, font_size=8, font_color="black")
 	nx.draw_networkx_edges(G, pos=pos)
 
 	ax = plt.gca()
 
 	node_groups = nx.get_node_attributes(G, 'groups')
-	distance = NODE_SIZE / 100000
+	distance = NODE_SIZE / 15000
 	for node, groups in node_groups.items():
 		if len(groups) % 2:
 			distances = [(i - len(groups) // 2) * distance for i in range(len(groups))]
@@ -56,7 +56,7 @@ def draw_topology(topology, group_colors):
 		idx = 0
 		for group in group_colors.keys():
 			if group in groups:
-				ax.plot(pos[node][0] + distances[idx], pos[node][1] - NODE_SIZE / 10000, color=group_colors[group], marker='o', markersize=NODE_SIZE/1000)
+				ax.plot(pos[node][0] + distances[idx], pos[node][1] - (distance * 2), color=group_colors[group], marker='o', markersize=NODE_SIZE/500)
 				idx += 1
 
 	# Show the graph
