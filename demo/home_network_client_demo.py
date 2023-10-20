@@ -221,7 +221,7 @@ def run():
 	colors = list(mcolors.TABLEAU_COLORS.values())
 	group_colors = {}
 	for i in range(len(groups)):
-		group_colors[groups[i]] = colors[i]
+		group_colors[st.session_state["groups"][i]] = colors[i]
 
 	with key_container.container():
 		draw_legend(group_colors)
