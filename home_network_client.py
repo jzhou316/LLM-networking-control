@@ -138,16 +138,21 @@ def run():
 								new_group = stub.AddGroup(home_network_pb2.Group(name=group))
 						elif 'remove' in parsed_intent.keys():
 							image_container.empty()
-							for entity, args in parsed_intent['remove']:
-								if entity == 'endpoint':
-									if 'from' not in parsed_intent:
-										print("Incorrect Nile")
-										break
-									f_entity, f_args = parsed_intent['from'][0]
-									groups = [home_network_pb2.Group(name=f_args[0])]
-									new_host = stub.RemoveDevice(home_network_pb2.Host(name=args[0], groups=groups))
-								elif entity == 'group':
-									new_group = stub.AddGroup(home_network_pb2.Group(name=args[0]))
+							if parsed_intent['remove'][0][0] == 'endpoint':
+								target = parsed_intent['remove'][0][1]
+								target_groups = [home_network_pb2.Group(name=parsed_intent['from'][0][1])]
+								new_host = stub.RemoveDevice(home_network_pb2.Host(name=target, groups=target_groups))
+
+#							for entity, args in parsed_intent['remove']:
+#								if entity == 'endpoint':
+#									if 'from' not in parsed_intent:
+#										print("Incorrect Nile")
+#										break
+#									f_entity, f_args = parsed_intent['from'][0]
+#									groups = [home_network_pb2.Group(name=f_args[0])]
+#									new_host = stub.RemoveDevice(home_network_pb2.Host(name=args[0], groups=groups))
+#								elif entity == 'group':
+#									new_group = stub.AddGroup(home_network_pb2.Group(name=args[0]))
 						elif 'set' in parsed_intent.keys():
 							print("not implemented")
 						else:
