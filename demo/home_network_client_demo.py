@@ -16,19 +16,13 @@ def draw_topology(topology, group_colors, node_shapes):
 	G = nx.Graph()
 
 	# Add devices as nodes to the graph
+	locs = {}
 	for name, node in topology["hosts"].items():
+		locs[node["name"]] = node["loc"]
 		label = node["name"]
 		if node["ip_address"] != "":
 			label += ("\n" + node["ip_address"])
-		if node["type"] == "internet":
-			layer = 5
-		elif node["type"] == "firewall":
-			layer = 4
-		elif node["type"] == "router":
-			layer = 3
-		else:
-			layer = -1 * (int(node["ip_address"][-1]) % 2) + 2
-		G.add_node(node["name"], ip_addr=node["ip_address"], label=label, groups=node["groups"], type=node["type"], layer=layer)
+		G.add_node(node["name"], ip_addr=node["ip_address"], label=label, groups=node["groups"], type=node["type"])
 
 	# Add edges between existing nodes
 	for link in topology["links"]:
@@ -36,7 +30,7 @@ def draw_topology(topology, group_colors, node_shapes):
 		G.add_edge(link["link"][0], link["link"][1], style=style)
 
 	# Visualize the network
-	pos = nx.multipartite_layout(G, subset_key="layer", align="horizontal")
+	pos = nx.spring_layout(G, pos=locations, fixed=locs.keys())
 	plt.figure(figsize=(8, 6))
 
 	# Draw nodes with labels and edges
@@ -126,18 +120,18 @@ def run():
 
 	#--------------------------------------- NETWORK CONFIG ---------------------------------------#
 
-	hosts = [{"name": "internet", "ip_address": "", "groups": ["internet"], "type": "internet"},
-			 {"name": "router", "ip_address": "192.168.1.1", "groups": ["network"], "type": "router"},	
-			 {"name": "motion-sensor", "ip_address": "192.168.1.2", "groups": ["network", "home-security-system"], "type": "device"},
-			 {"name": "alarm", "ip_address": "192.168.1.3", "groups": ["network", "home-security-system"], "type": "device"},
-			 {"name": "smart-lock", "ip_address": "192.168.1.4", "groups": ["network", "home-security-system"], "type": "device"},
-			 {"name": "phone", "ip_address": "192.168.1.5", "groups": ["network"], "type": "device"},
-			 {"name": "game-console", "ip_address": "192.168.1.6", "groups": ["network", "living-room"], "type": "device"},
-			 {"name": "guest-laptop-1", "ip_address": "192.168.1.7", "groups": ["network"], "type": "device"},
-			 {"name": "guest-laptop-2", "ip_address": "192.168.1.8", "groups": ["network"], "type": "device"},
-			 {"name": "work-laptop", "ip_address": "192.168.1.9", "groups": ["network"], "type": "device"},
-			 {"name": "printer", "ip_address": "192.168.1.10", "groups": ["network"], "type": "device"},
-			 {"name": "PC-desktop", "ip_address": "192.168.1.11", "groups": ["network"], "type": "device"}
+	hosts = [{"name": "internet", "ip_address": "", "groups": ["internet"], "type": "internet", "loc": (0, 3)},
+			 {"name": "router", "ip_address": "192.168.1.1", "groups": ["network"], "type": "router", "loc": (0, 0)},	
+			 {"name": "motion-sensor", "ip_address": "192.168.1.2", "groups": ["network", "home-security-system"], "type": "device", "loc": (3, 0)},
+			 {"name": "alarm", "ip_address": "192.168.1.3", "groups": ["network", "home-security-system"], "type": "device", "loc": (2, -1)},
+			 {"name": "smart-lock", "ip_address": "192.168.1.4", "groups": ["network", "home-security-system"], "type": "device", "loc": (2, 1)},
+			 {"name": "phone", "ip_address": "192.168.1.5", "groups": ["network"], "type": "device", "loc": (-2, 0)},
+			 {"name": "game-console", "ip_address": "192.168.1.6", "groups": ["network", "living-room"], "type": "device", "loc": (0, -2)},
+			 {"name": "guest-laptop-1", "ip_address": "192.168.1.7", "groups": ["network"], "type": "device", "loc": (3, -3)},
+			 {"name": "guest-laptop-2", "ip_address": "192.168.1.8", "groups": ["network"], "type": "device", "loc": (2, -4)},
+			 {"name": "work-laptop", "ip_address": "192.168.1.9", "groups": ["network"], "type": "device", "loc": (-2, -2)},
+			 {"name": "printer", "ip_address": "192.168.1.10", "groups": ["network"], "type": "device", "loc": (-3, -1)},
+			 {"name": "PC-desktop", "ip_address": "192.168.1.11", "groups": ["network"], "type": "device", "loc": (-1, -2)}
 	]
 
 	hosts_dict = {host["name"]: host for host in hosts}
@@ -150,10 +144,9 @@ def run():
 			 {"link": ('router', 'game-console'), "connection": "wireless"}, 
 			 {"link": ('router', 'guest-laptop-1'), "connection": "wireless"}, 
 			 {"link": ('router', 'guest-laptop-2'), "connection": "wireless"}, 
-			 {"link": ('router', 'game-console'), "connection": "wireless"}, 
 			 {"link": ('router', 'work-laptop'), "connection": "wireless"}, 
 			 {"link": ('router', 'printer'), "connection": "wired"}, 
-			 {"link": ('router', 'PC-desktop'), "connection": "wired"}
+			 {"link": ('router', 'PC-desktop'), "connection": "wired"} 
 	]
 
 	groups = ['network', 'internet', 'home-security-system', 'living-room']
@@ -180,7 +173,8 @@ def run():
 			st.session_state["hosts_dict"]["security-camera"] = {"name": "security-camera",
 						  					"ip_address": "192.168.1.12",
 						  					"groups": ["network", "home-security-system"],
-						  					"type": "device"}
+						  					"type": "device",
+											"loc": (3, 2)}
 			st.session_state["links"].append({"link": ('router', 'security-camera'), "connection": "wireless"})
 			ai_msg = "add device('security-camera') to group('network')\nadd device('security-camera') to group('home-security-system')\nset policy('camera-traffic') { \n" + indent + "allow traffic(device('security-camera'), [device('phone'), group('home-security-system')])\n" + indent + "allow traffic([device('phone'), group('home-security-system')], device('security-camera'))\n}"
 		elif config_request == "I want to create a new subnet for my home office devices. This should include my work laptop, printer, and my phone. Also, make sure this subnet has priority access to the bandwidth during office hours.":
@@ -200,7 +194,8 @@ def run():
 			st.session_state["hosts_dict"]["firewall"] = {"name": "firewall",
 									  "ip_address": "192.168.1.13",
 									  "groups": ["network"],
-									  "type": "firewall"}
+									  "type": "firewall",
+									  "loc": (0, 2)}
 			st.session_state["links"].remove({"link": ('internet', 'router'), "connection": "wired"})
 			st.session_state["links"].append({"link": ('internet', 'firewall'), "connection": "wired"})
 			st.session_state["links"].append({"link": ('firewall', 'router'), "connection": "wired"})
