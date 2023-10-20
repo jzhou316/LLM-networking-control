@@ -228,6 +228,8 @@ def run():
 
 	with image_container.container():
 		topology = {"hosts": st.session_state["hosts_dict"], "links": st.session_state["links"]}
+		print(topology)
+		print(group_colors)
 		draw_topology(topology, group_colors, node_shapes)
 
 	st.subheader("Network Status")
