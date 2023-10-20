@@ -226,8 +226,8 @@ def run():
 	with key_container.container():
 		draw_legend(group_colors)
 
-	topology = {"hosts": st.session_state["hosts_dict"], "links": st.session_state["links"]}
 	with image_container.container():
+		topology = {"hosts": st.session_state["hosts_dict"], "links": st.session_state["links"]}
 		draw_topology(topology, group_colors, node_shapes)
 
 	st.subheader("Network Status")
