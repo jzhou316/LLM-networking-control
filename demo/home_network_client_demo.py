@@ -189,6 +189,9 @@ def run():
 									  "ip-address": "192.168.1.12",
 									  "groups": ["network"],
 									  "type": "firewall"}
+			links.remove({"link": ('internet', 'router'), "connection": "wired"})
+			links.append({"link": ('internet', 'firewall'), "connection": "wired"})
+			links.append({"link": ('firewall', 'router'), "connection": "wired"})
 			ai_msg = "add middlebox('firewall') to group('network')\n" + "set policy('web-browsing-security') {\n" + indent + "for middlebox('firewall') {\n" + (indent * 2) + "allow traffic(group('network'), group('internet'))\n" + (indent * 2) + "block traffic(group('internet'), group('network'))\n" + indent + "}\n}"
 		else:
 			print(config_request)
