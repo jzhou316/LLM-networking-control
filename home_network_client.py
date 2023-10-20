@@ -136,6 +136,8 @@ def run():
 										break
 									f_entity, f_args = parsed_intent['to'][0]
 									groups = [home_network_pb2.Group(name=f_args[0])]
+									print("DEBUGGING")
+									print(groups)
 									new_host = stub.AddDevice(home_network_pb2.Host(name=args[0], groups=groups))
 								elif entity == 'group':
 									new_group = stub.AddGroup(home_network_pb2.Group(name=args[0]))
