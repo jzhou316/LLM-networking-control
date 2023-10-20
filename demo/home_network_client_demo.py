@@ -231,7 +231,7 @@ def run():
 		draw_topology(topology, group_colors, node_shapes)
 
 	st.subheader("Network Status")
-	st.write("Not implemented")
+	st.write(st.session_state)
 
 if __name__ == "__main__":
 	run()
