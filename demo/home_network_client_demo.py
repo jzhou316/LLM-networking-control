@@ -178,20 +178,20 @@ def run():
 						  					"type": "device",
 											"loc": (3, -2)}
 			st.session_state["links"].append({"link": ('router', 'security-camera'), "connection": "wireless"})
-			ai_msg = "add device('security-camera') to group('network')\nadd device('security-camera') to group('home-security-system')\nset policy('camera-traffic') { \n" + indent + "allow traffic(device('security-camera'), [device('phone'), group('home-security-system')])\n" + indent + "allow traffic([device('phone'), group('home-security-system')], device('security-camera'))\n}"
+			ai_msg = "add endpoint('security-camera') to group('network')\nadd endpoint('security-camera') to group('home-security-system')\nset policy('IoT Security Camera Traffic') { \n" + indent + "allow traffic(endpoint('security-camera'), [endpoint('phone'), group('home-security-system')])\n" + indent + "allow traffic([endpoint('phone'), group('home-security-system')], endpoint('security-camera'))\n}"
 		elif config_request == "I want to create a new subnet for my home office devices. This should include my work laptop, printer, and my phone. Also, make sure this subnet has priority access to the bandwidth during office hours.":
 			st.session_state["groups"].append('home-office')
 			st.session_state["hosts_dict"]["work-laptop"]["groups"].append("home-office")
 			st.session_state["hosts_dict"]["printer"]["groups"].append("home-office")
 			st.session_state["hosts_dict"]["phone"]["groups"].append("home-office")
-			ai_msg = "add group('home-office')\nadd device('work-laptop') to group('home-office')\nadd device('printer') to group('home office')\nadd device('phone') to group('home office')\nset policy('office hours') {\n" + indent + "for group('home office') {\n" + (indent * 2)  + "from hour('09:00') to hour('17:00')\n" + (indent * 2) + "set bandwidth('min', '100', 'mbps')\n" + indent + "}\n}"
+			ai_msg = "add group('home-office')\nadd endpoint('work-laptop') to group('home-office')\nadd endpoint('printer') to group('home office')\nadd endpoint('phone') to group('home office')\nset policy('Home Office Subnet') {\n" + indent + "for group('home office') {\n" + (indent * 2)  + "from hour('09:00') to hour('17:00')\n" + (indent * 2) + "set bandwidth('min', '100', 'mbps')\n" + indent + "}\n}"
 		elif config_request == "I want to set up a guest Wi-Fi network that should only provide internet access and nothing more. It should also have limited bandwidth because I don't want it to get in the way of my main network's performance.":
 			st.session_state["groups"].append('guest-network')
 			st.session_state["hosts_dict"]["guest-laptop-1"]["groups"].append("guest-network")
 			st.session_state["hosts_dict"]["guest-laptop-2"]["groups"].append("guest-network")
-			ai_msg = "add group('guest-network')\nadd device('guest-laptop-1') to group('guest-network')\nadd device('guest-laptop-2') to group('guest-network')\nset policy('guest bandwidth') {\n" + indent + "for group('guest-network') {\n" + (indent * 2) + "set bandwidth('max', '5', 'mbps')\n" + indent + "}\n}"
+			ai_msg = "add group('guest-network')\nadd endpoint('guest-laptop-1') to group('guest-network')\nadd endpoint('guest-laptop-2') to group('guest-network')\nset policy('Guest Wi-Fi Network Bandwidth') {\n" + indent + "for group('guest-network') {\n" + (indent * 2) + "set bandwidth('max', '5', 'mbps')\n" + indent + "}\n}"
 		elif config_request == "My child does a lot of online gaming and it seems to be slowing down the internet for everyone else. Can you limit the amount of internet he can use?":
-			ai_msg = "set policy('gaming bandwidth') {\n" + indent + "for device('gaming console') {\n" + (indent * 2) + "set bandwidth('max', '5', 'mbps')\n" + indent + "}\n}"
+			ai_msg = "set policy('Gaming Console Bandwidth') {\n" + indent + "for endpoint('gaming console') {\n" + (indent * 2) + "set bandwidth('max', '5', 'mbps')\n" + indent + "}\n}"
 		elif config_request == "I've been hearing a lot about cyber threats on the news lately. I want to browse the web safely, but I don't want any strangers connecting to my devices from the internet.":
 			st.session_state["hosts_dict"]["firewall"] = {"name": "firewall",
 									  "ip_address": "192.168.1.13",
@@ -202,7 +202,7 @@ def run():
 			st.session_state["links"].remove({"link": ('internet', 'router'), "connection": "wired"})
 			st.session_state["links"].append({"link": ('internet', 'firewall'), "connection": "wired"})
 			st.session_state["links"].append({"link": ('firewall', 'router'), "connection": "wired"})
-			ai_msg = "add middlebox('firewall') to group('network')\n" + "set policy('web-browsing-security') {\n" + indent + "for middlebox('firewall') {\n" + (indent * 2) + "allow traffic(group('network'), group('internet'))\n" + (indent * 2) + "block traffic(group('internet'), group('network'))\n" + indent + "}\n}"
+			ai_msg = "add middlebox('firewall') to group('network')\n" + "set policy('Web Browsing Security') {\n" + indent + "for middlebox('firewall') {\n" + (indent * 2) + "allow traffic(group('network'), endpoint('internet'))\n" + (indent * 2) + "block traffic(endpoint('internet'), group('network'))\n" + indent + "}\n}"
 		else:
 			print(config_request)
 
@@ -263,6 +263,12 @@ def run():
 			st.markdown(f"**Group: {group}**")
 			for device in devices:
 				st.markdown(f"&nbsp;&nbsp;&nbsp;&nbsp;- {device}")
+
+	with open('policies.txt', 'r') as file:
+		qos_policies = file.read()
+
+	with tab3:
+		st.markdown(qos_policies)
 
 if __name__ == "__main__":
 	run()
