@@ -1,0 +1,36 @@
+**QoS Policies**
+
+1. **IoT Security Camera: camera-traffic**
+   - *Description*: This policy ensures high-quality traffic management for the "security-camera" device.
+   - *Bandwidth Allocation*:
+     - Minimum Bandwidth: 5 Mbps
+     - Maximum Bandwidth: 20 Mbps
+   - *Traffic Rules*:
+     - Allow traffic from "security-camera" to "phone"
+     - Allow traffic from "security-camera" to devices within the "home-security-system" group
+     - Allow traffic from "phone" to "security-camera"
+     - Allow traffic from devices within the "home-security-system" group to "security-camera"
+
+2. **Home Office Subnet: office hours**
+   - *Description*: This policy prioritizes bandwidth during "office hours" for the "home-office" group.
+   - *Office Hours*:
+     - From: 09:00 AM
+     - To: 05:00 PM
+   - *Bandwidth Allocation During Office Hours*:
+     - Minimum Bandwidth: 100 Mbps
+
+3. **Guest Wi-Fi Network: guest bandwidth**
+   - *Description*: This policy restricts bandwidth for the "guest-network" group to avoid performance impact on the main network.
+   - *Bandwidth Limit*:
+     - Maximum Bandwidth: 5 Mbps
+
+4. **Gaming Console: gaming bandwidth**
+   - *Description*: This policy limits internet bandwidth usage for the "gaming console" device.
+   - *Bandwidth Limit*:
+     - Maximum Bandwidth: 5 Mbps
+
+5. **Web Browsing Security: web-browsing-security**
+   - *Description*: This policy enhances web browsing security by controlling traffic between the "network" group and the "internet."
+   - *Traffic Rules*:
+     - Allow traffic from "network" to "internet"
+     - Block traffic from "internet" to "network"
