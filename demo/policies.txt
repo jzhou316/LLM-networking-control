@@ -1,36 +1,35 @@
-**QoS Policies**
-
-1. **IoT Security Camera: camera-traffic**
-   - *Description*: This policy ensures high-quality traffic management for the "security-camera" device.
-   - *Bandwidth Allocation*:
-     - Minimum Bandwidth: 5 Mbps
-     - Maximum Bandwidth: 20 Mbps
+1. **IoT Security Camera Traffic**
+   - *Configuration*:
+     - A new device named "security-camera" with IP address "192.168.1.12" is added to the network.
+     - The device is assigned to the "network" and "home-security-system" groups.
+     - A wireless connection is established between the router and the "security-camera".
    - *Traffic Rules*:
-     - Allow traffic from "security-camera" to "phone"
-     - Allow traffic from "security-camera" to devices within the "home-security-system" group
-     - Allow traffic from "phone" to "security-camera"
-     - Allow traffic from devices within the "home-security-system" group to "security-camera"
+     - Allow traffic between the "security-camera" device and devices within the "home-security-group" in both directions.
+     - Allow traffic between the "security-camera" device and the "phone" device" in both directions.
 
-2. **Home Office Subnet: office hours**
-   - *Description*: This policy prioritizes bandwidth during "office hours" for the "home-office" group.
-   - *Office Hours*:
-     - From: 09:00 AM
-     - To: 05:00 PM
-   - *Bandwidth Allocation During Office Hours*:
-     - Minimum Bandwidth: 100 Mbps
+2. **Home Office Subnet**
+   - *Configuration*:
+     - A new group named "home-office" is added to the network.
+     - The devices "work-laptop", "printer", and "phone" are assigned to the "home-office" group.
+   - *Bandwidth Rules*:
+     - Prioritize bandwidth for devices in the "home-office" group during office hours (from 09:00 AM to 05:00 PM) with a minimum bandwidth of 100 Mbps.
 
-3. **Guest Wi-Fi Network: guest bandwidth**
-   - *Description*: This policy restricts bandwidth for the "guest-network" group to avoid performance impact on the main network.
-   - *Bandwidth Limit*:
-     - Maximum Bandwidth: 5 Mbps
+3. **Guest Wi-Fi Network Bandwidth**
+   - *Configuration*:
+     - A new group named "guest-network" is added to the network.
+     - The devices "guest-laptop-1" and "guest-laptop-2" are assigned to the "guest-network" group.
+   - *Bandwidth Rules*:
+     - Limit the maximum bandwidth for devices in the "guest-network" group to 5 Mbps, ensuring it does not impact the main network's performance. 
 
-4. **Gaming Console: gaming bandwidth**
-   - *Description*: This policy limits internet bandwidth usage for the "gaming console" device.
-   - *Bandwidth Limit*:
-     - Maximum Bandwidth: 5 Mbps
+4. **Gaming Console Bandwidth**
+   - *Bandwidth Rules*:
+     - Limit the maximum bandwidth for the "gaming console" device to 5 Mbps to prevent it from consuming excessive internet bandwidth.
 
-5. **Web Browsing Security: web-browsing-security**
-   - *Description*: This policy enhances web browsing security by controlling traffic between the "network" group and the "internet."
+5. **Web Browsing Security**
+   - *Configuration*:
+     - A new middlebox named "firewall" with IP address "192.168.1.13" is added to the network.
+     - The device is assigned to the "network" group.
+     - A wired connection is established between the "firewall" and the router.
    - *Traffic Rules*:
-     - Allow traffic from "network" to "internet"
-     - Block traffic from "internet" to "network"
+     - Establishes ACL rule in the firewall that block any unsolicited TCP traffic from the internet to your home network.
+     - Establishes ACL rule in the firewall that permit any TCP traffic from your home network to the internet. 

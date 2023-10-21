@@ -266,6 +266,9 @@ def run():
 
 	with open('policies.txt', 'r') as file:
 		qos_policies = file.read()
+	
+	qos_policies = re.split(r'\d+\.', markdown_string)[1:]
+	print(qos_policies)
 
 	with tab3:
 		st.markdown(qos_policies)
