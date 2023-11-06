@@ -17,6 +17,6 @@
     },
     {
         "query": "I want to create a new subnet for my home office devices. This should include my work laptop, printer, and my phone. Also, make sure this subnet has priority access to the bandwidth during office hours.",
-        "answer": "add device('work laptop') to group('home office')\n add device('printer') to group('home office')\n add device('phone') to group('home office')\n set policy('office hours') {\n for group('home office') {\n from hour('09:00') to hour('17:00')\n set bandwidth('min', '100', 'mbps')\n }\n }"
+        "answer": "add device('work laptop') to group('home office')\n add device('printer') to group('home office')\n add device('phone') to group('home office')\n set policy('office hours') {\n for group('home office') {\n from hour('09:00') to hour('17:00')\n set bandwidth('min', '100', 'mbps')}}"
     }
 ]
