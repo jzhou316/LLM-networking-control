@@ -28,7 +28,7 @@ def parse_intent(intent: str):
     return parsed_intents
 
 def main():
-    print(parse_intent("remove endpoint('printer') from group('network')\nadd endpoint('printer') to group('network')"))
+    print(parse_intent("add group('living-room')"))
 
 if __name__ == "__main__":
     main()
