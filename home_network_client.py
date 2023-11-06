@@ -154,8 +154,9 @@ def run():
 					else:
 						print("Unable to parse Nile")
 					print(parsed_intent)
-		except:
+		except Exception as error:
 			print("Unable to Implement Nile")
+			print(error)
 
 		stub.StartNetwork(home_network_pb2.Empty())
 
