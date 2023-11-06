@@ -85,31 +85,31 @@ class Chat:
                 print("\033[32m\033[1mAI:\033[0m")
                 print(ai_message)
 
-def parse_intent(intent: str):
-    # Define entities and operations
-    entities = ['endpoint', 'link', 'group', 'policy']
-    operations = ['add', 'remove', 'for', 'set', 'from', 'to']
+    def parse_intent(intent: str):
+        # Define entities and operations
+        entities = ['endpoint', 'link', 'group', 'policy']
+        operations = ['add', 'remove', 'for', 'set', 'from', 'to']
 
-    # Split the intent into expressions
-    expressions = intent.split('\n')
+        # Split the intent into expressions
+        expressions = intent.split('\n')
 
-    # For each expression, split into operation and entity
-    parsed_intents = []
-    for expr in expressions:
-        parsed_intent = {}
-        words = expr.split(' ')
-        current_key = ''
-        entity_args = []
-        for word in words:
-            if word in operations:
-                current_key = word
-            else:
-                entity_args = re.findall(r"(\w+)\(\'(.*?)\'\)", word)
-            if current_key != '' and len(entity_args) > 0:
-                parsed_intent[current_key] = [entity_args[0]]
-                current_key = ''
-        parsed_intents.append(parsed_intent)
-    return parsed_intents
+        # For each expression, split into operation and entity
+        parsed_intents = []
+        for expr in expressions:
+            parsed_intent = {}
+            words = expr.split(' ')
+            current_key = ''
+            entity_args = []
+            for word in words:
+                if word in operations:
+                    current_key = word
+                else:
+                    entity_args = re.findall(r"(\w+)\(\'(.*?)\'\)", word)
+                if current_key != '' and len(entity_args) > 0:
+                    parsed_intent[current_key] = [entity_args[0]]
+                    current_key = ''
+            parsed_intents.append(parsed_intent)
+        return parsed_intents
 
     def get_chat_history(self):
         return self.chat_history
