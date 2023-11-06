@@ -10,5 +10,9 @@
     {
         "query": "Please make sure that the bandwidth between the router and the laptop is limited to just 10 mbps",
         "answer": "set policy('Bandwidth Limit for Router-Laptop') {\n from endpoint('router') to endpoint('laptop') {\n set bandwidth('max', '10', 'mbps')}}"
+    },
+    {
+        "query": "I have a new smart sensor that I want to isolate from the rest of the network. Ensure that it can communicate only with the designated smart home hub. The policy allows the smart sensor to interact solely with the smart home hub.",
+        "answer": "set policy('Smart Sensor Isolation') {\n for device('smart sensor') {\n allow traffic(device('smart sensor'), device('smart home hub')) \n block traffic(device('smart sensor'), group('network'))}}"
     }
 ]
