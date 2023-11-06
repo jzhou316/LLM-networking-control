@@ -85,7 +85,7 @@ class Chat:
                 print("\033[32m\033[1mAI:\033[0m")
                 print(ai_message)
 
-    def parse_intent(intent: str):
+    def parse_intent(self, intent: str):
         # Define entities and operations
         entities = ['endpoint', 'link', 'group', 'policy']
         operations = ['add', 'remove', 'for', 'set', 'from', 'to']
