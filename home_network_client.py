@@ -116,16 +116,17 @@ def run():
 			key_container = st.empty()
 
 		# Check the configuration request and process it
-		try:
-			if config_request:
-				print(f"Config request checked: {config_request}")
-				if config_request == "exit":
-					stub.StopNetwork(home_network_pb2.Empty())
-					sys.exit(0)
-				else:
-					nile = chat.query(config_request)
-					parsed_intents = chat.parse_intent(nile)
-					for parsed_intent in parsed_intents:
+		if config_request:
+			print(f"Config request checked: {config_request}")
+			if config_request == "exit":
+				stub.StopNetwork(home_network_pb2.Empty())
+				sys.exit(0)
+			else:
+				nile = chat.query(config_request)
+				parsed_intents = chat.parse_intent(nile)
+				print(parsed_intents)
+				for parsed_intent in parsed_intents:
+					try:
 						if 'add' in parsed_intent.keys():
 							image_container.empty()
 							for entity, args in parsed_intent['add']:
@@ -155,9 +156,9 @@ def run():
 						else:
 							print("Unable to parse Nile")
 						print(parsed_intent)
-		except Exception as error:
-			print("Unable to Implement Nile")
-			print(error)
+					except Exception as error:
+						print("Unable to Implement Nile")
+						print(error)
 
 		stub.StartNetwork(home_network_pb2.Empty())
 
