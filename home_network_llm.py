@@ -103,6 +103,7 @@ class Chat:
             for word in words:
                 if word in operations:
                     current_key = word
+                    continue
                 else:
                     entity_args = re.findall(r"(\w+)\(\'(.*?)\'\)", word)
                 if current_key != '' and len(entity_args) > 0:
