@@ -78,17 +78,17 @@ def run():
 	chat = Chat()
 	with grpc.insecure_channel('localhost:50051') as channel:
 		# Streamlit application components
+		st.set_page_config(page_title="Home Network Simulation", layout="wide")
+		st.title("Home Network Simulation")
 		st.markdown("""
 					<style>
 						.block-container {
-							padding-top: 0.2rem;
-							padding-bottom: 0rem;
-							padding-left: 0.2rem;
-							padding-right: 0.2rem;
-						}
+							padding-top: 2rem;
+							padding-bottom: 2rem;
+							padding-left: 1rem;
+							padding-right: 1rem;
 					</style>
 					""", unsafe_allow_html=True)
-		st.title("Home Network Simulation")
 		st.markdown("This simulation interface is designed to help you configure a home network using natural language. Talk to your network in the left side panel and see the changes in real-time.")
 		col1, col2 = st.columns([6, 1])
 
@@ -176,8 +176,19 @@ def run():
 
 		chat_history = chat.get_chat_history()
 		for user_msg, ai_msg in chat_history.items():
-			st.sidebar.chat_message("user").write(user_msg)
-			st.sidebar.chat_message("assistant").write(ai_msg)
+			with st.sidebar.chat_message("user"):
+				st.markdown(user_msg)
+
+			with st.sidebar.chat_message("assistant"):
+				st.code(ai_msg, language="None")
+
+		st.markdown("""
+					<style>
+						code {
+							font-size: smaller !important;
+						}
+					</style>
+					""", unsafe_allow_html=True)
 
 if __name__ == "__main__":
 	run()
