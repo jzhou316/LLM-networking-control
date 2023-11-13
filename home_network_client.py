@@ -56,7 +56,7 @@ def draw_topology(topology, group_colors):
 		idx = 0
 		for group in group_colors.keys():
 			if group in groups:
-				ax.plot(pos[node][0] + distances[idx], pos[node][1] - (distance * 2), color=group_colors[group], marker='o', markersize=NODE_SIZE/500)
+				ax.plot(pos[node][0] + 0.33 * distances[idx], pos[node][1] - (distance * 2), color=group_colors[group], marker='o', markersize=NODE_SIZE/500)
 				idx += 1
 
 	# Show the graph
@@ -134,7 +134,7 @@ def run():
 							new_host = stub.RemoveDevice(home_network_pb2.Host(name=parsed_intent['endpoint'], groups=target_groups))
 						if 'operation' in parsed_intent.keys() and parsed_intent['operation'] == "add_group":
 							new_group = stub.AddGroup(home_network_pb2.Group(name=parsed_intent['group']))
-						if 'operation' in parsed_intent.keys() and parsed_intent['operation'] == "add_group":
+						if 'operation' in parsed_intent.keys() and parsed_intent['operation'] == "remove_group":
 							new_group = stub.RemoveGroup(home_network_pb2.Group(name=parsed_intent['group']))
 					except Exception as error:
 						print("Unable to Implement Nile")
