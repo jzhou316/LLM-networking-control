@@ -93,23 +93,20 @@ class Chat:
         # Split the intent into expressions
         expressions = intent.split('\n')
 
-        # For each expression, split into operation and entity
+        # Regex pattern to match operation, entity, and arguments while respecting spaces within parentheses
+        pattern = r"(" + '|'.join(op for op in operations) + r")\s+(\w+)\('([^']+)'\)"
+
+        # Find all matches
+        matches = re.findall(pattern, intent)
+
+        # For each match, create the appropriate dictionary entry
         parsed_intents = []
-        for expr in expressions:
-            parsed_intent = {}
-            words = expr.split(' ')
-            current_key = ''
-            entity_args = []
-            for word in words:
-                if word in operations:
-                    current_key = word
-                    continue
-                else:
-                    entity_args = re.findall(r"(\w+)\(\'(.*?)\'\)", word)
-                if current_key != '' and len(entity_args) > 0:
-                    parsed_intent[current_key] = [entity_args[0]]
-                    current_key = ''
+        for match in matches:
+            operation, entity, argument = match
+            print(operation, entity, argument)
+            parsed_intent = {operation: [(entity, argument)]}
             parsed_intents.append(parsed_intent)
+
         return parsed_intents
 
     def get_chat_history(self):
