@@ -3,14 +3,16 @@ import re
 def parse_intent(intent: str):
     # Split the intent into individual operations or policies
     statements = re.split(r';\n', intent)
+    intents = []
 
     for statement in statements:
         if statement.startswith('add') or statement.startswith('remove'):
-            return parse_operation(statement)
+            intents.append(parse_operation(statement))
         elif statement.startswith('set') or statement.startswith('allow') or statement.startswith('block'):
-            return parse_policy(statement)
+            intents.append(parse_policy(statement))
         else:
-            print(f"Invalid Nile: {intent}")
+            intents.append({})
+    return intents
 
 def parse_operation(operation_statement: str):
     add_endpoint = re.match(r"add endpoint\('([^']+)'\) to group\('([^']+)'\)", operation_statement)
@@ -51,7 +53,6 @@ def parse_operation(operation_statement: str):
     return result_dict
 
 def parse_policy(policy_statement: str):
-    # for link\('endpoint\('([^']+)'\)'\, 'endpoint\('([^']+)'\)'\)({from hour\((\d{2}:\d{2})\) to hour\((\d{2}:\d{2})\)})?
     time_interval = re.search(r"start hour\('(\d{2}:\d{2})'\) end hour\('(\d{2}:\d{2})'\)", policy_statement)
     set_bandwidth_link = re.match(r"set bandwidth\(('max'|'min'), (\d+), ('gbps'|'mbps')\) for link\(endpoint\('([^']+)'\), endpoint\('([^']+)'\)\)(?: ?)", policy_statement)
     set_bandwidth_endpoint = re.match(r"set bandwidth\(('max'|'min'), (\d+), ('gbps'|'mbps')\) for endpoint\('([^']+)'\)(?: ?)", policy_statement)
@@ -114,7 +115,7 @@ def parse_policy(policy_statement: str):
 
 
 def main():
-    ans = parse_intent("set bandwidth('max', 4, 'mbps') for endpoint('hi') start hour('15:00') end hour('20:00')")
+    ans = parse_intent("set bandwidth('max', 4, 'mbps') for endpoint('hi') start hour('15:00') end hour('20:00');\nset bandwidth('max', 4, 'mbps') for endpoint('hi') start hour('15:00') end hour('20:00');")
     print(ans)
 
 if __name__ == "__main__":

@@ -179,6 +179,14 @@ class HomeNetworkServicer(home_network_pb2_grpc.HomeNetworkServicer):
 	def AddGroup(self, request, context):
 		self.group_to_host[request.name] = []
 		return home_network_pb2.Empty()
+	
+	# Add a new group to the network
+	def RemoveGroup(self, request, context):
+		self.group_to_host.remove(request.name)
+		for key, val in self.host_to_group:
+			if request.name in val:
+				val.remove(request.name)
+		return home_network_pb2.Empty()
 
 def serve():
 	server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

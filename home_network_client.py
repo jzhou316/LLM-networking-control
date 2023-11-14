@@ -124,29 +124,18 @@ def run():
 			else:
 				nile = chat.query(config_request)
 				parsed_intents = chat.parse_intent(nile)
-				print(parsed_intents)
 				for parsed_intent in parsed_intents:
 					try:
-						if 'add' in parsed_intent.keys():
-							image_container.empty()
-							if parsed_intent['add'][0][0] == 'endpoint':
-								target = parsed_intent['add'][0][1]
-								target_groups = [home_network_pb2.Group(name=parsed_intent['to'][0][1])]
-								new_host = stub.AddDevice(home_network_pb2.Host(name=target, groups=target_groups))
-							elif parsed_intent['add'][0][0] == 'group':
-								group = parsed_intent['add'][0][1]
-								new_group = stub.AddGroup(home_network_pb2.Group(name=group))
-						elif 'remove' in parsed_intent.keys():
-							image_container.empty()
-							if parsed_intent['remove'][0][0] == 'endpoint':
-								target = parsed_intent['remove'][0][1]
-								target_groups = [home_network_pb2.Group(name=parsed_intent['from'][0][1])]
-								new_host = stub.RemoveDevice(home_network_pb2.Host(name=target, groups=target_groups))
-						elif 'set' in parsed_intent.keys():
-							print("not implemented")
-						else:
-							print("Unable to parse Nile")
-						print(parsed_intent)
+						if 'operation' in parsed_intent.keys() and parsed_intent['operation'] == "add_endpoint":
+							target_groups = [home_network_pb2.Group(name=parsed_intent['group'])]
+							new_host = stub.AddDevice(home_network_pb2.Host(name=parsed_intent['endpoint'], groups=target_groups))
+						if 'operation' in parsed_intent.keys() and parsed_intent['operation'] == "remove_endpoint":
+							target_groups = [home_network_pb2.Group(name=parsed_intent['group'])]
+							new_host = stub.RemoveDevice(home_network_pb2.Host(name=parsed_intent['endpoint'], groups=target_groups))
+						if 'operation' in parsed_intent.keys() and parsed_intent['operation'] == "add_group":
+							new_group = stub.AddGroup(home_network_pb2.Group(name=parsed_intent['group']))
+						if 'operation' in parsed_intent.keys() and parsed_intent['operation'] == "add_group":
+							new_group = stub.RemoveGroup(home_network_pb2.Group(name=parsed_intent['group']))
 					except Exception as error:
 						print("Unable to Implement Nile")
 						print(error)
