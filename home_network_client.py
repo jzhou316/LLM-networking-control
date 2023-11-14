@@ -155,7 +155,7 @@ def run():
 			draw_topology(topology, group_colors)
 
 		st.subheader("Network Status")
-		st.write("Not implemented")
+		tab1, tab2, tab3, tab4 = st.tabs(["Device Information", "Groups (Subnets)", "QoS Policies", "Security Policies"])
 
 		chat_history = chat.get_chat_history()
 		for user_msg, ai_msg in chat_history.items():
