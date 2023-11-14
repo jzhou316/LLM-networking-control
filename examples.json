@@ -1,26 +1,26 @@
 [
     {
-        "query": "Hi, can you add a new camera to the living room?",
-        "answer": "add endpoint('camera') to endpoint('living-room')"
+        "query": "Hi, can you add a new camera and a new phone to the living room?",
+        "answer": "add endpoint('camera') to group('living room');\n add endpoint('camera') to group('living room');"
     }, 
     {
-        "query": "I would like to disconnect the printer from my home.",
-        "answer": "remove endpoint('printer') from group('network')"
+        "query": "I would like to disconnect the printer from my laptop.",
+        "answer": "remove link(endpoint('printer'), endpoint('laptop'));"
     },
     {
         "query": "Please make sure that the bandwidth between the router and the laptop is limited to just 10 mbps",
-        "answer": "set policy('Bandwidth Limit for Router-Laptop') {{\n\tfrom endpoint('router') to endpoint('laptop') {{\n\tset bandwidth('max', '10', 'mbps')\n\t}}\n}}"
+        "answer": "set bandwidth('max', '10', 'mbps') for link(endpoint('router'), endpoint('laptop'));"
     },
     {
         "query": "I have a new smart sensor that I want to isolate from the rest of the network. Ensure that it can communicate only with the designated smart home hub. The policy allows the smart sensor to interact solely with the smart home hub.",
-        "answer": "set policy('Smart-Sensor-Isolation') {{\nfor device('smart-sensor') {{\n\tallow traffic(device('smart-sensor'), device('smart-home-hub')) \n\tblock traffic(device('smart-sensor'), group('network'))\n\t}}\n}}"
+        "answer": "add endpoint('smart sensor') to group('network');\n block traffic('any') from endpoint('smart sensor') to group('network');\n allow traffic('any') from endpoint('smart sensor') to endpoint('smart home hub');"
     },
     {
-        "query": "I want to create a new subnet for my home office devices. This should include my work laptop, printer, and my phone. Also, make sure this subnet has priority access to the bandwidth during office hours.",
-        "answer": "add device('work-laptop') to group('home-office')\nadd device('printer') to group('home-office')\nadd device('phone') to group('home-office')\nset policy('office hours') {{\n\tfor group('home-office') {{\n\tfrom hour('09:00') to hour('17:00')\n\tset bandwidth('min', '100', 'mbps')\n\t}}\n}}"
+        "query": "I want to create a new subnet for my home office devices. This should include my work laptop, printer, and my phone. Also, make sure this subnet has priority access to the bandwidth during work hours.",
+        "answer": "add device('work laptop') to group('home office');\n add device('printer') to group('home office');\n add device('phone') to group('home office')\n; set bandwidth('min', '100', 'mbps') for group('home office') start hour('09:00') end hour('17:00');" 
     },
     {
         "query": "I've got a new IoT security camera that I want to connect to my network. It should only interact with my phone and the home security system.",
-        "answer": "add device('security-camera') to group('network')\nadd device('security-camera') to group('home-security-system')\nset policy('camera-traffic') {{\n\tallow traffic(device('security-camera'), [device('phone'), group('home-security-system')])\n\tallow traffic([device('phone'), group('home-security-system')], device('security-camera'))\n}}"
+        "answer": "add device('security camera') to group('network');\n add device('security camera') to group('home security system');\n allow traffic('any') from endpoint('phone') to group('home security system');"
     }
 ]
