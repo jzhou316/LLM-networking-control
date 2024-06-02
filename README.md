@@ -14,7 +14,8 @@ Our goal is to leverage LLMs to perform network configuration. Specifically, thi
 
 We use OpenAI's off-the-shelf GPT-4 model for all LLM agents. Instructions are provided to the agents via prompting. 
 
-We evaluate this system on a dataset of 13 NL utterances collected from Cisco SONiC engineers. The LLM generations are evaluated for the following criteria: 
+We evaluate this system on a dataset of 13 NL utterances collected from Cisco SONiC engineers. The NL utterances encompass a variety of traditional networking tasks, including IP, BGP, OSPF, ACL, Port Channel, VXLAN, and QoS configurations. The LLM generations are evaluated for the following criteria: 
+
 - were the correct YANG modules selected?
 - does it correctly identify the parts of the config files that need to be changed? (to-do)
 - does the final configuration file compile? (when loaded onto the switch devices)
