@@ -9934,5 +9934,407 @@
                 "sonic_yang(3):failed to parse data tree: Duplicate instance of \"INTERFACE\".\n"
             ]
         ]
+    },
+    {
+        "nl_request": "Configure connected interfaces between leaf and spine devices in separate class A IP network segments. Configure each leaf connected to the end-hosts appropriately so there is no conflict in IP addressing done for interfaces between leaf and spine devices.",
+        "yang_config": [
+            {
+                "device": "S0",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-interface:sonic-interface",
+                            "sonic-interface:INTERFACE",
+                            "INTERFACE_LIST"
+                        ],
+                        "value": {
+                            "name": "Ethernet104"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-interface:sonic-interface",
+                            "sonic-interface:INTERFACE",
+                            "INTERFACE_LIST"
+                        ],
+                        "value": {
+                            "name": "Ethernet108"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-interface:sonic-interface",
+                            "sonic-interface:INTERFACE",
+                            "INTERFACE_IPPREFIX_LIST"
+                        ],
+                        "value": {
+                            "name": "Ethernet104",
+                            "ip-prefix": "10.1.1.1/30"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-interface:sonic-interface",
+                            "sonic-interface:INTERFACE",
+                            "INTERFACE_IPPREFIX_LIST"
+                        ],
+                        "value": {
+                            "name": "Ethernet108",
+                            "ip-prefix": "10.1.2.1/30"
+                        }
+                    },
+                    {
+                        "action": "remove",
+                        "path": [
+                            "sonic-bgp:sonic-bgp",
+                            "sonic-bgp:BGP_NEIGHBOR",
+                            "BGP_NEIGHBOR_LIST"
+                        ],
+                        "value": {
+                            "neighbor-address": "10.0.1.2"
+                        }
+                    },
+                    {
+                        "action": "remove",
+                        "path": [
+                            "sonic-bgp:sonic-bgp",
+                            "sonic-bgp:BGP_NEIGHBOR",
+                            "BGP_NEIGHBOR_LIST"
+                        ],
+                        "value": {
+                            "neighbor-address": "10.0.2.2"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp:sonic-bgp",
+                            "sonic-bgp:BGP_NEIGHBOR",
+                            "BGP_NEIGHBOR_LIST"
+                        ],
+                        "value": {
+                            "neighbor-address": "10.1.1.2",
+                            "remote-as": 200
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp:sonic-bgp",
+                            "sonic-bgp:BGP_NEIGHBOR",
+                            "BGP_NEIGHBOR_LIST"
+                        ],
+                        "value": {
+                            "neighbor-address": "10.1.2.2",
+                            "remote-as": 200
+                        }
+                    }
+                ]
+            },
+            {
+                "device": "S1",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-interface:sonic-interface",
+                            "sonic-interface:INTERFACE",
+                            "INTERFACE_LIST"
+                        ],
+                        "value": {
+                            "name": "Ethernet104"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-interface:sonic-interface",
+                            "sonic-interface:INTERFACE",
+                            "INTERFACE_LIST"
+                        ],
+                        "value": {
+                            "name": "Ethernet108"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-interface:sonic-interface",
+                            "sonic-interface:INTERFACE",
+                            "INTERFACE_IPPREFIX_LIST"
+                        ],
+                        "value": {
+                            "name": "Ethernet104",
+                            "ip-prefix": "10.1.3.1/30"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-interface:sonic-interface",
+                            "sonic-interface:INTERFACE",
+                            "INTERFACE_IPPREFIX_LIST"
+                        ],
+                        "value": {
+                            "name": "Ethernet108",
+                            "ip-prefix": "10.1.4.1/30"
+                        }
+                    },
+                    {
+                        "action": "remove",
+                        "path": [
+                            "sonic-bgp:sonic-bgp",
+                            "sonic-bgp:BGP_NEIGHBOR",
+                            "BGP_NEIGHBOR_LIST"
+                        ],
+                        "value": {
+                            "neighbor-address": "10.0.3.2"
+                        }
+                    },
+                    {
+                        "action": "remove",
+                        "path": [
+                            "sonic-bgp:sonic-bgp",
+                            "sonic-bgp:BGP_NEIGHBOR",
+                            "BGP_NEIGHBOR_LIST"
+                        ],
+                        "value": {
+                            "neighbor-address": "10.0.4.2"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp:sonic-bgp",
+                            "sonic-bgp:BGP_NEIGHBOR",
+                            "BGP_NEIGHBOR_LIST"
+                        ],
+                        "value": {
+                            "neighbor-address": "10.1.3.2",
+                            "remote-as": 200
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp:sonic-bgp",
+                            "sonic-bgp:BGP_NEIGHBOR",
+                            "BGP_NEIGHBOR_LIST"
+                        ],
+                        "value": {
+                            "neighbor-address": "10.1.4.2",
+                            "remote-as": 200
+                        }
+                    }
+                ]
+            },
+            {
+                "device": "L0",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-interface:sonic-interface",
+                            "sonic-interface:INTERFACE",
+                            "INTERFACE_LIST"
+                        ],
+                        "value": {
+                            "name": "Ethernet104"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-interface:sonic-interface",
+                            "sonic-interface:INTERFACE",
+                            "INTERFACE_LIST"
+                        ],
+                        "value": {
+                            "name": "Ethernet108"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-interface:sonic-interface",
+                            "sonic-interface:INTERFACE",
+                            "INTERFACE_IPPREFIX_LIST"
+                        ],
+                        "value": {
+                            "name": "Ethernet104",
+                            "ip-prefix": "10.1.1.2/30"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-interface:sonic-interface",
+                            "sonic-interface:INTERFACE",
+                            "INTERFACE_IPPREFIX_LIST"
+                        ],
+                        "value": {
+                            "name": "Ethernet108",
+                            "ip-prefix": "10.1.3.2/30"
+                        }
+                    },
+                    {
+                        "action": "remove",
+                        "path": [
+                            "sonic-bgp:sonic-bgp",
+                            "sonic-bgp:BGP_NEIGHBOR",
+                            "BGP_NEIGHBOR_LIST"
+                        ],
+                        "value": {
+                            "neighbor-address": "10.0.1.1"
+                        }
+                    },
+                    {
+                        "action": "remove",
+                        "path": [
+                            "sonic-bgp:sonic-bgp",
+                            "sonic-bgp:BGP_NEIGHBOR",
+                            "BGP_NEIGHBOR_LIST"
+                        ],
+                        "value": {
+                            "neighbor-address": "10.0.3.1"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp:sonic-bgp",
+                            "sonic-bgp:BGP_NEIGHBOR",
+                            "BGP_NEIGHBOR_LIST"
+                        ],
+                        "value": {
+                            "neighbor-address": "10.1.1.1",
+                            "remote-as": 100
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp:sonic-bgp",
+                            "sonic-bgp:BGP_NEIGHBOR",
+                            "BGP_NEIGHBOR_LIST"
+                        ],
+                        "value": {
+                            "neighbor-address": "10.1.3.1",
+                            "remote-as": 100
+                        }
+                    }
+                ]
+            },
+            {
+                "device": "L1",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-interface:sonic-interface",
+                            "sonic-interface:INTERFACE",
+                            "INTERFACE_LIST"
+                        ],
+                        "value": {
+                            "name": "Ethernet104"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-interface:sonic-interface",
+                            "sonic-interface:INTERFACE",
+                            "INTERFACE_LIST"
+                        ],
+                        "value": {
+                            "name": "Ethernet108"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-interface:sonic-interface",
+                            "sonic-interface:INTERFACE",
+                            "INTERFACE_IPPREFIX_LIST"
+                        ],
+                        "value": {
+                            "name": "Ethernet104",
+                            "ip-prefix": "10.1.2.2/30"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-interface:sonic-interface",
+                            "sonic-interface:INTERFACE",
+                            "INTERFACE_IPPREFIX_LIST"
+                        ],
+                        "value": {
+                            "name": "Ethernet108",
+                            "ip-prefix": "10.1.4.2/30"
+                        }
+                    },
+                    {
+                        "action": "remove",
+                        "path": [
+                            "sonic-bgp:sonic-bgp",
+                            "sonic-bgp:BGP_NEIGHBOR",
+                            "BGP_NEIGHBOR_LIST"
+                        ],
+                        "value": {
+                            "neighbor-address": "10.0.2.1"
+                        }
+                    },
+                    {
+                        "action": "remove",
+                        "path": [
+                            "sonic-bgp:sonic-bgp",
+                            "sonic-bgp:BGP_NEIGHBOR",
+                            "BGP_NEIGHBOR_LIST"
+                        ],
+                        "value": {
+                            "neighbor-address": "10.0.4.1"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp:sonic-bgp",
+                            "sonic-bgp:BGP_NEIGHBOR",
+                            "BGP_NEIGHBOR_LIST"
+                        ],
+                        "value": {
+                            "neighbor-address": "10.1.2.1",
+                            "remote-as": 100
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp:sonic-bgp",
+                            "sonic-bgp:BGP_NEIGHBOR",
+                            "BGP_NEIGHBOR_LIST"
+                        ],
+                        "value": {
+                            "neighbor-address": "10.1.4.1",
+                            "remote-as": 100
+                        }
+                    }
+                ]
+            }
+        ],
+        "yang_modules": [
+            "sonic-port",
+            "sonic-interface",
+            "sonic-device_metadata"
+        ],
+        "yang_status": true,
+        "latency": 176.92733907699585,
+        "iterations": 1,
+        "comments": null
     }
 ]
