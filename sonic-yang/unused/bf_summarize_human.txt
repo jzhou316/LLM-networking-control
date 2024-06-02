@@ -1,0 +1,5 @@
+As a reminder, this was the configuration request:
+{request}
+
+Please reduce the length of the following:
+{output}

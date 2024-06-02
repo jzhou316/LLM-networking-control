@@ -1,0 +1,71 @@
+{
+    "sonic-acl:sonic-acl": {
+        "sonic-acl:ACL_TABLE": {
+            "ACL_TABLE_LIST": [
+                {
+                    "ACL_TABLE_NAME": "ACL_TABLE1",
+                    "policy_desc": "Filter for directly connected subnets",
+                    "type": "L3",
+                    "ports": [
+                        "Ethernet0"
+                    ],
+                    "stage": "ingress"
+                },
+                {
+                    "ACL_TABLE_NAME": "ACL_TABLE2",
+                    "policy_desc": "Filter for directly connected subnets",
+                    "type": "L3",
+                    "ports": [
+                        "Ethernet0"
+                    ],
+                    "stage": "egress"
+                }
+            ]
+        },
+        "sonic-acl:ACL_RULE": {
+            "ACL_RULE_LIST": [
+                {
+                    "ACL_TABLE_NAME": "ACL_TABLE1",
+                    "RULE_NAME": "1",
+                    "PRIORITY": 100,
+                    "SRC_IP": "10.0.1.0/24",
+                    "PACKET_ACTION": "FORWARD"
+                },
+                {
+                    "ACL_TABLE_NAME": "ACL_TABLE1",
+                    "RULE_NAME": "2",
+                    "PRIORITY": 100,
+                    "SRC_IP": "10.0.2.0/24",
+                    "PACKET_ACTION": "FORWARD"
+                },
+                {
+                    "ACL_TABLE_NAME": "ACL_TABLE1",
+                    "RULE_NAME": "999",
+                    "PRIORITY": 999,
+                    "PACKET_ACTION": "DROP"
+                },
+                {
+                    "ACL_TABLE_NAME": "ACL_TABLE2",
+                    "RULE_NAME": "1",
+                    "PRIORITY": 100,
+                    "DST_IP": "10.0.1.0/24",
+                    "PACKET_ACTION": "FORWARD"
+                },
+                {
+                    "ACL_TABLE_NAME": "ACL_TABLE2",
+                    "RULE_NAME": "2",
+                    "PRIORITY": 100,
+                    "DST_IP": "10.0.2.0/24",
+                    "PACKET_ACTION": "FORWARD"
+                },
+                {
+                    "ACL_TABLE_NAME": "ACL_TABLE2",
+                    "RULE_NAME": "999",
+                    "PRIORITY": 999,
+                    "PACKET_ACTION": "DROP"
+                }
+            ]
+        }
+    }
+}
+

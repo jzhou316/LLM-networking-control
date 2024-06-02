@@ -1,0 +1,177 @@
+import grpc
+import sys
+import re
+import time
+import streamlit as st
+import networkx as nx
+import matplotlib
+import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+from matplotlib.lines import Line2D
+import home_network_pb2
+import home_network_pb2_grpc
+from home_network_llm import Chat
+
+# Takes a Topology protobuf object, extracts the nodes and links, and draws it using NetworkX
+def draw_topology(topology, group_colors):
+	NODE_SIZE = 1500
+	# Create an empty graph
+	G = nx.Graph()
+
+	# Add devices as nodes to the graph
+	for node in topology.hosts:
+		label = node.name + "\n" + node.ip_address
+		G.add_node(node.name, ip_addr=node.ip_address, label=label, groups=node.groups)
+
+	# Add edges between existing nodes
+	connections = []
+
+	for link in topology.links:
+		host1 = link.host1.name
+		host2 = link.host2.name
+		connections.append((host1, host2))
+
+	G.add_edges_from(connections)
+
+	# Visualize the network
+	pos = nx.spring_layout(G, seed=42)
+	plt.figure(figsize=(8, 6))
+
+	# Draw nodes with labels and edges
+	node_labels = nx.get_node_attributes(G, "label")
+	nx.draw_networkx_nodes(G, pos=pos, node_color="lightblue", node_size=NODE_SIZE)
+	nx.draw_networkx_labels(G, pos=pos, labels=node_labels, font_size=8, font_color="black")
+	nx.draw_networkx_edges(G, pos=pos)
+
+	ax = plt.gca()
+
+	node_groups = nx.get_node_attributes(G, 'groups')
+	distance = NODE_SIZE / 15000
+	for node, groups in node_groups.items():
+		if len(groups) % 2:
+			distances = [(i - len(groups) // 2) * distance for i in range(len(groups))]
+		else:
+			distances = [(-i * distance) if i <= 0 else (i * distance) for i in range(-(len(groups) // 2), (len(groups) // 2) + 1)]
+		groups = [group.name for group in groups]
+		idx = 0
+		for group in group_colors.keys():
+			if group in groups:
+				ax.plot(pos[node][0] + 0.33 * distances[idx], pos[node][1] - (distance * 2), color=group_colors[group], marker='o', markersize=NODE_SIZE/500)
+				idx += 1
+
+	# Show the graph
+	plt.axis("off")
+	st.pyplot(plt.gcf())
+
+	return
+
+def draw_legend(group_colors):
+	plt.figure(figsize=(1, 3))
+	legend_elements = []
+	for group, color in group_colors.items():
+		legend_elements.append(Line2D([0], [0], marker='o', color='w', label=group, markerfacecolor=color, markersize=10))
+	plt.legend(handles=legend_elements, loc='upper center')
+	plt.axis("off")
+	st.pyplot(plt.gcf())
+
+def run():
+	chat = Chat()
+	with grpc.insecure_channel('localhost:50051') as channel:
+		# Streamlit application components
+		st.set_page_config(page_title="Home Network Simulation", layout="wide")
+		st.title("Home Network Simulation")
+		st.markdown("""
+					<style>
+						.block-container {
+							padding-top: 2rem;
+							padding-bottom: 2rem;
+							padding-left: 1rem;
+							padding-right: 1rem;
+					</style>
+					""", unsafe_allow_html=True)
+		st.markdown("This simulation interface is designed to help you configure a home network using natural language. Talk to your network in the left side panel and see the changes in real-time.")
+		col1, col2 = st.columns([6, 1])
+
+		st.sidebar.title("Configuration")
+		config_request = st.sidebar.text_area("Configure your network here. For example, you can say \"hi, can you please connect a new printer to my home?\"")
+		st.sidebar.write('')
+		st.sidebar.write('')
+		st.sidebar.write('')
+		st.sidebar.write('')
+		st.sidebar.divider()
+
+		with col1:
+			# Container for the topology image
+			image_container = st.empty()
+
+		# gRPC Client Code
+		stub = home_network_pb2_grpc.HomeNetworkStub(channel)
+		st.sidebar.header("Chat History")
+
+		with col2:
+			st.write("")
+			st.write("")
+			st.markdown("**Groups**")
+			# Container for the key
+			key_container = st.empty()
+
+		# Check the configuration request and process it
+		if config_request:
+			print(f"Config request checked: {config_request}")
+			if config_request == "exit":
+				stub.StopNetwork(home_network_pb2.Empty())
+				sys.exit(0)
+			else:
+				nile = chat.query(config_request)
+				parsed_intents = chat.parse_intent(nile)
+				for parsed_intent in parsed_intents:
+					try:
+						if 'operation' in parsed_intent.keys() and parsed_intent['operation'] == "add_endpoint":
+							target_groups = [home_network_pb2.Group(name=parsed_intent['group'])]
+							new_host = stub.AddDevice(home_network_pb2.Host(name=parsed_intent['endpoint'], groups=target_groups))
+						if 'operation' in parsed_intent.keys() and parsed_intent['operation'] == "remove_endpoint":
+							target_groups = [home_network_pb2.Group(name=parsed_intent['group'])]
+							new_host = stub.RemoveDevice(home_network_pb2.Host(name=parsed_intent['endpoint'], groups=target_groups))
+						if 'operation' in parsed_intent.keys() and parsed_intent['operation'] == "add_group":
+							new_group = stub.AddGroup(home_network_pb2.Group(name=parsed_intent['group']))
+						if 'operation' in parsed_intent.keys() and parsed_intent['operation'] == "remove_group":
+							new_group = stub.RemoveGroup(home_network_pb2.Group(name=parsed_intent['group']))
+					except Exception as error:
+						print("Unable to Implement Nile")
+						print(error)
+
+		stub.StartNetwork(home_network_pb2.Empty())
+
+		groups = [group.name for group in stub.GetGroups(home_network_pb2.Empty()).groups]
+		colors = list(mcolors.TABLEAU_COLORS.values())
+		group_colors = {}
+		for i in range(len(groups)):
+			group_colors[groups[i]] = colors[i]
+
+		with key_container.container():
+			draw_legend(group_colors)
+		topology = stub.GetTopology(home_network_pb2.Empty())
+		with image_container.container():
+			draw_topology(topology, group_colors)
+
+		st.subheader("Network Status")
+		tab1, tab2, tab3, tab4 = st.tabs(["Device Information", "Groups (Subnets)", "QoS Policies", "Security Policies"])
+
+		chat_history = chat.get_chat_history()
+		for user_msg, ai_msg in chat_history.items():
+			with st.sidebar.chat_message("user"):
+				st.markdown(user_msg)
+
+			with st.sidebar.chat_message("assistant"):
+				st.code(ai_msg, language="None")
+
+		st.markdown("""
+					<style>
+						code {
+							font-size: smaller !important;
+						}
+					</style>
+					""", unsafe_allow_html=True)
+
+if __name__ == "__main__":
+	run()

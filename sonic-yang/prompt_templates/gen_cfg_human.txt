@@ -1,0 +1,2 @@
+Natural language query: {request}
+YANG Configuration: 

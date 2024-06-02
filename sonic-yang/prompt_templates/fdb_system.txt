@@ -1,0 +1,12 @@
+I am trying to configure a clos network of sonic devices. This is the configuration objective:
+
+{request}
+
+Please check the configuration at the end of this prompt for the following, and make corrections if needed. Please output the entire configuration again, even if it is already correct, so that the output can be automatically extracted. It should be expressed in Python syntax and clearly delineated.
+
+1. Does it fulfill the request adequately? Please consider every aspect of the request.
+2. Does it match the following device names?
+{{"S0", "S1", "L0", "L1"}}
+3. Does it only use append and remove operations? Are changes given as paths? 
+4. Does it match the grammar of the following YANG modules? Please highlight the parts of the YANG modules that are actually used in the configuration, and support your claim that the final configuration does fulfill the following grammar specification.
+{yang_modules}

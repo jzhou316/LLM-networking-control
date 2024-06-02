@@ -1,0 +1,40 @@
+!
+frr version 7.5.1-sonic
+frr defaults traditional
+hostname sonic
+log syslog informational
+log facility local4
+agentx
+hostname LEAF1
+no service integrated-vtysh-config
+!
+password zebra
+enable password zebra
+!
+ip router-id 10.10.11.200
+!
+router bgp 200
+ no bgp ebgp-requires-policy
+ neighbor 10.0.2.1 remote-as 100
+ neighbor 10.0.4.1 remote-as 100
+ !
+ address-family ipv4 unicast
+  network 10.0.2.0/24
+  network 10.0.4.0/24
+  network 10.0.6.0/24
+  network 10.10.11.200/32
+  redistribute connected
+  neighbor 10.0.2.1 allowas-in
+  neighbor 10.0.4.1 allowas-in
+ exit-address-family
+!
+route-map RM_SET_SRC permit 10
+ set src 10.10.11.200
+!
+ip nht resolve-via-default
+!
+ip protocol bgp route-map RM_SET_SRC
+!
+line vty
+!
+end

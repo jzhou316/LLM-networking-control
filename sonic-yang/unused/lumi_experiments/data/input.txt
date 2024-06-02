@@ -1,0 +1,50 @@
+Remove parental control from the network
+Do not allow people from dorms to access Instagram and YouTube
+Social media is blocked by the University firewall
+Set a minimum bandwidth of 10 Mbps for guests
+Block all bittorrent traffic on the network
+Set a maximum quota of 500 MB per week for gaming traffic
+Allow Netflix on the network for students only
+University Housing monitors only the amount of traffic
+AIM chat and file transfering is allowed by the University firewall
+Battlenet is allowed by the University firewall
+H323 video conferencing is allowed by the University firewall
+Everquest is blocked by the University firewall
+HTTP and HTTPS are allowed by the University firewall
+MSN audio and video are not allowed by the University firewall, but the MSN chat, application sharing and file transferring are not blocked
+Net2Phone is allowed by the University firewall
+PC-Telephone is allowed by the University firewall
+POP3 and secure POP are allowed by the University firewall
+SMTP is allowed by the University firewall
+Sony Playstation 2 is allowed by the University firewall
+SSH is allowed by the University firewall
+Telnet is allowed by the University firewall
+Sorenson Videophone 200 is allowed by the University firewall
+FTP and SFTP servers are allowed by the University firewall
+Students data limit is 100 GB per week
+The system passively monitors the network throughput when traffic is light
+There is a 6 GB per 24-hour period upload or download data transfer limit starting at midnight of each day, on all of your combined traffic on ResNet and UIC wireless
+Guests cannot run any file sharing/downloading program
+No individual service or system running on the wired/wireless network should use more than 10 gigabytes of per day, regardless of whether it is inbound or outbound over the commodity network link
+The system will trigger an overuse notification if the average for either inbound or outbound usage exceeds 10 GB per week
+Quotas for students are 5000 Megabyte per hr download and 2000 Megabyte per hr upload
+Routers or anything else that does routing or NAT are prohibited from MITNet as they interfere with the operation of the network
+The individual will have a 4 Mbps bandwidth rate limit
+You may not run FTP, telnet, peer-to-peer, HTTP, IRC, DNS and mail servers on ResNet or UIC wireless-connected devices
+Students have 200 GB of Free monthly usage
+Faculty members have 500 Gb per week of free network use
+Students have a quota of 5 GB per day The quota is reset at 6am
+Internet is limited to 3 Mbps per host
+P2P application is separately capped at 30 Mbps for the entire campus
+Guests' network is rate-limited to 5 Mb/s per user
+The ResNet cap is currently 200 gigabytes per each 7 day period of combined incoming and outgoing traffic
+These network security changes include blocking traffic from the Internet into the UW network over FTP
+Elements of network security currently include the following four solutions: Network Border Infrastructure System, Intrusion Prevention System, Firewalls and Custom Unit Firewalls
+ACT/IT Infrastructure monitors traffic on the network for the purpose of maintaining proper network function
+CIS restricts traffic that is known to cause damage to the network or hosts on it, such as NETBIOS
+All network traffic passing in or out of Brown's network is monitored by intrusion detection system for signs of compromises
+You may not run any services (e.g., FTP services,listservers,P2P file sharing servers, publishing files via generic file services, etc.) via ResNet or NYURoam wireless networks
+Housing does not normally limit the amount of bandwidth
+The UVA More Secure Network uses a firewall, a network security device designed to help protect your computer from hackers and other malicious people on the Internet.
+The network firewall does prevent some applications from working in their normal manner, for example, video and audio conferencing products that use the H.323
+The UC Davis network is continually scanned for prohibited activities and network threats.

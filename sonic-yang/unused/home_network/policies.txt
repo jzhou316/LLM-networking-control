@@ -1,0 +1,35 @@
+~1. **IoT Security Camera Traffic**
+   - *Configuration*:
+     - A new device named "security-camera" with IP address "192.168.1.12" is added to the network.
+     - The device is assigned to the "network" and "home-security-system" groups.
+     - A wireless connection is established between the router and the "security-camera".
+   - *Traffic Rules*:
+     - Allow traffic between the "security-camera" device and devices within the "home-security-group" in both directions.
+     - Allow traffic between the "security-camera" device and the "phone" device" in both directions.
+
+~2. **Home Office Subnet**
+   - *Configuration*:
+     - A new group named "home-office" is added to the network.
+     - The devices "work-laptop", "printer", and "phone" are assigned to the "home-office" group.
+   - *Bandwidth Rules*:
+     - Prioritize bandwidth for devices in the "home-office" group during office hours (from 09:00 AM to 05:00 PM) with a minimum bandwidth of 100 Mbps.
+
+~3. **Guest Wi-Fi Network Bandwidth**
+   - *Configuration*:
+     - A new group named "guest-network" is added to the network.
+     - The devices "guest-laptop-1" and "guest-laptop-2" are assigned to the "guest-network" group.
+   - *Bandwidth Rules*:
+     - Limit the maximum bandwidth for devices in the "guest-network" group to 5 Mbps, ensuring it does not impact the main network's performance. 
+
+~4. **Gaming Console Bandwidth**
+   - *Bandwidth Rules*:
+     - Limit the maximum bandwidth for the "gaming console" device to 5 Mbps to prevent it from consuming excessive internet bandwidth.
+
+~1. **Web Browsing Security**
+   - *Configuration*:
+     - A new middlebox named "firewall" with IP address "192.168.1.13" is added to the network.
+     - The device is assigned to the "network" group.
+     - A wired connection is established between the "firewall" and the router.
+   - *Traffic Rules*:
+     - Establishes ACL rule in the firewall that block any unsolicited TCP traffic from the internet to your home network.
+     - Establishes ACL rule in the firewall that permit any TCP traffic from your home network to the internet. 

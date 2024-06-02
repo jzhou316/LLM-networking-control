@@ -1,0 +1,74 @@
+syntax = "proto3";
+
+package home_network;
+
+// Define the service for the home network.
+service HomeNetwork {
+	// Method to start the network.
+	rpc StartNetwork(Empty) returns (Empty);
+
+	// Method to stop the network.
+	rpc StopNetwork(Empty) returns (Empty);
+	
+	// Method to get topology
+	rpc GetTopology(Empty) returns (Topology);
+
+	// Method to add a device
+	rpc AddDevice(Host) returns (Empty);
+
+	// Method to remove a device
+	rpc RemoveDevice(Host) returns (Empty);
+
+	// Method to add a group
+	rpc AddGroup(Group) returns (Empty);
+
+	// Method to remove a group
+	rpc RemoveGroup(Group) returns (Empty);
+
+	// Method to get list of all groups
+	rpc GetGroups(Empty) returns (Groups);
+
+	// Method to get bandwidth between two nodes
+	rpc GetBandwidth(SrcDst) returns (Bandwidth);
+}
+
+// Define an empty message.
+message Empty {
+
+}
+
+// Define a host with its attributes.
+message Host {
+	string name = 1;
+	string ip_address = 2;
+	repeated Group groups = 3;
+}
+
+// Define a link as connection between two hosts.
+message Link {
+	Host host1 = 1;
+	Host host2 = 2;
+}
+
+// Define a topology consisting of list of hosts and links
+message Topology {
+	repeated Host hosts = 1;
+	repeated Link links = 2; 
+}
+
+message Group {
+	string name = 1;
+}
+
+message Groups {
+	repeated Group groups = 1;
+}
+
+message SrcDst {
+	Host src = 1;
+	Host dst = 2;
+}
+
+message Bandwidth {
+
+}
