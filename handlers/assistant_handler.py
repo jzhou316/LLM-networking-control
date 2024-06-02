@@ -1,6 +1,8 @@
 import time, os
 from openai import OpenAI
-client = OpenAI(api_key="sk-proj-ZLIBoCIOaLxVhbWHen32T3BlbkFJyU3Pg2ecLEuUdBCrxZSf")
+
+OPENAI_API_KEY=""
+client = OpenAI(api_key=OPENAI_API_KEY)
 
 CONFIG_FILE_PATHS = ["configs/sonic_configs/LEAF0/config_db.json", "configs/sonic_configs/LEAF0/frr.txt", "configs/sonic_configs/LEAF1/config_db.json", "configs/sonic_configs/LEAF1/frr.txt", "configs/sonic_configs/SPINE0/config_db.json", "configs/sonic_configs/SPINE0/frr.txt", "configs/sonic_configs/SPINE1/config_db.json", "configs/sonic_configs/SPINE1/frr.txt"]
 

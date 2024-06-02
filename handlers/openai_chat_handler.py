@@ -5,17 +5,20 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 import re, ast, os
 
+OPENAI_API_KEY = ""
+LANGCHAIN_API_KEY = ""
+
 langchain.verbose = False
 
 class OpenAIChatHandler:
     def __init__(self):
-        self.llm = ChatOpenAI(temperature=0.1,  openai_api_key="sk-proj-ZLIBoCIOaLxVhbWHen32T3BlbkFJyU3Pg2ecLEuUdBCrxZSf", model="gpt-4o")
+        self.llm = ChatOpenAI(temperature=0.1,  openai_api_key=OPENAI_API_KEY, model="gpt-4o")
         self.store = {}
         os.environ["LANGCHAIN_TRACING_V2"] = "true"
         os.environ["LANGCHAIN_PROJECT"] = "LLM for network config"
         os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
-        os.environ["LANGCHAIN_API_KEY"] = "ls__00910ef8094d47719d8412b32fa933cc"
-
+        os.environ["LANGCHAIN_API_KEY"] = LANGCHAIN_API_KEY
+    
     def get_session_history(self, session_id: str):
         if session_id not in self.store:
             self.store[session_id] = ChatMessageHistory()
