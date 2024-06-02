@@ -22,6 +22,8 @@ We evaluate this system on a dataset of 13 NL utterances collected from Cisco SO
 - if the verifier step took place, how many iterations did it take for the LLM to correct its own generation?
 - how long did the generation take?
 
+The results can be found in the ```data``` directory.
+
 ## Getting Started
 
 
