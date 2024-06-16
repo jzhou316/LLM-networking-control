@@ -2,6 +2,7 @@ import sys
 import os
 import copy
 import time
+import asyncio
 
 sys.path.append(os.path.join(os.path.dirname(__file__), 'handlers'))
 
@@ -12,7 +13,7 @@ from assistant_handler import AssistantHandler
 from dataset_handler import DatasetHandler
 from json import dumps, loads, load
 import streamlit as st
-    
+
 st.set_page_config(layout="wide")
 st.title('Network Configuration Interface')
 
@@ -31,164 +32,165 @@ dh = DatasetHandler()
 devices = ['S0', 'S1', 'L0', 'L1']
 names = {'S0': '', 'S1': '', 'L0': '', 'L1': ''}
 
-network_states = {}
-truncated_network_states = {}
-modified_network_states = {}
-pre_verifier_expander = st.expander("Run Verifier on Default Network States")
-for device in devices:
-    status_config_db, path_config_db = nh.get_config_db_network_state(device)
-    with open(path_config_db, 'r') as f:
-        content = load(f)
-        names[device] = content["DEVICE_METADATA"]["localhost"]["hostname"]
-        network_states[device] = dumps(content)
-    network_states[device] = loads(ymh.configdb_to_yang(network_states[device]))
-    network_states[device] = ymh.fix_dumb_cisco_errors(network_states[device])
+async def get_modules(config_request, truncated_network_states, module_list):
+    filter_ir = await ch.invoke(system_template="prompt_templates/filter_ir_system.txt",
+                                human_template="prompt_templates/filter_ir_human.txt",
+                                system_input_variables=['network_state', 'yang_modules'],
+                                human_input_variables=['request'],
+                                system_input_values=[str(truncated_network_states), str(module_list)],
+                                human_input_values=[config_request],
+                                session_id="filter_ir")
+    return ch.extract_code_list(content=filter_ir)
 
-    status_frr, path_frr = nh.get_frr_network_state(device, names[device])
+async def get_network_state(config_request):
+    return await ah.run_state_assistant(config_request)
 
-    # Automatically verify the starting network state (sanity check)
-    status, msg = ymh.load_data_file(network_states[device])
-    pre_verifier_expander.write(f"({device}): {status}")
-    truncated_network_states[device] = ymh.truncate_lists_in_dict(network_states[device])
+async def main():
+    network_states = {}
+    truncated_network_states = {}
+    modified_network_states = {}
+    pre_verifier_expander = st.expander("Run Verifier on Default Network States")
+    for device in devices:
+        status_config_db, path_config_db = nh.get_config_db_network_state(device)
+        with open(path_config_db, 'r') as f:
+            content = load(f)
+            names[device] = content["DEVICE_METADATA"]["localhost"]["hostname"]
+            network_states[device] = dumps(content)
+        network_states[device] = loads(ymh.configdb_to_yang(network_states[device]))
+        network_states[device] = ymh.fix_dumb_cisco_errors(network_states[device])
 
-# Get all modules
-module_names = ymh.get_all_module_names()
-module_list = []
-for module in module_names:
-    module_list.append(ymh.get_yang_module_simplified(module))
+        # Uncomment this line to update FRR file (for BGP and OSPF configurations)
+        # status_frr, path_frr = nh.get_frr_network_state(device, names[device])
 
-# Generate configuration based on user query
-if config_request:
-    t0 = time.time()
-    # Show the natural language query
-    st.write("Natural Language Query:", config_request)
-    st.subheader("LLM: Chain of thought and feedback reasoning")
+        # Automatically verify the starting network state (sanity check)
+        status, msg = ymh.load_data_file(network_states[device])
+        pre_verifier_expander.write(f"({device}): {status}")
+        truncated_network_states[device] = ymh.truncate_lists_in_dict(network_states[device])
 
-    with st.container(height=500):
+    # Get all modules
+    module_names = ymh.get_all_module_names()
+    module_list = [ymh.get_yang_module_simplified(module) for module in module_names]
 
-        # Filter the relevant modules based on the query
-        with st.chat_message("user"):
-            st.write("Find the relevant modules for the given query:")
-        filter_ir = ch.invoke(system_template="prompt_templates/filter_ir_system.txt",
-                            human_template="prompt_templates/filter_ir_human.txt",
-                            system_input_variables=['network_state', 'yang_modules'],
-                            human_input_variables=['request'],
-                            system_input_values=[str(truncated_network_states), str(module_list)],
-                            human_input_values=[config_request],
-                            session_id="filter_ir")
-        relevant_modules = ch.extract_code_list(content=filter_ir)
-        with st.chat_message("assistant"):
-            st.write(relevant_modules)
+    # Generate configuration based on user query
+    if config_request:
+        # Show the natural language query
+        st.write("Natural Language Query:", config_request)
+        st.subheader("LLM: Chain of thought and feedback reasoning")
+        times = []
 
-        # Generate the configuration based on the query and selected modules
-        with st.chat_message("user"):
-            st.write("Give relevant network state information based on vector store:")
-        
-        assistant_info = ah.run_state_assistant(config_request)
-        with st.chat_message("assistant"):
-            st.write(assistant_info)
-
-        # Generate the configuration based on the query and selected modules
-        with st.chat_message("user"):
-            st.write("Generate the configuration based on the query and selected modules:")
-
-        relevant_modules_full = []
-        for module in relevant_modules:
-            print(module)
-            if module in module_names:
-                relevant_modules_full.append(ymh.get_yang_module_full(module))
-        generate_config = ch.invoke(system_template="prompt_templates/gen_cfg_system.txt",
-                                    human_template="prompt_templates/gen_cfg_human.txt",
-                                    system_input_variables=['state', 'yang_modules'],
-                                    human_input_variables=['request'],
-                                    system_input_values=[assistant_info, str(relevant_modules_full)],
-                                    human_input_values=[config_request],
-                                    session_id="cfg")
-
-        with st.chat_message("assistant"):
-            st.write(generate_config)
-
-        iterations = 0
-        success = False
-        
-        while iterations < 3:
-            check_config = ch.invoke(system_template="prompt_templates/fdb_system.txt",
-                                    human_template="prompt_templates/fdb_human.txt",
-                                    system_input_variables=['request', 'yang_modules'],
-                                    human_input_variables=['configuration'],
-                                    system_input_values=[config_request, str(relevant_modules_full)],
-                                    human_input_values=[ch.extract_python_config(generate_config)],
-                                    session_id="check")
-
+        with st.container(height=500):
+            t0 = time.time()
             with st.chat_message("user"):
-                st.write("Do some basic checks on the generated configuration:")
+                st.write("Find the relevant modules for the given query:")
+
+            # Run API calls concurrently
+            relevant_modules, state_assistant_info = await asyncio.gather(
+                get_modules(config_request, truncated_network_states, module_list),
+                get_network_state(config_request)
+            )
+
+            times.append(time.time() - t0)
+            t0 = time.time()
 
             with st.chat_message("assistant"):
-                st.write(check_config)
+                st.write(relevant_modules)
 
-            network_states_changed = {'S0': False, 'S1': False, 'L0': False, 'L1': False}
-            modified_network_states = copy.deepcopy(network_states)
+            with st.chat_message("user"):
+                st.write("Give relevant network state information based on vector store:")
 
-            for config in ch.extract_python_literal(check_config):
-                device = config["device"]
-                network_states_changed[device] = True
-                for change in config["config"]:
-                    # Navigate to the specific list in the device's configuration
-                    target_list = modified_network_states[device]
-                    for segment in change["path"][:-1]:
-                        if segment not in target_list:
-                            target_list[segment] = {}
-                        target_list = target_list[segment]
-                    
-                    target_key = change["path"][-1]
+            with st.chat_message("assistant"):
+                st.write(state_assistant_info)
 
-                    # Perform the specified action
-                    if change["action"] == "remove":
-                        if target_key in target_list and change["value"] in target_list[target_key]:
-                            target_list[target_key].remove(change["value"])
-                    elif change["action"] == "append":
-                        if target_key not in target_list:
-                            target_list[target_key] = []
-                        target_list[target_key].append(change["value"])
-                    else:
-                        st.write(f"Invalid action {change['action']} specified in generated configuration!")
+            with st.chat_message("user"):
+                st.write("Generate the configuration based on the query and selected modules:")
 
-            statuses = []
-            error = False
-            for device in devices:
-                if network_states_changed[device]:
-                    if not ymh.load_data_file(modified_network_states[device])[0]:
-                        error = True
-                        print(ymh.load_data_file(modified_network_states[device])[0])
-                    statuses.append((device, ymh.load_data_file(modified_network_states[device])[1]))
-            st.header("YANG Verifier Output")
-            st.write(statuses)
+            relevant_modules_full = [ymh.get_yang_module_full(module) for module in relevant_modules if module in module_names]
+            generate_config = await ch.invoke(system_template="prompt_templates/gen_cfg_system.txt",
+                                              human_template="prompt_templates/gen_cfg_human.txt",
+                                              system_input_variables=['state', 'yang_modules'],
+                                              human_input_variables=['request'],
+                                              system_input_values=[state_assistant_info, str(relevant_modules_full)],
+                                              human_input_values=[config_request],
+                                              session_id="cfg")
 
-            if error:
-                generate_config = ah.run_fdb_assistant("Error logs: " + str(statuses) + "\n Here are the configurations to correct: " + ch.extract_python_config(check_config))
-            else:
-                st.write("Passed YANG verifier")
-                success = True
-                network_states = copy.deepcopy(modified_network_states)
-                break
+            with st.chat_message("assistant"):
+                st.write(generate_config)
+
+            times.append(time.time() - t0)
+            t0 = time.time()
+
+            iterations = 0
+            success = False
+
+            all_statuses = []
+            while iterations < 7:
+                network_states_changed = {'S0': False, 'S1': False, 'L0': False, 'L1': False}
+                modified_network_states = copy.deepcopy(network_states)
+
+                for config in ch.extract_python_literal(generate_config):
+                    device = config["device"]
+                    network_states_changed[device] = True
+                    for change in config["config"]:
+                        target_list = modified_network_states[device]
+                        for segment in change["path"][:-1]:
+                            if segment not in target_list:
+                                target_list[segment] = {}
+                            target_list = target_list[segment]
+
+                        target_key = change["path"][-1]
+
+                        if change["action"] == "remove":
+                            if target_key in target_list and change["value"] in target_list[target_key]:
+                                target_list[target_key].remove(change["value"])
+                        elif change["action"] == "append":
+                            if target_key not in target_list:
+                                target_list[target_key] = []
+                            target_list[target_key].append(change["value"])
+                        else:
+                            st.write(f"Invalid action {change['action']} specified in generated configuration!")
+
+                statuses = []
+                error = False
+                for device in devices:
+                    if network_states_changed[device]:
+                        if not ymh.load_data_file(modified_network_states[device])[0]:
+                            error = True
+                        statuses.append((device, ymh.load_data_file(modified_network_states[device])[1]))
+                st.subheader("YANG Verifier Output")
+                st.write(statuses)
+                all_statuses.append(statuses)
+
+                if error:
+                    generate_config = await ah.run_fdb_assistant("Error logs: " + str(statuses) + "\n Here are the configurations to correct: " + ch.extract_python_config(generate_config))
+                    with st.chat_message("user"):
+                        st.write("Failed YANG verifier. Feedback from FDB assistant:")
+                    with st.chat_message("assistant"):
+                        st.write(generate_config)
+                else:
+                    st.write("Passed YANG verifier")
+                    success = True
+                    network_states = copy.deepcopy(modified_network_states)
+                    break
                 
-            iterations += 1
+                times.append(time.time() - t0)
+                t0 = time.time()
 
-    t1 = time.time()
-    total = t1-t0
-    if success:
-        st.subheader("Final configuration:")
-        result = ch.extract_python_literal(check_config)
-        st.write(result)
-        dh.insert_configuration(nl_request=config_request.strip(), json_config=result, yang_status=True, modules=relevant_modules, latency=total, iterations=iterations, comments=None)
-    else:
-        st.subheader(f"Failed after {iterations} iterations of feedback. Most recent configuration:")
-        try:
-            result = ch.extract_python_literal(check_config)
+                iterations += 1
+
+        if success:
+            st.subheader("Final configuration:")
+            result = ch.extract_python_literal(generate_config)
             st.write(result)
-        except:
-            result = ""
-            st.write("Unable to fetch")
-        dh.insert_configuration(nl_request=config_request.strip(), json_config=result, yang_status=False, modules=relevant_modules, latency=total, iterations=iterations, comments=statuses)
-        
-    
+            dh.insert_configuration(nl_request=config_request.strip(), json_config=result, yang_status=True, modules=relevant_modules, latencies=times, iterations=iterations, comments=None)
+        else:
+            st.subheader(f"Failed after {iterations} iterations of feedback. Most recent configuration:")
+            try:
+                result = ch.extract_python_literal(generate_config)
+                st.write(result)
+            except:
+                result = ""
+                st.write("Unable to fetch")
+            dh.insert_configuration(nl_request=config_request.strip(), json_config=result, yang_status=False, modules=relevant_modules, latencies=times, iterations=iterations, comments=all_statuses)
+
+if __name__ == "__main__":
+    asyncio.run(main())

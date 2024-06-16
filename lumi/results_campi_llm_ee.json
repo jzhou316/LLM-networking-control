@@ -1,0 +1,805 @@
+[
+    {
+        "text": "If a student is in obvious violations of copyright law by using a room's wired connection (ie ResNet) to distribute copyrighted materials, the room's connection will be disabled, and the issue could be sent to Housing Student Judicial Affairs",
+        "extracted_entities": {
+            "middlebox": "copyright-monitoring",
+            "operation": "block",
+            "group": "students",
+            "origin": "ResNet",
+            "target": "Housing Student Judicial Affairs"
+        },
+        "nile_statement": "define intent copyrightViolation: from endpoint('ResNet') to endpoint('HousingStudentJudicialAffairs') block traffic('copyright')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 13.02464246749878,
+        "intent_length": 242,
+        "nile_length": 129
+    },
+    {
+        "text": "Currently, the University of Illinois does not have any rate limits set in place",
+        "extracted_entities": {
+            "group": "University of Illinois",
+            "qos_metric": "rate limits",
+            "qos_value": "none"
+        },
+        "nile_statement": "define intent rateLimitIntent: for group('UniversityOfIllinois') unset bandwidth('max', '0', 'bps')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.263070583343506,
+        "intent_length": 80,
+        "nile_length": 99
+    },
+    {
+        "text": "University Housing monitors only the amount of traffic",
+        "extracted_entities": {
+            "group": "University Housing",
+            "traffic": "amount of traffic"
+        },
+        "nile_statement": "define intent monitorTraffic: for group('UniversityHousing') allow traffic('amountOfTraffic')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 7.407601833343506,
+        "intent_length": 54,
+        "nile_length": 93
+    },
+    {
+        "text": "CounterStrike server is blocked by the University firewall",
+        "extracted_entities": {
+            "service": "CounterStrike server",
+            "middlebox": "firewall",
+            "operation": "block",
+            "target": "University"
+        },
+        "nile_statement": "define intent blockCounterStrike: for target('University') block service('CounterStrike')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.974265098571777,
+        "intent_length": 58,
+        "nile_length": 93
+    },
+    {
+        "text": "AIM chat and file transfering is allowed by the University firewall",
+        "extracted_entities": {
+            "service": [
+                "AIM Chat",
+                "file transfer"
+            ],
+            "middlebox": "firewall",
+            "operation": "allow",
+            "target": "University"
+        },
+        "nile_statement": "define intent allowAIMFileTransfer: for target('University') allow service('AIMChat'), service('filetransfer') add middlebox('firewall')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 13.332031488418579,
+        "intent_length": 67,
+        "nile_length": 109
+    },
+    {
+        "text": "Battlenet is allowed by the University firewall",
+        "extracted_entities": {
+            "service": "Battlenet",
+            "middlebox": "firewall",
+            "operation": "allow",
+            "target": "University"
+        },
+        "nile_statement": "define intent allowBattlenet: for target('University') allow service('Battlenet'), service('Battlenet')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 14.799781084060669,
+        "intent_length": 47,
+        "nile_length": 81
+    },
+    {
+        "text": "H323 video conferencing is allowed by the University firewall",
+        "extracted_entities": {
+            "service": "H323 video conferencing",
+            "middlebox": "firewall",
+            "group": "University",
+            "operation": "allow"
+        },
+        "nile_statement": "define intent allowH323: for group('University') allow service('H323videoconferencing') add middlebox('firewall')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.353352785110474,
+        "intent_length": 61,
+        "nile_length": 113
+    },
+    {
+        "text": "Everquest is blocked by the University firewall",
+        "extracted_entities": {
+            "service": "Everquest",
+            "middlebox": "firewall",
+            "operation": "block",
+            "origin": "University"
+        },
+        "nile_statement": "define intent blockService: from endpoint('University') to endpoint('University') block service('Everquest') add middlebox('firewall')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.542083024978638,
+        "intent_length": 47,
+        "nile_length": 134
+    },
+    {
+        "text": "HTTP and HTTPS are allowed by the University firewall",
+        "extracted_entities": {
+            "protocol": [
+                "HTTP",
+                "HTTPS"
+            ],
+            "middlebox": "firewall",
+            "group": "University"
+        },
+        "nile_statement": "define intent allowHTTPandHTTPS: for group('University') allow protocol('HTTP'), protocol('HTTPS')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 5.548501968383789,
+        "intent_length": 53,
+        "nile_length": 98
+    },
+    {
+        "text": "IMAP and secure IMAP are allowed by the University firewall",
+        "extracted_entities": {
+            "protocol": [
+                "IMAP",
+                "secure IMAP"
+            ],
+            "middlebox": "firewall",
+            "group": "University"
+        },
+        "nile_statement": "define intent allowIMAP: for group('University') allow protocol('IMAP'), protocol('secureIMAP')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.807237386703491,
+        "intent_length": 59,
+        "nile_length": 95
+    },
+    {
+        "text": "MSN audio and video are not allowed by the University firewall, but the MSN chat, application sharing and file transferring are not blocked",
+        "extracted_entities": {
+            "middlebox": [
+                "firewall"
+            ],
+            "service": [
+                "MSN audio",
+                "MSN video",
+                "MSN chat",
+                "MSN application sharing",
+                "file transferring"
+            ],
+            "operation": [
+                "block",
+                "allow"
+            ],
+            "target": "university"
+        },
+        "nile_statement": "define intent blockMSN: for service('MSN audio'), service('MSN video') block service('MSN chat'), service('MSN application sharing'), service('file transferring') allow",
+        "grammar_check": false,
+        "iterations": 8,
+        "time": 43.084264278411865,
+        "intent_length": 139,
+        "nile_length": 168
+    },
+    {
+        "text": "Net2Phone is allowed by the University firewall",
+        "extracted_entities": {
+            "service": "Net2Phone",
+            "middlebox": "firewall",
+            "group": "University",
+            "operation": "allow"
+        },
+        "nile_statement": "define intent allowNet2Phone: for group('University') allow service('Net2Phone') add middlebox('firewall')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.951887130737305,
+        "intent_length": 47,
+        "nile_length": 106
+    },
+    {
+        "text": "PC-Telephone is allowed by the University firewall",
+        "extracted_entities": {
+            "service": "PC-Telephone",
+            "middlebox": "firewall",
+            "group": "University",
+            "operation": "allow"
+        },
+        "nile_statement": "define intent allowPCTelephone: for group('University') allow service('PCTelephone')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 16.653326272964478,
+        "intent_length": 50,
+        "nile_length": 84
+    },
+    {
+        "text": "POP3 and secure POP are allowed by the University firewall",
+        "extracted_entities": {
+            "protocol": [
+                "POP3",
+                "secure POP"
+            ],
+            "operation": "allow",
+            "middlebox": "firewall",
+            "group": "University"
+        },
+        "nile_statement": "define intent allowPOP3: for group('University') allow protocol('POP3'), protocol('securePOP')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 11.862481832504272,
+        "intent_length": 58,
+        "nile_length": 94
+    },
+    {
+        "text": "SMTP is allowed by the University firewall",
+        "extracted_entities": {
+            "protocol": "smtp",
+            "middlebox": "firewall",
+            "group": "university",
+            "operation": "allow"
+        },
+        "nile_statement": "define intent allowSMTP: for group('university') allow protocol('smtp')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 7.94221568107605,
+        "intent_length": 42,
+        "nile_length": 71
+    },
+    {
+        "text": "Sony Playstation 2 is allowed by the University firewall",
+        "extracted_entities": {
+            "service": "PlayStation 2",
+            "middlebox": "firewall",
+            "group": "University",
+            "operation": "allow"
+        },
+        "nile_statement": "define intent allowPlayStation2: for group('University') allow service('PlayStation2') add middlebox('firewall')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 11.54923391342163,
+        "intent_length": 56,
+        "nile_length": 112
+    },
+    {
+        "text": "SSH is allowed by the University firewall",
+        "extracted_entities": {
+            "protocol": "SSH",
+            "middlebox": "firewall",
+            "group": "University"
+        },
+        "nile_statement": "define intent allowSSH: for group('University') allow protocol('SSH')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 5.475599765777588,
+        "intent_length": 41,
+        "nile_length": 69
+    },
+    {
+        "text": "Telnet is allowed by the University firewall",
+        "extracted_entities": {
+            "protocol": "Telnet",
+            "middlebox": "firewall",
+            "group": "University",
+            "operation": "allow"
+        },
+        "nile_statement": "define intent allowTelnet: for group('University') allow protocol('Telnet')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 6.628791570663452,
+        "intent_length": 44,
+        "nile_length": 75
+    },
+    {
+        "text": "Sorenson Videophone 200 is allowed by the University firewall",
+        "extracted_entities": {
+            "service": "Sorenson Videophone 200",
+            "middlebox": "firewall",
+            "operation": "allow",
+            "origin": "University"
+        },
+        "nile_statement": "define intent allowService: from endpoint('University') to endpoint('SorensonVideophone200') allow service('SorensonVideophone200') add middlebox('firewall')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 18.06476879119873,
+        "intent_length": 61,
+        "nile_length": 157
+    },
+    {
+        "text": "FTP and SFTP servers are allowed by the University firewall",
+        "extracted_entities": {
+            "protocol": [
+                "FTP",
+                "SFTP"
+            ],
+            "middlebox": "firewall",
+            "group": "University"
+        },
+        "nile_statement": "define intent allowFTPandSFTP: for group('University') allow protocol('FTP'), protocol('SFTP')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 5.419337034225464,
+        "intent_length": 59,
+        "nile_length": 94
+    },
+    {
+        "text": "Students data limit is 100 GB per week",
+        "extracted_entities": {
+            "group": "students",
+            "qos_constraint": "limit",
+            "qos_value": "100",
+            "qos_unit": "gb/wk"
+        },
+        "nile_statement": "define intent qosIntent: for group('students') set quota('any', '100', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 13.461088180541992,
+        "intent_length": 38,
+        "nile_length": 79
+    },
+    {
+        "text": "Students 10 GB a day download quotas are on 10 AM to Midnight",
+        "extracted_entities": {
+            "group": "students",
+            "qos_metric": "quota",
+            "qos_value": "10",
+            "qos_unit": "gb/d",
+            "start": "10:00",
+            "end": "midnight"
+        },
+        "nile_statement": "define intent quotaIntent: for group('students') set quota('download', '10', 'gb/d') start hour('10:00') end hour('00:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.510642051696777,
+        "intent_length": 61,
+        "nile_length": 122
+    },
+    {
+        "text": "The system passively monitors the network throughput when traffic is light",
+        "extracted_entities": {
+            "middlebox": "network throughput monitor",
+            "traffic": "light"
+        },
+        "nile_statement": "define intent monitorIntent: for traffic('light') add middlebox('networkThroughputMonitor')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.232156038284302,
+        "intent_length": 74,
+        "nile_length": 91
+    },
+    {
+        "text": "There is a 6 GB per 24-hour period upload or download data transfer limit starting at midnight of each day, on all of your combined traffic on ResNet and UIC wireless",
+        "extracted_entities": {
+            "qos_constraint": "limit",
+            "qos_metric": "data transfer limit",
+            "qos_value": "6",
+            "qos_unit": "gb/d",
+            "traffic": "all",
+            "group": "ResNet and UIC wireless",
+            "start": "midnight"
+        },
+        "nile_statement": "define intent dataTransferLimit: for group('ResNet') set quota('any', '6', 'gb/d') start datetime('midnight') end datetime('nextMidnight')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 14.600321531295776,
+        "intent_length": 166,
+        "nile_length": 138
+    },
+    {
+        "text": "Guests cannot run any file sharing/downloading program",
+        "extracted_entities": {
+            "group": "guests",
+            "operation": "block",
+            "service": "file sharing"
+        },
+        "nile_statement": "define intent blockFileSharing: for group('guests') block service('fileSharing')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.968894481658936,
+        "intent_length": 54,
+        "nile_length": 80
+    },
+    {
+        "text": "No individual service or system running on the wired/wireless network should use more than 10 gigabytes of per day, regardless of whether it is inbound or outbound over the commodity network link",
+        "extracted_entities": {
+            "traffic": "all",
+            "qos_constraint": "max",
+            "qos_value": "10",
+            "qos_unit": "gb/d",
+            "origin": "wired network",
+            "destination": "wireless network"
+        },
+        "nile_statement": "define intent qosIntent: from endpoint('wirednetwork') to endpoint('wirelessnetwork') set quota('any', '10', 'gb/d')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.936269283294678,
+        "intent_length": 195,
+        "nile_length": 116
+    },
+    {
+        "text": "The system will trigger an overuse notification if the average for either inbound or outbound usage exceeds 10 GB per week",
+        "extracted_entities": {
+            "qos_constraint": "average",
+            "qos_metric": "usage",
+            "qos_value": "10",
+            "qos_unit": "GB per week",
+            "operation": "trigger",
+            "middlebox": "notification"
+        },
+        "nile_statement": "define intent usageNotification: for group('users') set quota('any', '10', 'gb/wk') add middlebox('notification')",
+        "grammar_check": true,
+        "iterations": 3,
+        "time": 26.39424991607666,
+        "intent_length": 122,
+        "nile_length": 113
+    },
+    {
+        "text": "Quotas for students are 5000 Megabyte per hr download and 2000 Megabyte per hr upload",
+        "extracted_entities": {
+            "group": "students",
+            "qos_constraint": [
+                "download",
+                "upload"
+            ],
+            "qos_value": [
+                "5000",
+                "2000"
+            ],
+            "qos_unit": "mb/hr"
+        },
+        "nile_statement": "define intent quotaIntent: for group('students') set quota('download', '5000', 'mb/d'), quota('upload', '2000', 'mb/d')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 12.15344524383545,
+        "intent_length": 85,
+        "nile_length": 119
+    },
+    {
+        "text": "Routers or anything else that does routing or NAT are prohibited from MITNet as they interfere with the operation of the network",
+        "extracted_entities": {
+            "middlebox": [
+                "router",
+                "nat"
+            ],
+            "target": "MITNet",
+            "operation": "prohibit"
+        },
+        "nile_statement": "define intent prohibitRouting: for group('MITNet') remove middlebox('router'), middlebox('nat')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 12.762662649154663,
+        "intent_length": 128,
+        "nile_length": 95
+    },
+    {
+        "text": "When a total of 18 gigabytes of data is reached, the individual's bandwidth rate limit is set to 2 Mbps",
+        "extracted_entities": {
+            "qos_value": "18",
+            "qos_unit": "gb",
+            "qos_metric": "bandwidth",
+            "qos_constraint": "limit",
+            "qos_value_2": "2",
+            "qos_unit_2": "mbps",
+            "target": "individual"
+        },
+        "nile_statement": "define intent bandwidthLimit: for endpoint('individual') set quota('any', '18', 'gb/wk') set bandwidth('max', '2', 'mbps')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 12.461884021759033,
+        "intent_length": 103,
+        "nile_length": 122
+    },
+    {
+        "text": "The individual will have a 4 Mbps bandwidth rate limit",
+        "extracted_entities": {
+            "qos_constraint": "limit",
+            "qos_metric": "bandwidth",
+            "qos_value": "4",
+            "qos_unit": "mbps"
+        },
+        "nile_statement": "define intent qosIntent: set bandwidth('max', '4', 'mbps')",
+        "grammar_check": false,
+        "iterations": 8,
+        "time": 34.16332030296326,
+        "intent_length": 54,
+        "nile_length": 58
+    },
+    {
+        "text": "RHIT-OPEN will work in labs, classrooms and residence halls but does not allow the user to access the internal Rose-Hulman network",
+        "extracted_entities": {
+            "group": "RHIT-OPEN",
+            "location": [
+                "labs",
+                "classrooms",
+                "residence halls",
+                "internal Rose-Hulman network"
+            ]
+        },
+        "nile_statement": "define intent accessControl: for group('RHIT-OPEN') allow service('labs'), service('classrooms'), service('residenceHalls') block service('internalRoseHulmanNetwork')",
+        "grammar_check": false,
+        "iterations": 8,
+        "time": 50.96283507347107,
+        "intent_length": 130,
+        "nile_length": 166
+    },
+    {
+        "text": "You may not run FTP, telnet, peer-to-peer, HTTP, IRC, DNS and mail servers on ResNet or UIC wireless-connected devices",
+        "extracted_entities": {
+            "operation": "cannot run",
+            "protocol": [
+                "ftp",
+                "telnet",
+                "peer-to-peer",
+                "http",
+                "irc",
+                "dns"
+            ],
+            "service": [
+                "mail servers"
+            ],
+            "location": [
+                "ResNet",
+                "UIC wireless-connected devices"
+            ]
+        },
+        "nile_statement": "define intent restrictServices: for group('ResNet'), group('UICwirelessconnecteddevices') block protocol('ftp'), protocol('telnet'), service('peertopeer'), protocol('http'), protocol('irc'), protocol('dns'), service('mailservers')",
+        "grammar_check": true,
+        "iterations": 5,
+        "time": 27.721473217010498,
+        "intent_length": 118,
+        "nile_length": 230
+    },
+    {
+        "text": "Students have 200 GB of Free monthly usage",
+        "extracted_entities": {
+            "group": "students",
+            "qos_metric": "quota",
+            "qos_value": "200",
+            "qos_unit": "gb/mth"
+        },
+        "nile_statement": "define intent studentQuota: for group('students') set quota('any', '200', 'gb/mth')",
+        "grammar_check": true,
+        "iterations": 3,
+        "time": 17.785864114761353,
+        "intent_length": 42,
+        "nile_length": 83
+    },
+    {
+        "text": "Faculty members have 500 Gb per week of free network use",
+        "extracted_entities": {
+            "group": "faculty",
+            "qos_metric": "quota",
+            "qos_value": "500",
+            "qos_unit": "gb/wk"
+        },
+        "nile_statement": "define intent facultyQuota: for group('faculty') set quota('any', '500', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 13.273500680923462,
+        "intent_length": 56,
+        "nile_length": 81
+    },
+    {
+        "text": "Students have a quota of 5 GB per day The quota is reset at  6am",
+        "extracted_entities": {
+            "group": "students",
+            "qos_metric": "quota",
+            "qos_value": "5",
+            "qos_unit": "gb/d",
+            "hour": "06:00"
+        },
+        "nile_statement": "define intent quotaIntent: for group('students') set quota('any', '5', 'gb/d') start hour('06:00') end hour('06:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.676026344299316,
+        "intent_length": 64,
+        "nile_length": 116
+    },
+    {
+        "text": "Internet is limited to 3 Mbps per host",
+        "extracted_entities": {
+            "qos_constraint": "limit",
+            "qos_value": "3",
+            "qos_unit": "mbps",
+            "target": "hosts"
+        },
+        "nile_statement": "define intent qosIntent: for group('hosts') set bandwidth('max', '3', 'mbps')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 16.44727349281311,
+        "intent_length": 38,
+        "nile_length": 77
+    },
+    {
+        "text": "P2P application is separately capped at 30 Mbps for the entire campus",
+        "extracted_entities": {
+            "traffic": "P2P application",
+            "qos_constraint": "capped",
+            "qos_value": "30",
+            "qos_unit": "Mbps",
+            "group": "entire campus"
+        },
+        "nile_statement": "define intent qosIntent: for traffic('P2Papplication'), group('entirecampus') set bandwidth('max', '30', 'mbps')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.766511917114258,
+        "intent_length": 69,
+        "nile_length": 112
+    },
+    {
+        "text": "Guests' network is rate-limited to 5 Mb/s per user",
+        "extracted_entities": {
+            "group": "guests",
+            "qos_constraint": "limit",
+            "qos_value": "5",
+            "qos_unit": "mbps"
+        },
+        "nile_statement": "define intent qosIntent: for group('guests') set bandwidth('max', '5', 'mbps')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.33625054359436,
+        "intent_length": 50,
+        "nile_length": 78
+    },
+    {
+        "text": "The ResNet cap is currently 200 gigabytes per each 7 day period of combined incoming and outgoing traffic",
+        "extracted_entities": {
+            "qos_constraint": "cap",
+            "qos_value": "200",
+            "qos_unit": "gb/wk",
+            "traffic": "incoming and outgoing"
+        },
+        "nile_statement": "define intent qosIntent: for traffic('alltraffic') set quota('any', '200', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 7,
+        "time": 31.73620080947876,
+        "intent_length": 105,
+        "nile_length": 83
+    },
+    {
+        "text": "These network security changes include blocking traffic from the Internet into the UW network over FTP",
+        "extracted_entities": {
+            "operation": "block",
+            "traffic": "FTP",
+            "origin": "Internet",
+            "destination": "UW network"
+        },
+        "nile_statement": "define intent blockFTP: from endpoint('Internet') to endpoint('UWnetwork') block traffic('FTP')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.18459939956665,
+        "intent_length": 102,
+        "nile_length": 95
+    },
+    {
+        "text": "Elements of network security currently include the following four solutions: Network Border Infrastructure System, Intrusion Prevention System, Firewalls and Custom Unit Firewalls",
+        "extracted_entities": {
+            "middlebox": [
+                "Network Border Infrastructure System",
+                "Intrusion Prevention System",
+                "Firewalls",
+                "Custom Unit Firewalls"
+            ]
+        },
+        "nile_statement": "define intent securitySolutions: for group('all') add middlebox('NetworkBorderInfrastructureSystem'), middlebox('IntrusionPreventionSystem'), middlebox('Firewalls'), middlebox('CustomUnitFirewalls')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 14.243868350982666,
+        "intent_length": 179,
+        "nile_length": 198
+    },
+    {
+        "text": "ACT/IT Infrastructure monitors traffic on the network for the purpose of maintaining proper network function",
+        "extracted_entities": {
+            "traffic": "traffic",
+            "operation": "monitors"
+        },
+        "nile_statement": "define intent monitorIntent: for traffic('networkTraffic') add middlebox('trafficMonitor')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 12.966514825820923,
+        "intent_length": 108,
+        "nile_length": 90
+    },
+    {
+        "text": "CIS restricts traffic that is known to cause damage to the network or hosts on it, such as NETBIOS",
+        "extracted_entities": {
+            "operation": "restrict",
+            "traffic": "NETBIOS"
+        },
+        "nile_statement": "define intent restrictTraffic: block protocol(netbios)",
+        "grammar_check": false,
+        "iterations": 8,
+        "time": 40.2987220287323,
+        "intent_length": 98,
+        "nile_length": 54
+    },
+    {
+        "text": "All network traffic passing in or out of Brown's network is monitored by intrusion detection system for signs of compromises",
+        "extracted_entities": {
+            "traffic": "all",
+            "middlebox": "intrusion detection system",
+            "operation": "monitor",
+            "target": "Brown's network"
+        },
+        "nile_statement": "define intent monitorIntent: for traffic('all'), endpoint('BrownsNetwork') add middlebox('intrusionDetectionSystem')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 13.08232855796814,
+        "intent_length": 124,
+        "nile_length": 116
+    },
+    {
+        "text": "You may not run any services (e.g., FTP services,listservers,P2P file sharing servers, publishing files via generic file services, etc.) via ResNet or NYURoam wireless networks",
+        "extracted_entities": {
+            "operation": "block",
+            "service": [
+                "FTP services",
+                "listservers",
+                "P2P file sharing servers",
+                "publishing files via generic file services"
+            ],
+            "origin": [
+                "ResNet",
+                "NYURoam wireless networks"
+            ]
+        },
+        "nile_statement": "define intent blockServices: from endpoint('ResNet') to endpoint('NYURoamWirelessNetworks') block service('FTPservices'), service('listservers'), service('P2Pfilesharingservers'), service('publishingfilesviagenericfileservices')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 12.668148517608643,
+        "intent_length": 176,
+        "nile_length": 228
+    },
+    {
+        "text": "Housing does not normally limit the amount of bandwidth",
+        "extracted_entities": {
+            "location": "housing",
+            "qos_constraint": "none",
+            "qos_metric": "bandwidth"
+        },
+        "nile_statement": "define intent qosIntent: for group('housing') unset bandwidth('max', '0', 'bps')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 13.992568969726562,
+        "intent_length": 55,
+        "nile_length": 80
+    },
+    {
+        "text": "The UVA More Secure Network uses a firewall, a network security device designed to help protect your computer from hackers and other malicious people on the Internet.",
+        "extracted_entities": {
+            "middlebox": "firewall"
+        },
+        "nile_statement": "define intent secureNetwork: for endpoint('UVA') add middlebox('firewall')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.036057233810425,
+        "intent_length": 166,
+        "nile_length": 74
+    },
+    {
+        "text": "The network firewall does prevent some applications from working in their normal manner, for example, video and audio conferencing products that use the H.323",
+        "extracted_entities": {
+            "middlebox": "firewall",
+            "service": "H323 video conferencing",
+            "traffic": "video and audio conferencing products that use the H.323"
+        },
+        "nile_statement": "define intent qosIntent: for service('H323') add middlebox('firewall') block service('H323')",
+        "grammar_check": true,
+        "iterations": 3,
+        "time": 24.127521753311157,
+        "intent_length": 158,
+        "nile_length": 92
+    },
+    {
+        "text": "The UC Davis network is continually scanned for prohibited activities and network threats.",
+        "extracted_entities": {
+            "operation": "inspect",
+            "middlebox": "network traffic monitor",
+            "target": "network"
+        },
+        "nile_statement": "define intent inspectIntent: for traffic('network') add middlebox('networkTrafficMonitor')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 13.098721981048584,
+        "intent_length": 90,
+        "nile_length": 90
+    }
+]

@@ -64,7 +64,7 @@
             "default_pfcwd_status": "disable",
             "hostname": "SPINE1",
             "hwsku": "Cisco-8102-C64",
-            "mac": "02:8f:7e:15:23:eb",
+            "mac": "02:6c:48:39:28:69",
             "platform": "x86_64-8102_64h_o-r0",
             "synchronous_mode": "enable"
         }

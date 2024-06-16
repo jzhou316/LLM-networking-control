@@ -1,0 +1,156 @@
+[
+    {
+        "entities": {
+            "operation": "configure",
+            "group": [
+                "leaf",
+                "spine"
+            ],
+            "traffic": "connected interfaces",
+            "qos_constraint": "no conflict",
+            "qos_metric": "IP addressing",
+            "qos_value": "class A"
+        },
+        "intent_statement": "define intent networkIntent: for group('leaf'), group('spine') set qos_metric('IP addressing') qos_constraint('no conflict') traffic('connected interfaces') qos_value('class A')"
+    },
+    {
+        "entities": {
+            "operation": "bring up",
+            "origin": "Ethernet4 of each Leaf",
+            "destination": "Ethernet4 of each Spine",
+            "target": "connectivity"
+        },
+        "intent_statement": "define intent networkIntent: from endpoint('Ethernet4 of each Leaf') to endpoint('Ethernet4 of each Spine') connect set IP addresses bring up connectivity"
+    },
+    {
+        "entities": {
+            "operation": [
+                "configure",
+                "configure",
+                "ensure"
+            ],
+            "protocol": [
+                "iBGP",
+                "eBGP"
+            ],
+            "origin": [
+                "Leaf",
+                "Leaf"
+            ],
+            "destination": [
+                "Spine",
+                "end-hosts"
+            ],
+            "traffic": [
+                "ping"
+            ]
+        },
+        "intent_statement": "define intent networkIntent: from endpoint('Leaf') to endpoint('Spine') configure protocol('iBGP') from endpoint('Leaf') to endpoint('end-hosts') configure protocol('eBGP') ensure traffic('ping')"
+    },
+    {
+        "entities": {
+            "operation": "advertise",
+            "middlebox": "bgp",
+            "target": "servers",
+            "traffic": "ip addresses"
+        },
+        "intent_statement": "define intent networkIntent: for target('leaf'), target('spine') assign middlebox('bgp') for target('leaf'), target('spine') bring up middlebox('bgp') for target('host routes'), target('servers') advertise middlebox('bgp')"
+    },
+    {
+        "entities": {
+            "protocol": "BGP",
+            "operation": "ping",
+            "target": "end-hosts"
+        },
+        "intent_statement": "define intent networkIntent: ensure protocol('VXLAN') works over protocol('BGP') and ping for target('end-hosts')"
+    },
+    {
+        "entities": {
+            "operation": [
+                "ensure",
+                "enable",
+                "enable"
+            ],
+            "middlebox": [
+                "underlay connectivity",
+                "overlay configuration"
+            ],
+            "traffic": [
+                "Intra vlan traffic",
+                "Inter vlan"
+            ],
+            "target": [
+                "leaf router",
+                "leaf router"
+            ],
+            "group": [
+                "leaf",
+                "spine"
+            ]
+        },
+        "intent_statement": "define intent networkIntent: from group('leaf') to group('spine') ensure middlebox('underlay connectivity') for target('leaf router') enable middlebox('overlay configuration') for target('leaf router') enable traffic('Intra vlan traffic') enable traffic('Inter vlan')"
+    },
+    {
+        "entities": {
+            "operation": "configure",
+            "middlebox": "layer-3 port-channels",
+            "origin": "leaf",
+            "destination": "spine"
+        },
+        "intent_statement": "define intent portChannelIntent: from endpoint('leaf') to endpoint('spine') add middlebox('layer-3 port-channels')"
+    },
+    {
+        "entities": {
+            "operation": "connect",
+            "group": "portchannel",
+            "origin": "leaf router",
+            "destination": "spine router"
+        },
+        "intent_statement": "define intent networkIntent: from endpoint('leaf_router') to endpoint('spine_router') connect group('portchannel')"
+    },
+    {
+        "entities": {
+            "operation": "deny",
+            "traffic": "IP"
+        },
+        "intent_statement": "define intent qosIntent: allow traffic('IP') deny traffic('IP')"
+    },
+    {
+        "entities": {
+            "middlebox": "acl",
+            "traffic": "unwanted",
+            "endpoint": "leaf1",
+            "operation": "configure",
+            "origin": "source IP",
+            "destination": "destination IP"
+        },
+        "intent_statement": "define intent aclIntent: from endpoint('leaf0') to endpoint('leaf1') configure middlebox('acl') filter traffic('unwanted') allow traffic('certain hosts')"
+    },
+    {
+        "entities": {
+            "origin": "end-hosts",
+            "destination": "DCP 2",
+            "traffic": "rest",
+            "target": "leaf device",
+            "operation": "map"
+        },
+        "intent_statement": "define intent qosIntent: from endpoint('end-hosts') to endpoint('DCP 2') classify traffic('IP') set traffic('DSCP 2') to traffic('class 3') set traffic('rest') to traffic('class 1') for target('leaf device') apply to every interface connected to endpoint('end-hosts')"
+    },
+    {
+        "entities": {
+            "middlebox": "qos policy",
+            "traffic": "DSCP",
+            "operation": "map",
+            "target": "leaf"
+        },
+        "intent_statement": "define intent qosIntent: for target('leaf') enable middlebox('qos policy') mapping traffic('DSCP') map traffic('ingress'), traffic('egress')"
+    },
+    {
+        "entities": {
+            "operation": "enable",
+            "protocol": "ospf",
+            "target": "network"
+        },
+        "intent_statement": "define intent ospfIntent: for group('leaf'), group('spine') set protocol('ospf') for interface('interface') set protocol('ospf') for network('network') set protocol('ospf')"
+    }
+]

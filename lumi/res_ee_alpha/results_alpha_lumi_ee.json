@@ -1,0 +1,6985 @@
+[
+  {
+    "text": "torrent traffic must be allowed for guest but limited to 100 mbps",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "must"
+      },
+      {
+        "type": "operation",
+        "value": "allow"
+      },
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "qos_value",
+        "value": "100"
+      },
+      {
+        "type": "qos_unit",
+        "value": "mbps"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 36,
+            "end": 41,
+            "confidence_entity": 0.9590424299240112,
+            "value": "guest",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 0,
+            "end": 15,
+            "confidence_entity": 0.6713479161262512,
+            "value": "torrent",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('guest'), traffic('torrent')  set None('max', '100', 'mbps')"
+  },
+  {
+    "text": "make sure all traffic to server racks is throttled to 1 gbps from 4pm to 9pm",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "is"
+      },
+      {
+        "type": "qos_value",
+        "value": "1"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gbps"
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 25,
+            "end": 37,
+            "confidence_entity": 0.945573091506958,
+            "value": "servers",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 66,
+            "end": 69,
+            "confidence_entity": 0.9997518658638,
+            "value": "16:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 73,
+            "end": 76,
+            "confidence_entity": 0.9845477938652039,
+            "value": "21:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 25,
+            "end": 37,
+            "confidence_entity": 0.945573091506958,
+            "value": "servers",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 10,
+            "end": 21,
+            "confidence_entity": 0.9237240552902222,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('servers'), traffic('all') set None('1', 'gbps') start hour('16:00') end hour('21:00')"
+  },
+  {
+    "text": "please remove DPI from DMZ starting at 6am until 9pm",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "remove"
+      },
+      {
+        "type": "middlebox",
+        "value": "DPI"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 23,
+            "end": 26,
+            "confidence_entity": 0.9986912608146667,
+            "value": "DMZ",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 49,
+            "end": 52,
+            "confidence_entity": 0.7366630434989929,
+            "value": "21:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 23,
+            "end": 26,
+            "confidence_entity": 0.9986912608146667,
+            "value": "DMZ",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('DMZ') remove middlebox('DPI')"
+  },
+  {
+    "text": "please do not let any music streaming in the network",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "operation",
+        "value": "streaming"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 45,
+            "end": 52,
+            "confidence_entity": 0.5120816230773926,
+            "value": "network",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 28,
+            "end": 37,
+            "confidence_entity": 0.7653935551643372,
+            "value": "streaming",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('network'), traffic('streaming')"
+  },
+  {
+    "text": "make tcp traffic pass through traffic shaper from 5pm to 8pm",
+    "extracted_entities": [
+      {
+        "type": "middlebox",
+        "value": "tcp"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 50,
+            "end": 53,
+            "confidence_entity": 0.999722421169281,
+            "value": "17:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 57,
+            "end": 60,
+            "confidence_entity": 0.9916689395904541,
+            "value": "20:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "traffic",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 9,
+            "end": 29,
+            "confidence_entity": 0.6179561018943787,
+            "value": "traffic pass through",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "traffic",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 30,
+            "end": 44,
+            "confidence_entity": 0.46495991945266724,
+            "value": "traffic shaping",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for traffic('traffic pass through'), traffic('traffic shaping') add middlebox('tcp') start hour('17:00') end hour('20:00')"
+  },
+  {
+    "text": "social media traffic must not be blocked",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "must not"
+      },
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "traffic",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 0,
+            "end": 20,
+            "confidence_entity": 0.9940810799598694,
+            "value": "social media traffic",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for traffic('social media traffic')"
+  },
+  {
+    "text": "Please, Lumi, block Youtube and all other streaming traffic",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "traffic",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 32,
+            "end": 35,
+            "confidence_entity": 0.9934272766113281,
+            "value": "all",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 42,
+            "end": 59,
+            "confidence_entity": 0.9587706923484802,
+            "value": "streaming",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for traffic('streaming') block traffic('all')"
+  },
+  {
+    "text": "Lumi, please unblock all torrent traffic",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "allow"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 21,
+            "end": 24,
+            "confidence_entity": 0.9876025319099426,
+            "value": "all",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "traffic",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 25,
+            "end": 40,
+            "confidence_entity": 0.8390711545944214,
+            "value": "torrent",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for traffic('all') allow traffic('torrent')"
+  },
+  {
+    "text": "Lumi, for the guest network, limit the traffic of torrent protocol to 100 mbps",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "qos_value",
+        "value": "100"
+      },
+      {
+        "type": "qos_unit",
+        "value": "mbps"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 14,
+            "end": 27,
+            "confidence_entity": 0.954101026058197,
+            "value": "guest network",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "traffic",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 50,
+            "end": 57,
+            "confidence_entity": 0.8437133431434631,
+            "value": "torrent",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('guest network'), traffic('torrent') set bandwidth('max', '100', 'mbps')"
+  },
+  {
+    "text": "unblock facebook",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "allow"
+      },
+      {
+        "type": "service",
+        "value": "facebook"
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('network') allow service('facebook')"
+  },
+  {
+    "text": "unblock traffic",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "allow"
+      },
+      {
+        "type": "traffic",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 8,
+            "end": 15,
+            "confidence_entity": 0.8091744780540466,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('network') allow traffic('all')"
+  },
+  {
+    "text": "block facebook",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "service",
+        "value": "facebook"
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('network') block service('facebook')"
+  },
+  {
+    "text": "Block F2movies traffic from Internet to Labs",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Block"
+      },
+      {
+        "type": "service",
+        "value": "F2movies"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 28,
+            "end": 36,
+            "confidence_entity": 0.998691737651825,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 40,
+            "end": 44,
+            "confidence_entity": 0.8983577489852905,
+            "value": "Labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 28,
+            "end": 36,
+            "confidence_entity": 0.998691737651825,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 40,
+            "end": 44,
+            "confidence_entity": 0.8983577489852905,
+            "value": "Labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: from endpoint('gateway') to endpoint('Labs') for block service('F2movies')"
+  },
+  {
+    "text": "Block F2movies traffic from Internet to student Labs",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Block"
+      },
+      {
+        "type": "service",
+        "value": "F2movies"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 28,
+            "end": 36,
+            "confidence_entity": 0.9985478520393372,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 40,
+            "end": 47,
+            "confidence_entity": 0.7966862916946411,
+            "value": "student",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 28,
+            "end": 36,
+            "confidence_entity": 0.9985478520393372,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 48,
+            "end": 52,
+            "confidence_entity": 0.7540158629417419,
+            "value": "Labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 40,
+            "end": 47,
+            "confidence_entity": 0.7966862916946411,
+            "value": "student",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent:from endpoint('gateway')to endpoint('student') for endpoint('Labs') block service('F2movies')"
+  },
+  {
+    "text": "Add DPI middlebox into all traffic from Internet to the Labs",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Add"
+      },
+      {
+        "type": "middlebox",
+        "value": "DPI"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 40,
+            "end": 48,
+            "confidence_entity": 0.9987943172454834,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 56,
+            "end": 60,
+            "confidence_entity": 0.9787271618843079,
+            "value": "Labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 40,
+            "end": 48,
+            "confidence_entity": 0.9987943172454834,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 56,
+            "end": 60,
+            "confidence_entity": 0.9787271618843079,
+            "value": "Labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 23,
+            "end": 34,
+            "confidence_entity": 0.9908746480941772,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent:from endpoint('gateway')to endpoint('Labs') for traffic('all') add middlebox('DPI')"
+  },
+  {
+    "text": "All traffic from the Internet to the Labs has to go to DPI server and then goes to the Labs",
+    "extracted_entities": [
+      {
+        "type": "middlebox",
+        "value": "DPI"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 21,
+            "end": 29,
+            "confidence_entity": 0.9992470741271973,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 37,
+            "end": 41,
+            "confidence_entity": 0.9780263304710388,
+            "value": "Labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 87,
+            "end": 91,
+            "confidence_entity": 0.9393007159233093,
+            "value": "Labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 21,
+            "end": 29,
+            "confidence_entity": 0.9992470741271973,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 37,
+            "end": 41,
+            "confidence_entity": 0.9780263304710388,
+            "value": "Labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 87,
+            "end": 91,
+            "confidence_entity": 0.9393007159233093,
+            "value": "Labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 0,
+            "end": 11,
+            "confidence_entity": 0.986311137676239,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: from endpoint('gateway') to endpoint('Labs') for traffic('all') add middlebox('DPI')"
+  },
+  {
+    "text": "add dpi to labs network",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "middlebox",
+        "value": "dpi"
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 11,
+            "end": 23,
+            "confidence_entity": 0.7644956111907959,
+            "value": "labs network",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 11,
+            "end": 23,
+            "confidence_entity": 0.7644956111907959,
+            "value": "labs network",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('labs network') add middlebox('dpi')"
+  },
+  {
+    "text": "Hey Lumi, add DPI to the labs network",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "middlebox",
+        "value": "DPI"
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 25,
+            "end": 29,
+            "confidence_entity": 0.9960196614265442,
+            "value": "labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 25,
+            "end": 29,
+            "confidence_entity": 0.9960196614265442,
+            "value": "labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('labs') add middlebox('DPI')"
+  },
+  {
+    "text": "hey Lumi, add dpi to labs",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "middlebox",
+        "value": "dpi"
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 21,
+            "end": 25,
+            "confidence_entity": 0.9920879006385803,
+            "value": "labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 21,
+            "end": 25,
+            "confidence_entity": 0.9920879006385803,
+            "value": "labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('labs') add middlebox('dpi')"
+  },
+  {
+    "text": "limit servers bandwidth to 5gbps between 4pm and 7pm",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "location",
+        "value": "servers"
+      },
+      {
+        "type": "qos_metric",
+        "value": "bandwidth"
+      },
+      {
+        "type": "qos_unit",
+        "value": "5gbps"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 41,
+            "end": 44,
+            "confidence_entity": 0.9997839331626892,
+            "value": "16:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 49,
+            "end": 52,
+            "confidence_entity": 0.9998883008956909,
+            "value": "19:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+  },
+  {
+    "text": "unblock facebook traffic",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "allow"
+      },
+      {
+        "type": "service",
+        "value": "facebook traffic"
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('network') allow service('facebook traffic')"
+  },
+  {
+    "text": "allow all traffic",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "allow"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 6,
+            "end": 17,
+            "confidence_entity": 0.9867876768112183,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('network') allow traffic('all')"
+  },
+  {
+    "text": "block all student traffic in the network",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 33,
+            "end": 40,
+            "confidence_entity": 0.9302691221237183,
+            "value": "network",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 18,
+            "end": 25,
+            "confidence_entity": 0.8639825582504272,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "value": [
+          {
+            "entity": "group",
+            "start": 10,
+            "end": 17,
+            "confidence_entity": 0.9138707518577576,
+            "value": "student",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('network'), traffic('all'), group('student') block"
+  },
+  {
+    "text": "block all student traffic",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 18,
+            "end": 25,
+            "confidence_entity": 0.5930992960929871,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "value": [
+          {
+            "entity": "group",
+            "start": 10,
+            "end": 17,
+            "confidence_entity": 0.8987768888473511,
+            "value": "student",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for traffic('all'), group('student') block"
+  },
+  {
+    "text": "block all traffic",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 6,
+            "end": 17,
+            "confidence_entity": 0.9895010590553284,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('network') block traffic('all')"
+  },
+  {
+    "text": "Limit students in the dorm to 10 GB per week",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 22,
+            "end": 26,
+            "confidence_entity": 0.99912029504776,
+            "value": "dorm",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "group",
+        "value": [
+          {
+            "entity": "group",
+            "start": 6,
+            "end": 14,
+            "confidence_entity": 0.9994907379150391,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('dorm'), group('students') set bandwidth('max', '10', 'gb/wk')"
+  },
+  {
+    "text": "Make sure all traffic from the Internet to the labs is inspected by the DPI middlebox",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "is"
+      },
+      {
+        "type": "middlebox",
+        "value": "inspected"
+      },
+      {
+        "type": "middlebox",
+        "value": "DPI"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 31,
+            "end": 39,
+            "confidence_entity": 0.9990267753601074,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 47,
+            "end": 51,
+            "confidence_entity": 0.996087908744812,
+            "value": "labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 31,
+            "end": 39,
+            "confidence_entity": 0.9990267753601074,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 47,
+            "end": 51,
+            "confidence_entity": 0.996087908744812,
+            "value": "labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 10,
+            "end": 21,
+            "confidence_entity": 0.9847834706306458,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: from endpoint('gateway') to endpoint('labs') for traffic('all') add middlebox('inspected'), middlebox('DPI')"
+  },
+  {
+    "text": "Between internet and servers limit traffic to 5Gbps start 16:00 finish 19:00",
+    "extracted_entities": [
+      {
+        "type": "location",
+        "value": "gateway"
+      },
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "qos_unit",
+        "value": "5Gbps"
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 21,
+            "end": 28,
+            "confidence_entity": 0.9851594567298889,
+            "value": "servers",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 58,
+            "end": 63,
+            "confidence_entity": 0.9995802044868469,
+            "value": "16:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 71,
+            "end": 76,
+            "confidence_entity": 0.9995712637901306,
+            "value": "19:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 21,
+            "end": 28,
+            "confidence_entity": 0.9851594567298889,
+            "value": "servers",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 35,
+            "end": 42,
+            "confidence_entity": 0.8458982706069946,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Between internet and servers limit traffic to 5Gbps interval 4pm to 7pm",
+    "extracted_entities": [
+      {
+        "type": "location",
+        "value": "gateway"
+      },
+      {
+        "type": "qos_constraint",
+        "value": "limit traffic"
+      },
+      {
+        "type": "qos_unit",
+        "value": "5Gbps"
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 21,
+            "end": 28,
+            "confidence_entity": 0.9860724210739136,
+            "value": "servers",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 61,
+            "end": 64,
+            "confidence_entity": 0.9998794794082642,
+            "value": "16:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 68,
+            "end": 71,
+            "confidence_entity": 0.9998798370361328,
+            "value": "19:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 21,
+            "end": 28,
+            "confidence_entity": 0.9860724210739136,
+            "value": "servers",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: from endpoint('gateway') to endpoint('servers') for traffic('all') set bandwidth('max', '5', 'Gbps') start hour('16:00') end hour('19:00')"
+  },
+  {
+    "text": "limit the bandwidth to 5Gb for rack servers from 4 pm until 7 pm",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "qos_metric",
+        "value": "bandwidth"
+      },
+      {
+        "type": "qos_unit",
+        "value": "5Gb"
+      },
+      {
+        "type": "location",
+        "value": "servers"
+      },
+      {
+        "type": "qos_value",
+        "value": "4 pm"
+      },
+      {
+        "type": "qos_value",
+        "value": "7 pm"
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('servers') set bandwidth('max', '5', 'Gb') start hour('16:00') end hour('19:00')"
+  },
+  {
+    "text": "limit traffic to 5Gbps  Between internet and servers for 16:00 to 19:00",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "qos_unit",
+        "value": "5Gbps"
+      },
+      {
+        "type": "location",
+        "value": "gateway"
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 45,
+            "end": 52,
+            "confidence_entity": 0.9343870282173157,
+            "value": "servers",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 57,
+            "end": 62,
+            "confidence_entity": 0.999568521976471,
+            "value": "16:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 66,
+            "end": 71,
+            "confidence_entity": 0.9995487332344055,
+            "value": "19:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 45,
+            "end": 52,
+            "confidence_entity": 0.9343870282173157,
+            "value": "servers",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 6,
+            "end": 13,
+            "confidence_entity": 0.9399935007095337,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: from endpoint('gateway') to endpoint('servers') for traffic('all') set bandwidth('max', '5', 'Gbps') start hour('16:00') end hour('19:00')"
+  },
+  {
+    "text": "set quota to 10 GB per week at labs",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "set"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 31,
+            "end": 35,
+            "confidence_entity": 0.9903218150138855,
+            "value": "labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('labs') set quota('10', 'gb/wk')"
+  },
+  {
+    "text": "set quota to 10 GB per week at servers",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "set"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 31,
+            "end": 38,
+            "confidence_entity": 0.725209653377533,
+            "value": "servers",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('servers') set quota('10', 'gb/wk')"
+  },
+  {
+    "text": "Set quota to 10 GB per week dorms",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Set"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "location",
+        "value": "dorms"
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('dorms') set quota('10', 'gb/wk')"
+  },
+  {
+    "text": "Set quota to 10 GB per week at guest",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Set"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 31,
+            "end": 36,
+            "confidence_entity": 0.5903558135032654,
+            "value": "guest",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('guest') set quota('10', 'gb/wk')"
+  },
+  {
+    "text": "Set quota to 10 GB per week at dorms",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Set"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 31,
+            "end": 36,
+            "confidence_entity": 0.9992579817771912,
+            "value": "dorms",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('dorms') set quota('10', 'gb/wk')"
+  },
+  {
+    "text": "set quota to 10 GB per week at LAN",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "set"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 31,
+            "end": 34,
+            "confidence_entity": 0.9992464780807495,
+            "value": "LAN",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('LAN') set quota('10', 'gb/wk')"
+  },
+  {
+    "text": "block all traffic at Dorms location",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 21,
+            "end": 26,
+            "confidence_entity": 0.9982886910438538,
+            "value": "Dorms",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 6,
+            "end": 17,
+            "confidence_entity": 0.990882396697998,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('Dorms') block traffic('all')"
+  },
+  {
+    "text": "Limit traffic to 10 GB per week at Dorms",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 35,
+            "end": 40,
+            "confidence_entity": 0.9981929659843445,
+            "value": "Dorms",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 6,
+            "end": 13,
+            "confidence_entity": 0.7039233446121216,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ],
+    "nile_statement": "define intent uniIntent: for endpoint('Dorms'), traffic('all') set bandwidth('max', '10', 'gb/wk')"
+  },
+  {
+    "text": "for endpoint dorms set quota download 10 gb/wk",
+    "extracted_entities": [
+      {
+        "type": "location",
+        "value": "dorms"
+      },
+      {
+        "type": "operation",
+        "value": "set"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_constraint",
+        "value": "download"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      }
+    ]
+  },
+  {
+    "text": "At endpoint Dorms set quota to 10 GB per week",
+    "extracted_entities": [
+      {
+        "type": "location",
+        "value": "Dorms"
+      },
+      {
+        "type": "operation",
+        "value": "set"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      }
+    ]
+  },
+  {
+    "text": "Students shall download no more than 1000000 MB per week",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "download"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "1000000"
+      },
+      {
+        "type": "qos_unit",
+        "value": "mb/wk"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 0,
+            "end": 8,
+            "confidence_entity": 0.9993439316749573,
+            "value": "Students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "hey lumi, please add a DPI to ensure students from the labs are not accessing suspicious applications",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "middlebox",
+        "value": "DPI"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 55,
+            "end": 59,
+            "confidence_entity": 0.9959516525268555,
+            "value": "labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 55,
+            "end": 59,
+            "confidence_entity": 0.9959516525268555,
+            "value": "labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 37,
+            "end": 45,
+            "confidence_entity": 0.9995433688163757,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Limit rack servers to 5gbps during 5pm to 7pm",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "location",
+        "value": "servers"
+      },
+      {
+        "type": "qos_unit",
+        "value": "5gbps"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 35,
+            "end": 38,
+            "confidence_entity": 0.9996905326843262,
+            "value": "17:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 42,
+            "end": 45,
+            "confidence_entity": 0.9999061822891235,
+            "value": "19:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Limit servers to 5gbps during 5pm to 7pm",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "location",
+        "value": "servers"
+      },
+      {
+        "type": "qos_unit",
+        "value": "5gbps"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 30,
+            "end": 33,
+            "confidence_entity": 0.9995951056480408,
+            "value": "17:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 37,
+            "end": 40,
+            "confidence_entity": 0.9998779296875,
+            "value": "19:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Set 5gbps limit for servers during 4pm to 7pm",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Set"
+      },
+      {
+        "type": "qos_unit",
+        "value": "5gbps"
+      },
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 35,
+            "end": 38,
+            "confidence_entity": 0.9997867941856384,
+            "value": "16:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 42,
+            "end": 45,
+            "confidence_entity": 0.9998980760574341,
+            "value": "19:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 20,
+            "end": 27,
+            "confidence_entity": 0.9865131974220276,
+            "value": "servers",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "please lumi, block f2movies traffic from internet to students labs",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "service",
+        "value": "F2movies"
+      },
+      {
+        "type": "location",
+        "value": "labs"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 41,
+            "end": 49,
+            "confidence_entity": 0.9992024302482605,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 41,
+            "end": 49,
+            "confidence_entity": 0.9992024302482605,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 53,
+            "end": 61,
+            "confidence_entity": 0.9993875026702881,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "hey lumi, please allow traffic only from professors",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "allow"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 41,
+            "end": 51,
+            "confidence_entity": 0.9563727974891663,
+            "value": "professors",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 23,
+            "end": 30,
+            "confidence_entity": 0.9537825584411621,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "please lumi, define dorms quota to 10 gb per week",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "set"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 20,
+            "end": 25,
+            "confidence_entity": 0.9996479749679565,
+            "value": "dorms",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Students shall download no more than 1000000 megabytes per week",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "download"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "1000000"
+      },
+      {
+        "type": "qos_unit",
+        "value": "megabytes per week"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 0,
+            "end": 8,
+            "confidence_entity": 0.9993402361869812,
+            "value": "Students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "please limit bandwidth to 5 Gigabits per second for the server racks everyday from 4 PM  to 7PM",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "qos_metric",
+        "value": "bandwidth"
+      },
+      {
+        "type": "qos_value",
+        "value": "5"
+      },
+      {
+        "type": "qos_unit",
+        "value": "Gigabits per second"
+      },
+      {
+        "type": "qos_value",
+        "value": "4 PM"
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 92,
+            "end": 95,
+            "confidence_entity": 0.9998464584350586,
+            "value": "19:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 56,
+            "end": 68,
+            "confidence_entity": 0.8852414488792419,
+            "value": "servers",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "limit the bandwidth in server racks to 5gbps between 4pm and 7pm",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "qos_metric",
+        "value": "bandwidth"
+      },
+      {
+        "type": "qos_unit",
+        "value": "5gbps"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 53,
+            "end": 56,
+            "confidence_entity": 0.9998834133148193,
+            "value": "16:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 61,
+            "end": 64,
+            "confidence_entity": 0.9998843669891357,
+            "value": "19:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 23,
+            "end": 35,
+            "confidence_entity": 0.9539819955825806,
+            "value": "servers",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "I want the torrent traffic from guest users to be no more than 100 mbps",
+    "extracted_entities": [
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "100"
+      },
+      {
+        "type": "qos_unit",
+        "value": "mbps"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 32,
+            "end": 43,
+            "confidence_entity": 0.535582959651947,
+            "value": "guests",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 11,
+            "end": 26,
+            "confidence_entity": 0.8942587971687317,
+            "value": "torrent",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "limit network usage of all students in the dorms to no more than 10 gb per seven days",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "limit network"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 43,
+            "end": 48,
+            "confidence_entity": 0.9992892742156982,
+            "value": "dorms",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 27,
+            "end": 35,
+            "confidence_entity": 0.9994779229164124,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "prevent all f2movies traffic from reaching the students in the labs",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "service",
+        "value": "F2movies"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 63,
+            "end": 67,
+            "confidence_entity": 0.9816558957099915,
+            "value": "labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 47,
+            "end": 55,
+            "confidence_entity": 0.9995145797729492,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Add monitor for the university from 4am to 10pm",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Add"
+      },
+      {
+        "type": "middlebox",
+        "value": "monitor"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 36,
+            "end": 39,
+            "confidence_entity": 0.9996441602706909,
+            "value": "04:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 43,
+            "end": 47,
+            "confidence_entity": 0.9118542671203613,
+            "value": "22:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 20,
+            "end": 30,
+            "confidence_entity": 0.9995520710945129,
+            "value": "university",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "set a maximum of 5 gbps to the servers from 4pm to 7pm",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "set"
+      },
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "qos_value",
+        "value": "5"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gbps"
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 31,
+            "end": 38,
+            "confidence_entity": 0.9594756364822388,
+            "value": "servers",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 44,
+            "end": 47,
+            "confidence_entity": 0.9998761415481567,
+            "value": "16:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 51,
+            "end": 54,
+            "confidence_entity": 0.9998700618743896,
+            "value": "19:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 31,
+            "end": 38,
+            "confidence_entity": 0.9594756364822388,
+            "value": "servers",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "students should download no more than 10 GB of data in a week",
+    "extracted_entities": [
+      {
+        "type": "qos_metric",
+        "value": "should"
+      },
+      {
+        "type": "qos_constraint",
+        "value": "download"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 0,
+            "end": 8,
+            "confidence_entity": 0.9995535016059875,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "set torrent traffic from guests to 100 mbps",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "set"
+      },
+      {
+        "type": "qos_value",
+        "value": "100"
+      },
+      {
+        "type": "qos_unit",
+        "value": "mbps"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 25,
+            "end": 31,
+            "confidence_entity": 0.988452136516571,
+            "value": "guests",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 4,
+            "end": 19,
+            "confidence_entity": 0.8496196866035461,
+            "value": "torrent",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "From internet to Labs add DPI",
+    "extracted_entities": [
+      {
+        "type": "location",
+        "value": "gateway"
+      },
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "middlebox",
+        "value": "DPI"
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 17,
+            "end": 21,
+            "confidence_entity": 0.9921334981918335,
+            "value": "Labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 17,
+            "end": 21,
+            "confidence_entity": 0.9921334981918335,
+            "value": "Labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "From internet to Labs block F2movies",
+    "extracted_entities": [
+      {
+        "type": "location",
+        "value": "gateway"
+      },
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "service",
+        "value": "F2movies"
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 17,
+            "end": 21,
+            "confidence_entity": 0.9887219667434692,
+            "value": "Labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 17,
+            "end": 21,
+            "confidence_entity": 0.9887219667434692,
+            "value": "Labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "limit the bandwidth rate of the server racks to 5 gbps from 4pm to 7pm",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "qos_metric",
+        "value": "bandwidth"
+      },
+      {
+        "type": "qos_value",
+        "value": "5"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gbps"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 60,
+            "end": 63,
+            "confidence_entity": 0.9997979998588562,
+            "value": "16:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 67,
+            "end": 70,
+            "confidence_entity": 0.9998648166656494,
+            "value": "19:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 32,
+            "end": 44,
+            "confidence_entity": 0.9138643145561218,
+            "value": "servers",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "block traffic of the server racks",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 21,
+            "end": 33,
+            "confidence_entity": 0.9066304564476013,
+            "value": "servers",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 6,
+            "end": 13,
+            "confidence_entity": 0.6837324500083923,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "block all traffic for the server racks",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 26,
+            "end": 38,
+            "confidence_entity": 0.9283573031425476,
+            "value": "servers",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 6,
+            "end": 17,
+            "confidence_entity": 0.9904077649116516,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "limit to 100 Mbps the bandwidth torrent traffic can consume",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "qos_value",
+        "value": "100"
+      },
+      {
+        "type": "qos_unit",
+        "value": "mbps"
+      },
+      {
+        "type": "qos_metric",
+        "value": "bandwidth"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 32,
+            "end": 47,
+            "confidence_entity": 0.875647246837616,
+            "value": "torrent",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "forward traffic for labs through the dpi",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "middlebox",
+        "value": "dpi"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 20,
+            "end": 24,
+            "confidence_entity": 0.9967317581176758,
+            "value": "labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 8,
+            "end": 15,
+            "confidence_entity": 0.6894510388374329,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "put a download quota for students of 10 gb per week",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "download"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 25,
+            "end": 33,
+            "confidence_entity": 0.9995476603507996,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "limit torrent traffic to 100 mbps",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "qos_value",
+        "value": "100"
+      },
+      {
+        "type": "qos_unit",
+        "value": "mbps"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 6,
+            "end": 21,
+            "confidence_entity": 0.8711118698120117,
+            "value": "torrent",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "block F2movies traffic for students in the labs",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "service",
+        "value": "F2movies"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 43,
+            "end": 47,
+            "confidence_entity": 0.9694868326187134,
+            "value": "labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 27,
+            "end": 35,
+            "confidence_entity": 0.999411940574646,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "set a 10 GB per week download quota for students in dorms",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "set"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "qos_constraint",
+        "value": "download"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 52,
+            "end": 57,
+            "confidence_entity": 0.9991605281829834,
+            "value": "dorms",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 40,
+            "end": 48,
+            "confidence_entity": 0.9995586276054382,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "ensure that all traffic from the Internet to the labs is carefully inspected by the Deep Packet Inspection middlebox",
+    "extracted_entities": [
+      {
+        "type": "middlebox",
+        "value": "inspected"
+      },
+      {
+        "type": "middlebox",
+        "value": "dpi"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 33,
+            "end": 41,
+            "confidence_entity": 0.9991206526756287,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 49,
+            "end": 53,
+            "confidence_entity": 0.9967827796936035,
+            "value": "labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 33,
+            "end": 41,
+            "confidence_entity": 0.9991206526756287,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 49,
+            "end": 53,
+            "confidence_entity": 0.9967827796936035,
+            "value": "labs",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 12,
+            "end": 23,
+            "confidence_entity": 0.9914817810058594,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "limit torrent traffic for guests to 100 Mbps",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "qos_value",
+        "value": "100"
+      },
+      {
+        "type": "qos_unit",
+        "value": "mbps"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 26,
+            "end": 32,
+            "confidence_entity": 0.9956279993057251,
+            "value": "guests",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 6,
+            "end": 21,
+            "confidence_entity": 0.815926730632782,
+            "value": "torrent",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "inspect all internet traffic",
+    "extracted_entities": [
+      {
+        "type": "middlebox",
+        "value": "dpi"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 12,
+            "end": 20,
+            "confidence_entity": 0.9995487332344055,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 8,
+            "end": 11,
+            "confidence_entity": 0.7986603379249573,
+            "value": "all",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Students can download up to 10 GB per week of data.",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "download"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 0,
+            "end": 8,
+            "confidence_entity": 0.9995212554931641,
+            "value": "Students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Limit bandwidth usage to 50 mbps for professors.",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "qos_metric",
+        "value": "bandwidth"
+      },
+      {
+        "type": "qos_value",
+        "value": "50"
+      },
+      {
+        "type": "qos_unit",
+        "value": "mbps"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 37,
+            "end": 47,
+            "confidence_entity": 0.9787881374359131,
+            "value": "professors",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Please make traffic coming from the Internet pass through a firewall.",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "middlebox",
+        "value": "firewall"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 36,
+            "end": 44,
+            "confidence_entity": 0.9986679553985596,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 36,
+            "end": 44,
+            "confidence_entity": 0.9986679553985596,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Hey Lumi please block traffic for all students",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 38,
+            "end": 46,
+            "confidence_entity": 0.9995760321617126,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 22,
+            "end": 29,
+            "confidence_entity": 0.7234840989112854,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "add a firewall",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "middlebox",
+        "value": "firewall"
+      }
+    ]
+  },
+  {
+    "text": "From gateway to network add middlebox firewall",
+    "extracted_entities": [
+      {
+        "type": "location",
+        "value": "gateway"
+      },
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "middlebox",
+        "value": "firewall"
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 16,
+            "end": 23,
+            "confidence_entity": 0.8022221326828003,
+            "value": "network",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 16,
+            "end": 23,
+            "confidence_entity": 0.8022221326828003,
+            "value": "network",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "From my house to PUCRS add middlebox dpi",
+    "extracted_entities": [
+      {
+        "type": "location",
+        "value": "my house"
+      },
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "middlebox",
+        "value": "dpi"
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 17,
+            "end": 22,
+            "confidence_entity": 0.9994046688079834,
+            "value": "PUCRS",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 17,
+            "end": 22,
+            "confidence_entity": 0.9994046688079834,
+            "value": "PUCRS",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "From dorms to internet add nat",
+    "extracted_entities": [
+      {
+        "type": "location",
+        "value": "dorms"
+      },
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "middlebox",
+        "value": "nat"
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 14,
+            "end": 22,
+            "confidence_entity": 0.999612033367157,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 14,
+            "end": 22,
+            "confidence_entity": 0.999612033367157,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "From university to internet add firewall",
+    "extracted_entities": [
+      {
+        "type": "location",
+        "value": "university"
+      },
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "middlebox",
+        "value": "firewall"
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 19,
+            "end": 27,
+            "confidence_entity": 0.9996582269668579,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 19,
+            "end": 27,
+            "confidence_entity": 0.9996582269668579,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Please add traffic shaper between the internet and the dorms",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "middlebox",
+        "value": "traffic shaping"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 38,
+            "end": 46,
+            "confidence_entity": 0.9994825124740601,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 55,
+            "end": 60,
+            "confidence_entity": 0.9990853071212769,
+            "value": "dorms",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Please, block netflix traffic on PUC",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "service",
+            "start": 14,
+            "end": 21,
+            "confidence_entity": 0.8794646263122559,
+            "value": "netflix",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 33,
+            "end": 36,
+            "confidence_entity": 0.9976896047592163,
+            "value": "PUCRS",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Block streaming traffic on UFRGS",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Block"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 27,
+            "end": 32,
+            "confidence_entity": 0.999133288860321,
+            "value": "UFRGS",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 6,
+            "end": 23,
+            "confidence_entity": 0.9552385807037354,
+            "value": "streaming",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Add inspection for the university from 10pm to 12pm",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Add"
+      },
+      {
+        "type": "middlebox",
+        "value": "inspection"
+      },
+      {
+        "type": "hour",
+        "value": "to 12pm"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 34,
+            "end": 43,
+            "confidence_entity": 0.8036051988601685,
+            "value": "from 10pm",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 23,
+            "end": 33,
+            "confidence_entity": 0.9993213415145874,
+            "value": "university",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Block traffic from netflix",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Block"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 19,
+            "end": 26,
+            "confidence_entity": 0.6462584137916565,
+            "value": "netflix",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 19,
+            "end": 26,
+            "confidence_entity": 0.6462584137916565,
+            "value": "netflix",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Add monitor for the university from 04:00 to 22:00",
+    "extracted_entities": [
+      {
+        "type": "middlebox",
+        "value": "monitor"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 36,
+            "end": 41,
+            "confidence_entity": 0.9994274377822876,
+            "value": "04:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 45,
+            "end": 50,
+            "confidence_entity": 0.9995096921920776,
+            "value": "22:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 20,
+            "end": 30,
+            "confidence_entity": 0.9996139407157898,
+            "value": "university",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Add traffic monitor from PUC to UFRGS",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Add"
+      },
+      {
+        "type": "middlebox",
+        "value": "traffic monitor"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 25,
+            "end": 28,
+            "confidence_entity": 0.9986451268196106,
+            "value": "PUCRS",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 32,
+            "end": 37,
+            "confidence_entity": 0.9988094568252563,
+            "value": "UFRGS",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 25,
+            "end": 28,
+            "confidence_entity": 0.9986451268196106,
+            "value": "PUCRS",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 32,
+            "end": 37,
+            "confidence_entity": 0.9988094568252563,
+            "value": "UFRGS",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "add shaping for gateway everyday from 18:00 to midnight",
+    "extracted_entities": [
+      {
+        "type": "middlebox",
+        "value": "traffic shaping"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 38,
+            "end": 43,
+            "confidence_entity": 0.9991716146469116,
+            "value": "18:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 47,
+            "end": 55,
+            "confidence_entity": 0.9997571110725403,
+            "value": "24:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 16,
+            "end": 23,
+            "confidence_entity": 0.9996515512466431,
+            "value": "gateway",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Add a firewall and address translation for att and verizon",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Add"
+      },
+      {
+        "type": "middlebox",
+        "value": "firewall"
+      },
+      {
+        "type": "middlebox",
+        "value": "nat"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 43,
+            "end": 46,
+            "confidence_entity": 0.9974575638771057,
+            "value": "at&t",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 51,
+            "end": 58,
+            "confidence_entity": 0.9988241791725159,
+            "value": "verizon",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Define a quota of 10 GB per week for all students",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "set"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 41,
+            "end": 49,
+            "confidence_entity": 0.9994644522666931,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Dorms traffic to internet must pass through a firewall",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "middlebox",
+        "value": "firewall"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 0,
+            "end": 5,
+            "confidence_entity": 0.9977028965950012,
+            "value": "Dorms",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 17,
+            "end": 25,
+            "confidence_entity": 0.9995272159576416,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 17,
+            "end": 25,
+            "confidence_entity": 0.9995272159576416,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "We provide a quota to all students of 1 GB/wk of usage.",
+    "extracted_entities": [
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "1"
+      },
+      {
+        "type": "qos_unit",
+        "value": "GB/wk"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 26,
+            "end": 34,
+            "confidence_entity": 0.9996911287307739,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Add inspection for the university from 22:00 to 12:00",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Add"
+      },
+      {
+        "type": "middlebox",
+        "value": "inspection"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 39,
+            "end": 44,
+            "confidence_entity": 0.9994121789932251,
+            "value": "22:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 48,
+            "end": 53,
+            "confidence_entity": 0.9995108842849731,
+            "value": "12:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 23,
+            "end": 33,
+            "confidence_entity": 0.9996461868286133,
+            "value": "university",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Remove firewall from the university to my house",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Remove"
+      },
+      {
+        "type": "middlebox",
+        "value": "firewall"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 25,
+            "end": 35,
+            "confidence_entity": 0.9991782307624817,
+            "value": "university",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 39,
+            "end": 47,
+            "confidence_entity": 0.9995158910751343,
+            "value": "my house",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 25,
+            "end": 35,
+            "confidence_entity": 0.9991782307624817,
+            "value": "university",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 39,
+            "end": 47,
+            "confidence_entity": 0.9995158910751343,
+            "value": "my house",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "add security from entry to backend",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "middlebox",
+        "value": "security"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 18,
+            "end": 23,
+            "confidence_entity": 0.9986342787742615,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 27,
+            "end": 34,
+            "confidence_entity": 0.8248642683029175,
+            "value": "backend",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 18,
+            "end": 23,
+            "confidence_entity": 0.9986342787742615,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 27,
+            "end": 34,
+            "confidence_entity": 0.8248642683029175,
+            "value": "backend",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "From gateway to my network remove nat",
+    "extracted_entities": [
+      {
+        "type": "location",
+        "value": "gateway"
+      },
+      {
+        "type": "operation",
+        "value": "remove"
+      },
+      {
+        "type": "middlebox",
+        "value": "nat"
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 16,
+            "end": 26,
+            "confidence_entity": 0.964637041091919,
+            "value": "network",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 16,
+            "end": 26,
+            "confidence_entity": 0.964637041091919,
+            "value": "network",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Remove load balancing from gateway to database",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Remove"
+      },
+      {
+        "type": "middlebox",
+        "value": "load balancer"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 27,
+            "end": 34,
+            "confidence_entity": 0.998817503452301,
+            "value": "gateway",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 38,
+            "end": 46,
+            "confidence_entity": 0.998259961605072,
+            "value": "database",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 27,
+            "end": 34,
+            "confidence_entity": 0.998817503452301,
+            "value": "gateway",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 38,
+            "end": 46,
+            "confidence_entity": 0.998259961605072,
+            "value": "database",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Add firewall from gateway to my house from 06:00 to 21:00",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Add"
+      },
+      {
+        "type": "middlebox",
+        "value": "firewall"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 18,
+            "end": 25,
+            "confidence_entity": 0.9994356036186218,
+            "value": "gateway",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 29,
+            "end": 37,
+            "confidence_entity": 0.9993809461593628,
+            "value": "my house",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 43,
+            "end": 48,
+            "confidence_entity": 0.9995075464248657,
+            "value": "06:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 52,
+            "end": 57,
+            "confidence_entity": 0.9995793700218201,
+            "value": "21:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 18,
+            "end": 25,
+            "confidence_entity": 0.9994356036186218,
+            "value": "gateway",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 29,
+            "end": 37,
+            "confidence_entity": 0.9993809461593628,
+            "value": "my house",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Remove nat for gateway everyday from 18:00 to midnight",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Remove"
+      },
+      {
+        "type": "middlebox",
+        "value": "nat"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 37,
+            "end": 42,
+            "confidence_entity": 0.9992200136184692,
+            "value": "18:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 46,
+            "end": 54,
+            "confidence_entity": 0.9997528195381165,
+            "value": "24:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 15,
+            "end": 22,
+            "confidence_entity": 0.9995558857917786,
+            "value": "gateway",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "We provide a data plan quota for all staff of 10 GB per day",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "set"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "GB per day"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 37,
+            "end": 42,
+            "confidence_entity": 0.9728631377220154,
+            "value": "staff",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "We provide a quota to all students of 1 GB per week of usage",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "set"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "1"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 26,
+            "end": 34,
+            "confidence_entity": 0.999652624130249,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Please Lumi, block streaming traffic for students and set a 10 Mbps bandwidth limit",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "operation",
+        "value": "set"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "mbps"
+      },
+      {
+        "type": "qos_metric",
+        "value": "bandwidth"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 41,
+            "end": 49,
+            "confidence_entity": 0.9996471405029297,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 19,
+            "end": 36,
+            "confidence_entity": 0.943999707698822,
+            "value": "streaming",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Please allow social media for the HR department",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "allow"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 34,
+            "end": 47,
+            "confidence_entity": 0.7808859348297119,
+            "value": "HR",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 13,
+            "end": 25,
+            "confidence_entity": 0.9982473850250244,
+            "value": "social-media",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Let students access Facebook",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "allow"
+      },
+      {
+        "type": "service",
+        "value": "Facebook"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 4,
+            "end": 12,
+            "confidence_entity": 0.9991207718849182,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Do no let students access Netflix from the laboratories to the internet",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Do no let"
+      },
+      {
+        "type": "service",
+        "value": "Netflix"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 43,
+            "end": 55,
+            "confidence_entity": 0.9987140893936157,
+            "value": "labs",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 63,
+            "end": 71,
+            "confidence_entity": 0.99919193983078,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 43,
+            "end": 55,
+            "confidence_entity": 0.9987140893936157,
+            "value": "labs",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 63,
+            "end": 71,
+            "confidence_entity": 0.99919193983078,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 10,
+            "end": 18,
+            "confidence_entity": 0.9988160133361816,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Block all traffic from HR to the backend servers",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Block"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 23,
+            "end": 25,
+            "confidence_entity": 0.9164640307426453,
+            "value": "HR",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 33,
+            "end": 48,
+            "confidence_entity": 0.7857837677001953,
+            "value": "backend",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 23,
+            "end": 25,
+            "confidence_entity": 0.9164640307426453,
+            "value": "HR",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 33,
+            "end": 48,
+            "confidence_entity": 0.7857837677001953,
+            "value": "backend",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 6,
+            "end": 17,
+            "confidence_entity": 0.9888482093811035,
+            "value": "all",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Students may use up to 10 GB of data weekly",
+    "extracted_entities": [
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 0,
+            "end": 8,
+            "confidence_entity": 0.9994789958000183,
+            "value": "Students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Block streaming and gaming traffic in classrooms",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Block"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 38,
+            "end": 48,
+            "confidence_entity": 0.9971333742141724,
+            "value": "classrooms",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 6,
+            "end": 15,
+            "confidence_entity": 0.9048357009887695,
+            "value": "streaming",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 20,
+            "end": 26,
+            "confidence_entity": 0.9978729486465454,
+            "value": "gaming",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Add intrusion detection and address translation for servers network",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Add"
+      },
+      {
+        "type": "middlebox",
+        "value": "ids"
+      },
+      {
+        "type": "middlebox",
+        "value": "nat"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 52,
+            "end": 59,
+            "confidence_entity": 0.6990855932235718,
+            "value": "servers",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Dismiss rate limiting for faculty members",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "unset"
+      },
+      {
+        "type": "qos_metric",
+        "value": "rate limiting"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 26,
+            "end": 33,
+            "confidence_entity": 0.889254093170166,
+            "value": "staff",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Dismiss all middleboxes from UFRGS to PUCRS",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "unset"
+      },
+      {
+        "type": "middlebox",
+        "value": "all"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 29,
+            "end": 34,
+            "confidence_entity": 0.9994321465492249,
+            "value": "UFRGS",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 38,
+            "end": 43,
+            "confidence_entity": 0.9972105622291565,
+            "value": "PUCRS",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 29,
+            "end": 34,
+            "confidence_entity": 0.9994321465492249,
+            "value": "UFRGS",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 38,
+            "end": 43,
+            "confidence_entity": 0.9972105622291565,
+            "value": "PUCRS",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Include parental control for PlayStation",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "middlebox",
+        "value": "parental control"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "service",
+            "start": 29,
+            "end": 40,
+            "confidence_entity": 0.9977292418479919,
+            "value": "ps4",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Do not let Staff members access any social media",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 36,
+            "end": 48,
+            "confidence_entity": 0.9960739612579346,
+            "value": "social-media",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 11,
+            "end": 24,
+            "confidence_entity": 0.9449158906936646,
+            "value": "staff",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Set users bandwidth to 500 kbps when the 100 Gb per month quota is reached",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Set"
+      },
+      {
+        "type": "qos_metric",
+        "value": "bandwidth"
+      },
+      {
+        "type": "qos_value",
+        "value": "500"
+      },
+      {
+        "type": "qos_unit",
+        "value": "kbps"
+      },
+      {
+        "type": "qos_value",
+        "value": "100"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/mth"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 4,
+            "end": 9,
+            "confidence_entity": 0.9553974270820618,
+            "value": "users",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Prioritize Netflix traffic from 18:00 to midnight",
+    "extracted_entities": [
+      {
+        "type": "middlebox",
+        "value": "traffic shaping"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 32,
+            "end": 37,
+            "confidence_entity": 0.9992213249206543,
+            "value": "18:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 41,
+            "end": 49,
+            "confidence_entity": 0.9996359348297119,
+            "value": "24:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "service",
+            "start": 11,
+            "end": 18,
+            "confidence_entity": 0.962356686592102,
+            "value": "Netflix",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Balance traffic coming from gateway to application servers",
+    "extracted_entities": [
+      {
+        "type": "middlebox",
+        "value": "load balancer"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 28,
+            "end": 35,
+            "confidence_entity": 0.9989120960235596,
+            "value": "gateway",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 39,
+            "end": 58,
+            "confidence_entity": 0.9146482944488525,
+            "value": "application",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 28,
+            "end": 35,
+            "confidence_entity": 0.9989120960235596,
+            "value": "gateway",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 39,
+            "end": 58,
+            "confidence_entity": 0.9146482944488525,
+            "value": "application",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Block torrent traffic for all students",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Block"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 30,
+            "end": 38,
+            "confidence_entity": 0.9992326498031616,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 6,
+            "end": 21,
+            "confidence_entity": 0.72942054271698,
+            "value": "torrent",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Block bittorrent for professors",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Block"
+      },
+      {
+        "type": "service",
+        "value": "bittorrent"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 21,
+            "end": 31,
+            "confidence_entity": 0.9703989624977112,
+            "value": "professors",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Staff is allowed to access ftp",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "is allowed to"
+      },
+      {
+        "type": "protocol",
+        "value": "ftp"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 0,
+            "end": 5,
+            "confidence_entity": 0.6812199354171753,
+            "value": "Staff",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Students cannot run file servers",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "service",
+        "value": "file servers"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 0,
+            "end": 8,
+            "confidence_entity": 0.9993727803230286,
+            "value": "Students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Add parental control from my house to internet",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Add"
+      },
+      {
+        "type": "middlebox",
+        "value": "parental control"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 26,
+            "end": 34,
+            "confidence_entity": 0.9977091550827026,
+            "value": "my house",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 38,
+            "end": 46,
+            "confidence_entity": 0.998310923576355,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 26,
+            "end": 34,
+            "confidence_entity": 0.9977091550827026,
+            "value": "my house",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 38,
+            "end": 46,
+            "confidence_entity": 0.998310923576355,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Students should not use more than five gigabytes of bandwidth per week",
+    "extracted_entities": [
+      {
+        "type": "qos_metric",
+        "value": "quota"
+      },
+      {
+        "type": "qos_value",
+        "value": "five"
+      },
+      {
+        "type": "qos_unit",
+        "value": "gb/wk"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 0,
+            "end": 8,
+            "confidence_entity": 0.9994239807128906,
+            "value": "Students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Block all incoming HTTP traffic, allow only HTTPS for all hosts",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Block"
+      },
+      {
+        "type": "protocol",
+        "value": "HTTP"
+      },
+      {
+        "type": "operation",
+        "value": "allow"
+      },
+      {
+        "type": "protocol",
+        "value": "HTTPS"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 58,
+            "end": 63,
+            "confidence_entity": 0.9985787868499756,
+            "value": "hosts",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Permit gaming for PS4 from 13:00 to 18:00",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "allow"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 27,
+            "end": 32,
+            "confidence_entity": 0.9994035959243774,
+            "value": "13:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 36,
+            "end": 41,
+            "confidence_entity": 0.9992530941963196,
+            "value": "18:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 18,
+            "end": 21,
+            "confidence_entity": 0.9994925260543823,
+            "value": "PS4",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 7,
+            "end": 13,
+            "confidence_entity": 0.9985494017601013,
+            "value": "gaming",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Email traffic is allowed for Staff members",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "is allowed"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "service",
+            "start": 0,
+            "end": 5,
+            "confidence_entity": 0.9086717963218689,
+            "value": "Email",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 29,
+            "end": 42,
+            "confidence_entity": 0.9622854590415955,
+            "value": "staff",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Grant SFTP access to all students from 08:00 to 17:00",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "allow"
+      },
+      {
+        "type": "protocol",
+        "value": "SFTP"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 39,
+            "end": 44,
+            "confidence_entity": 0.9994408488273621,
+            "value": "08:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 48,
+            "end": 53,
+            "confidence_entity": 0.9995680451393127,
+            "value": "17:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 25,
+            "end": 33,
+            "confidence_entity": 0.9990604519844055,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Dismiss all rate limits and quotas for all hosts",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "unset"
+      },
+      {
+        "type": "qos_metric",
+        "value": "bandwidth"
+      },
+      {
+        "type": "qos_metric",
+        "value": "quotas"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 43,
+            "end": 48,
+            "confidence_entity": 0.9984027743339539,
+            "value": "hosts",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Prioritize VoIP traffic on the meeting room 23 from 13:00 to 14:00",
+    "extracted_entities": [
+      {
+        "type": "middlebox",
+        "value": "traffic shaping"
+      },
+      {
+        "type": "qos_value",
+        "value": "23"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 52,
+            "end": 57,
+            "confidence_entity": 0.9995598196983337,
+            "value": "13:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 61,
+            "end": 66,
+            "confidence_entity": 0.9995501637458801,
+            "value": "14:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 31,
+            "end": 43,
+            "confidence_entity": 0.994461178779602,
+            "value": "meeting room",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 11,
+            "end": 15,
+            "confidence_entity": 0.989822506904602,
+            "value": "VoIP",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Forward all the external traffic to DMZ",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 16,
+            "end": 24,
+            "confidence_entity": 0.997194766998291,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 36,
+            "end": 39,
+            "confidence_entity": 0.9977066516876221,
+            "value": "DMZ",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 16,
+            "end": 24,
+            "confidence_entity": 0.997194766998291,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 36,
+            "end": 39,
+            "confidence_entity": 0.9977066516876221,
+            "value": "DMZ",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Limit in 10 Mbps the download rate of dorms from internet",
+    "extracted_entities": [
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "mbps"
+      },
+      {
+        "type": "qos_constraint",
+        "value": "bandwidth"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 49,
+            "end": 57,
+            "confidence_entity": 0.9995941519737244,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 49,
+            "end": 57,
+            "confidence_entity": 0.9995941519737244,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 38,
+            "end": 43,
+            "confidence_entity": 0.9991397857666016,
+            "value": "dorms",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Lumi, block SIP traffic from 19:00 to 08:00 for dorms",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "protocol",
+        "value": "SIP traffic"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 29,
+            "end": 34,
+            "confidence_entity": 0.9994388222694397,
+            "value": "19:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 38,
+            "end": 43,
+            "confidence_entity": 0.999461829662323,
+            "value": "08:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 48,
+            "end": 53,
+            "confidence_entity": 0.9993044137954712,
+            "value": "dorms",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Grant SSH access to professors",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "allow"
+      },
+      {
+        "type": "protocol",
+        "value": "SSH"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 17,
+            "end": 19,
+            "confidence_entity": 0.9032452702522278,
+            "value": "to",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 20,
+            "end": 30,
+            "confidence_entity": 0.6187439560890198,
+            "value": "professors",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Setup a packet filter for guests traffic",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Setup"
+      },
+      {
+        "type": "middlebox",
+        "value": "packet filter"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 26,
+            "end": 32,
+            "confidence_entity": 0.9980303645133972,
+            "value": "guests",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Lumi, please set to 1 GB per day the download limit for guests",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "set"
+      },
+      {
+        "type": "qos_value",
+        "value": "1"
+      },
+      {
+        "type": "qos_unit",
+        "value": "GB per day"
+      },
+      {
+        "type": "qos_constraint",
+        "value": "download"
+      },
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 56,
+            "end": 62,
+            "confidence_entity": 0.9991545677185059,
+            "value": "guests",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Lumi, prohibit access to internal campus computers from the internet",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "prohibit"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 60,
+            "end": 68,
+            "confidence_entity": 0.9987592697143555,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 25,
+            "end": 50,
+            "confidence_entity": 0.993499755859375,
+            "value": "internal campus computers",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 60,
+            "end": 68,
+            "confidence_entity": 0.9987592697143555,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 25,
+            "end": 50,
+            "confidence_entity": 0.993499755859375,
+            "value": "internal campus computers",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Increase the bandwidth consumption limit for professors to 100 Mbps",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "add"
+      },
+      {
+        "type": "qos_metric",
+        "value": "bandwidth"
+      },
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "qos_value",
+        "value": "100"
+      },
+      {
+        "type": "qos_unit",
+        "value": "mbps"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 45,
+            "end": 55,
+            "confidence_entity": 0.9702517986297607,
+            "value": "professors",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Allow RTSP traffic in the LAN",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Allow"
+      },
+      {
+        "type": "protocol",
+        "value": "RTSP"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 26,
+            "end": 29,
+            "confidence_entity": 0.9991672039031982,
+            "value": "LAN",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Lumi, please install an email scanner for the gateway",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "install"
+      },
+      {
+        "type": "middlebox",
+        "value": "email scanner"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 46,
+            "end": 53,
+            "confidence_entity": 0.9976478219032288,
+            "value": "gateway",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Lumi, block VoIP traffic from 00:00 to 06:00",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "start",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 30,
+            "end": 35,
+            "confidence_entity": 0.9994019269943237,
+            "value": "24:00",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "end",
+        "value": [
+          {
+            "entity": "hour",
+            "start": 39,
+            "end": 44,
+            "confidence_entity": 0.9994080066680908,
+            "value": "06:00",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "traffic",
+            "start": 12,
+            "end": 16,
+            "confidence_entity": 0.9933024644851685,
+            "value": "VoIP",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Set to 1 Gbps bandwidth limit for the traffic to DMZ",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Set"
+      },
+      {
+        "type": "qos_value",
+        "value": "1"
+      },
+      {
+        "type": "qos_unit",
+        "value": "Gbps"
+      },
+      {
+        "type": "qos_metric",
+        "value": "bandwidth"
+      },
+      {
+        "type": "qos_constraint",
+        "value": "max"
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 49,
+            "end": 52,
+            "confidence_entity": 0.9983490705490112,
+            "value": "DMZ",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 49,
+            "end": 52,
+            "confidence_entity": 0.9983490705490112,
+            "value": "DMZ",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Lumi, set to 10 kbps the upload rate for faculty",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "set to"
+      },
+      {
+        "type": "qos_value",
+        "value": "10"
+      },
+      {
+        "type": "qos_unit",
+        "value": "kbps"
+      },
+      {
+        "type": "qos_metric",
+        "value": "bandwidth"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 41,
+            "end": 48,
+            "confidence_entity": 0.5011268258094788,
+            "value": "staff",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Please, allow Skype for all users",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "allow"
+      },
+      {
+        "type": "service",
+        "value": "Skype"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 28,
+            "end": 33,
+            "confidence_entity": 0.9027450680732727,
+            "value": "users",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Deny SSH access to students",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "block"
+      },
+      {
+        "type": "protocol",
+        "value": "SSH"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 19,
+            "end": 27,
+            "confidence_entity": 0.9987401366233826,
+            "value": "students",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Lumi, setup a TCP accelerator between LAN and video server",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "setup"
+      },
+      {
+        "type": "middlebox",
+        "value": "TCP accelerator"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 38,
+            "end": 41,
+            "confidence_entity": 0.9976230263710022,
+            "value": "LAN",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 46,
+            "end": 58,
+            "confidence_entity": 0.9945448637008667,
+            "value": "video server",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 46,
+            "end": 58,
+            "confidence_entity": 0.9945448637008667,
+            "value": "video server",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Lumi, allow access to internal campus computers from the internet through SSH",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "allow"
+      },
+      {
+        "type": "protocol",
+        "value": "SSH"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 57,
+            "end": 65,
+            "confidence_entity": 0.9993032217025757,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 22,
+            "end": 47,
+            "confidence_entity": 0.9923568964004517,
+            "value": "internal campus computers",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 57,
+            "end": 65,
+            "confidence_entity": 0.9993032217025757,
+            "value": "gateway",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 22,
+            "end": 47,
+            "confidence_entity": 0.9923568964004517,
+            "value": "internal campus computers",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Reduce the download rate for faculty members to 20 Mbps",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Reduce"
+      },
+      {
+        "type": "qos_constraint",
+        "value": "bandwidth"
+      },
+      {
+        "type": "qos_value",
+        "value": "20"
+      },
+      {
+        "type": "qos_unit",
+        "value": "mbps"
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "group",
+            "start": 29,
+            "end": 44,
+            "confidence_entity": 0.9190413951873779,
+            "value": "faculty members",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "text": "Allow access from computers to DMZ",
+    "extracted_entities": [
+      {
+        "type": "operation",
+        "value": "Allow"
+      },
+      {
+        "type": "origin",
+        "value": [
+          {
+            "entity": "location",
+            "start": 18,
+            "end": 27,
+            "confidence_entity": 0.5623443722724915,
+            "value": "hosts",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "destination",
+        "value": [
+          {
+            "entity": "location",
+            "start": 31,
+            "end": 34,
+            "confidence_entity": 0.9980024695396423,
+            "value": "DMZ",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 18,
+            "end": 27,
+            "confidence_entity": 0.5623443722724915,
+            "value": "hosts",
+            "extractor": "DIETClassifier",
+            "processors": [
+              "EntitySynonymMapper"
+            ]
+          }
+        ]
+      },
+      {
+        "type": "target",
+        "value": [
+          {
+            "entity": "location",
+            "start": 31,
+            "end": 34,
+            "confidence_entity": 0.9980024695396423,
+            "value": "DMZ",
+            "extractor": "DIETClassifier"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,1394 @@
+[
+    {
+        "entities": {
+            "traffic": "torrent",
+            "group": "guest",
+            "qos_constraint": "limit",
+            "qos_value": "100",
+            "qos_unit": "mbps",
+            "operation": "allow"
+        },
+        "intent_statement": "define intent qosIntent: for group('guest') allow traffic('torrent') set bandwidth('max', '100', 'mbps')"
+    },
+    {
+        "entities": {
+            "traffic": "all traffic",
+            "target": "server racks",
+            "qos_metric": "bandwidth",
+            "qos_value": "1",
+            "qos_unit": "gbps",
+            "start": "4pm",
+            "end": "9pm"
+        },
+        "intent_statement": "define intent qosIntent: for traffic('all traffic') set bandwidth('max', '1', 'gbps') for target('server racks') start hour('4pm') end hour('9pm')"
+    },
+    {
+        "entities": {
+            "middlebox": "dpi",
+            "origin": "dmz",
+            "start": "06:00",
+            "end": "21:00",
+            "operation": "remove"
+        },
+        "intent_statement": "define intent: from endpoint('dmz') remove middlebox('dpi') start hour('06:00') end hour('21:00')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "traffic": "streaming"
+        },
+        "intent_statement": "define intent blockStreaming: block traffic('streaming')"
+    },
+    {
+        "entities": {
+            "traffic": "tcp",
+            "middlebox": "traffic shaper",
+            "start": "17:00",
+            "end": "20:00"
+        },
+        "intent_statement": "define intent qosIntent: for traffic('tcp') add middlebox('traffic shaper') start hour('17:00') end hour('20:00')"
+    },
+    {
+        "entities": {
+            "operation": "allow",
+            "traffic": "social media"
+        },
+        "intent_statement": "define intent: qosIntent: allow traffic('social media')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "traffic": "streaming",
+            "service": "youtube"
+        },
+        "intent_statement": "define intent blockStreaming: block traffic('streaming'), service('youtube')"
+    },
+    {
+        "entities": {
+            "operation": "unblock",
+            "traffic": "torrent"
+        },
+        "intent_statement": "define intent unblockTorrentTraffic: allow traffic('torrent')"
+    },
+    {
+        "entities": {
+            "group": "guests",
+            "traffic": "torrent",
+            "qos_constraint": "limit",
+            "qos_value": "100",
+            "qos_unit": "mbps"
+        },
+        "intent_statement": "define intent qosIntent: for group('guests') set bandwidth('max', '100', 'mbps') for traffic('torrent')"
+    },
+    {
+        "entities": {
+            "operation": "unblock",
+            "service": "facebook"
+        },
+        "intent_statement": "define intent unblockFacebook: unblock service('facebook')"
+    },
+    {
+        "entities": {
+            "operation": "unblock",
+            "traffic": "traffic"
+        },
+        "intent_statement": "define intent qosIntent: allow traffic('traffic')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "service": "facebook"
+        },
+        "intent_statement": "define intent blockFacebook: block service('facebook')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "traffic": "F2movies",
+            "origin": "Internet",
+            "destination": "Labs"
+        },
+        "intent_statement": "define intent blockIntent: from endpoint('Internet') to endpoint('Labs') block traffic('F2movies')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "service": "F2movies",
+            "origin": "Internet",
+            "destination": "student Labs"
+        },
+        "intent_statement": "define intent blockF2moviesTraffic: from endpoint('Internet') to endpoint('student Labs') block service('F2movies')"
+    },
+    {
+        "entities": {
+            "middlebox": "dpi",
+            "traffic": "all",
+            "origin": "internet",
+            "destination": "labs",
+            "operation": "add"
+        },
+        "intent_statement": "define intent dpiIntent: from endpoint('internet') to endpoint('labs') add middlebox('dpi')"
+    },
+    {
+        "entities": {
+            "traffic": "all",
+            "origin": "Internet",
+            "destination": "Labs",
+            "middlebox": "DPI"
+        },
+        "intent_statement": "define intent: qosIntent: from endpoint('Internet') to endpoint('Labs') add middlebox('DPI')"
+    },
+    {
+        "entities": {
+            "middlebox": "dpi",
+            "target": "labs",
+            "operation": "add"
+        },
+        "intent_statement": "define intent addDPI: for target('labs') add middlebox('dpi')"
+    },
+    {
+        "entities": {
+            "operation": "add",
+            "middlebox": "dpi",
+            "location": "labs"
+        },
+        "intent_statement": "define intent addDPI: for location('labs') add middlebox('dpi')"
+    },
+    {
+        "entities": {
+            "operation": "add",
+            "middlebox": "dpi",
+            "target": "labs"
+        },
+        "intent_statement": "define intent addDPI: for target('labs') add middlebox('dpi')"
+    },
+    {
+        "entities": {
+            "qos_constraint": "limit",
+            "qos_metric": "bandwidth",
+            "qos_value": "5",
+            "qos_unit": "gbps",
+            "start": "4pm",
+            "end": "7pm",
+            "target": "servers"
+        },
+        "intent_statement": "define intent qosIntent: for servers set bandwidth('max', '5', 'gbps') start hour('4pm') end hour('7pm')"
+    },
+    {
+        "entities": {
+            "operation": "unblock",
+            "service": "facebook"
+        },
+        "intent_statement": "define intent unblockFacebook: unblock service('facebook')"
+    },
+    {
+        "entities": {
+            "operation": "allow",
+            "traffic": "all"
+        },
+        "intent_statement": "define intent: qosIntent: allow traffic('all')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "group": "students",
+            "traffic": "all"
+        },
+        "intent_statement": "define intent: blockStudentTraffic: block traffic('all') for group('students')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "group": "students",
+            "traffic": "all"
+        },
+        "intent_statement": "define intent blockStudentTraffic: for group('students') block traffic('all')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "traffic": "all traffic"
+        },
+        "intent_statement": "define intent blockAllTraffic: block traffic('all traffic')"
+    },
+    {
+        "entities": {
+            "group": "students",
+            "location": "dorms",
+            "qos_metric": "quota",
+            "qos_value": "10",
+            "qos_unit": "gb/wk"
+        },
+        "intent_statement": "define intent qosIntent: for group('students') set quota('10', 'gb/wk') at location('dorms')"
+    },
+    {
+        "entities": {
+            "origin": "Internet",
+            "destination": "labs",
+            "middlebox": "dpi",
+            "operation": "add",
+            "traffic": "all"
+        },
+        "intent_statement": "define intent qosIntent: from endpoint('Internet') to endpoint('labs') add middlebox('dpi') for traffic('all')"
+    },
+    {
+        "entities": {
+            "origin": "internet",
+            "destination": "servers",
+            "qos_constraint": "limit",
+            "traffic": "traffic",
+            "qos_value": "5",
+            "qos_unit": "gbps",
+            "start": "16:00",
+            "end": "19:00"
+        },
+        "intent_statement": "define intent qosIntent: from endpoint('internet') to endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+    },
+    {
+        "entities": {
+            "origin": "internet",
+            "destination": "servers",
+            "qos_constraint": "limit",
+            "traffic": "traffic",
+            "qos_value": "5",
+            "qos_unit": "gbps",
+            "start": "16:00",
+            "end": "19:00"
+        },
+        "intent_statement": "define intent qosIntent: from endpoint('internet') to endpoint('servers') limit traffic('traffic') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+    },
+    {
+        "entities": {
+            "qos_constraint": "limit",
+            "qos_metric": "bandwidth",
+            "qos_value": "5",
+            "qos_unit": "gbps",
+            "location": "rack servers",
+            "start": "16:00",
+            "end": "19:00"
+        },
+        "intent_statement": "define intent qosIntent: for location('rack servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+    },
+    {
+        "entities": {
+            "traffic": "traffic",
+            "qos_constraint": "limit",
+            "qos_value": "5",
+            "qos_unit": "gbps",
+            "origin": "internet",
+            "destination": "servers",
+            "start": "16:00",
+            "end": "19:00"
+        },
+        "intent_statement": "define intent qosIntent: from endpoint('internet') to endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+    },
+    {
+        "entities": {
+            "operation": "set",
+            "quota": "10",
+            "qos_unit": "gb/wk",
+            "location": "labs"
+        },
+        "intent_statement": "define intent qosIntent: for location('labs') set quota('10', 'gb/wk')"
+    },
+    {
+        "entities": {
+            "operation": "set",
+            "quota": "10",
+            "qos_unit": "gb/wk",
+            "target": "servers"
+        },
+        "intent_statement": "define intent qosIntent: for endpoint('servers') set quota('10', 'gb/wk')"
+    },
+    {
+        "entities": {
+            "qos_metric": "quota",
+            "qos_value": "10",
+            "qos_unit": "gb/wk",
+            "group": "dorms",
+            "operation": "set"
+        },
+        "intent_statement": "define intent qosIntent: for group('dorms') set quota('10', 'gb/wk')"
+    },
+    {
+        "entities": {
+            "operation": "set",
+            "qos_metric": "quota",
+            "qos_value": "10",
+            "qos_unit": "gb/wk",
+            "group": "guest"
+        },
+        "intent_statement": "define intent: qosIntent: for group('guest') set quota('10', 'gb/wk')"
+    },
+    {
+        "entities": {
+            "operation": "set",
+            "qos_metric": "quota",
+            "qos_value": "10",
+            "qos_unit": "gb/wk",
+            "target": "dorms"
+        },
+        "intent_statement": "define intent qosIntent: for target('dorms') set quota('10', 'gb/wk')"
+    },
+    {
+        "entities": {
+            "operation": "set",
+            "quota": "10",
+            "qos_unit": "gb/wk",
+            "location": "LAN"
+        },
+        "intent_statement": "define intent qosIntent: for location('LAN') set quota('10', 'gb/wk')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "traffic": "all traffic",
+            "target": "dorms"
+        },
+        "intent_statement": "define intent blockAllTraffic: for traffic('all traffic') block traffic('all traffic') for group('dorms')"
+    },
+    {
+        "entities": {
+            "traffic": "all",
+            "qos_value": "10",
+            "qos_unit": "gb/wk",
+            "target": "dorms",
+            "operation": "limit"
+        },
+        "intent_statement": "define intent qosIntent: for traffic('all') limit quota('10', 'gb/wk') for target('dorms')"
+    },
+    {
+        "entities": {
+            "target": "dorms",
+            "operation": "set",
+            "qos_metric": "quota",
+            "qos_constraint": "download",
+            "qos_value": "10",
+            "qos_unit": "gb/wk"
+        },
+        "intent_statement": "define intent qosIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
+    },
+    {
+        "entities": {
+            "target": "dorms",
+            "operation": "set",
+            "qos_metric": "quota",
+            "qos_value": "10",
+            "qos_unit": "gb/wk"
+        },
+        "intent_statement": "define intent qosIntent: for endpoint('dorms') set quota('10', 'gb/wk')"
+    },
+    {
+        "entities": {
+            "group": "students",
+            "qos_constraint": "download",
+            "qos_value": "1000000",
+            "qos_unit": "mb/wk"
+        },
+        "intent_statement": "define intent qosIntent: for group('students') set quota('download', '1000000', 'mb/wk')"
+    },
+    {
+        "entities": {
+            "middlebox": "dpi",
+            "group": "students",
+            "location": "labs",
+            "operation": "add",
+            "traffic": "suspicious applications"
+        },
+        "intent_statement": "define intent qosIntent: for group('students') add middlebox('dpi') for location('labs') block traffic('suspicious applications')"
+    },
+    {
+        "entities": {
+            "traffic": "rack servers",
+            "qos_constraint": "limit",
+            "qos_value": "5",
+            "qos_unit": "gbps",
+            "start": "5pm",
+            "end": "7pm"
+        },
+        "intent_statement": "define intent qosIntent: for traffic('rack servers') set bandwidth('max', '5', 'gbps') start hour('17:00') end hour('19:00')"
+    },
+    {
+        "entities": {
+            "qos_constraint": "limit",
+            "qos_metric": "bandwidth",
+            "qos_value": "5",
+            "qos_unit": "gbps",
+            "start": "17:00",
+            "end": "19:00",
+            "target": "servers"
+        },
+        "intent_statement": "define intent qosIntent: for target('servers') set bandwidth('max', '5', 'gbps') start hour('17:00') end hour('19:00')"
+    },
+    {
+        "entities": {
+            "qos_constraint": "limit",
+            "qos_metric": "bandwidth",
+            "qos_value": "5",
+            "qos_unit": "gbps",
+            "target": "servers",
+            "start": "4pm",
+            "end": "7pm"
+        },
+        "intent_statement": "define intent qosIntent: for target('servers') set bandwidth('max', '5', 'gbps') start hour('4pm') end hour('7pm')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "service": "F2movies",
+            "origin": "internet",
+            "group": "students",
+            "destination": "labs"
+        },
+        "intent_statement": "define intent blockF2moviesTraffic: from endpoint('internet') to endpoint('labs') block service('F2movies') for group('students')"
+    },
+    {
+        "entities": {
+            "operation": "allow",
+            "traffic": "traffic",
+            "group": "professors"
+        },
+        "intent_statement": "define intent qosIntent: allow traffic('traffic') for group('professors')"
+    },
+    {
+        "entities": {
+            "location": "dorms",
+            "qos_metric": "quota",
+            "qos_value": "10",
+            "qos_unit": "gb per week",
+            "operation": "set"
+        },
+        "intent_statement": "define intent qosIntent: for location('dorms') set quota('10', 'gb per week')"
+    },
+    {
+        "entities": {
+            "group": "students",
+            "qos_constraint": "download",
+            "qos_value": "1000000",
+            "qos_unit": "mb/wk"
+        },
+        "intent_statement": "define intent qosIntent: for group('students') set quota('download', '1000000', 'mb/wk')"
+    },
+    {
+        "entities": {
+            "qos_constraint": "limit",
+            "qos_metric": "bandwidth",
+            "qos_value": "5",
+            "qos_unit": "gbps",
+            "target": "server racks",
+            "hour": "19:00"
+        },
+        "intent_statement": "define intent qosIntent: for target('server racks') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+    },
+    {
+        "entities": {
+            "qos_constraint": "limit",
+            "qos_metric": "bandwidth",
+            "qos_value": "5",
+            "qos_unit": "gbps",
+            "target": "server racks",
+            "start": "16:00",
+            "end": "19:00"
+        },
+        "intent_statement": "define intent qosIntent: for target('server racks') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+    },
+    {
+        "entities": {
+            "traffic": "torrent",
+            "group": "guests",
+            "qos_metric": "bandwidth",
+            "qos_value": "100",
+            "qos_unit": "mbps"
+        },
+        "intent_statement": "define intent qosIntent: for group('guests') set bandwidth('max', '100', 'mbps') traffic('torrent')"
+    },
+    {
+        "entities": {
+            "group": "students",
+            "location": "dorms",
+            "qos_constraint": "limit",
+            "qos_metric": "network usage",
+            "qos_value": "10",
+            "qos_unit": "gb per seven days"
+        },
+        "intent_statement": "define intent qosIntent: for group('students') set quota('10', 'gb per seven days')"
+    },
+    {
+        "entities": {
+            "service": "F2movies",
+            "group": "students",
+            "location": "labs",
+            "operation": "prevent"
+        },
+        "intent_statement": "define intent qosIntent: for group('students') in location('labs') block service('F2movies')"
+    },
+    {
+        "entities": {
+            "middlebox": "monitor",
+            "location": "university",
+            "start": "4am",
+            "end": "10pm"
+        },
+        "intent_statement": "define intent monitorIntent: for location('university') add middlebox('monitor') start hour('4am') end hour('10pm')"
+    },
+    {
+        "entities": {
+            "qos_constraint": "maximum",
+            "qos_value": "5",
+            "qos_unit": "gbps",
+            "target": "servers",
+            "start": "16:00",
+            "end": "19:00"
+        },
+        "intent_statement": "define intent qosIntent: for target('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+    },
+    {
+        "entities": {
+            "group": "students",
+            "qos_constraint": "download",
+            "qos_metric": "quota",
+            "qos_value": "10",
+            "qos_unit": "gb/wk"
+        },
+        "intent_statement": "define intent: qosIntent: for group('students') set quota('download', '10', 'gb/wk')"
+    },
+    {
+        "entities": {
+            "traffic": "torrent",
+            "group": "guests",
+            "qos_value": "100",
+            "qos_unit": "mbps",
+            "operation": "set"
+        },
+        "intent_statement": "define intent qosIntent: for group('guests') set bandwidth('max', '100', 'mbps') traffic('torrent')"
+    },
+    {
+        "entities": {
+            "origin": "internet",
+            "destination": "labs",
+            "middlebox": "dpi",
+            "operation": "add"
+        },
+        "intent_statement": "define intent dpiIntent: from endpoint('internet') to endpoint('labs') add middlebox('dpi')"
+    },
+    {
+        "entities": {
+            "origin": "internet",
+            "destination": "labs",
+            "service": "F2movies",
+            "operation": "block"
+        },
+        "intent_statement": "define intent: from endpoint('internet') to endpoint('labs') block service('F2movies')"
+    },
+    {
+        "entities": {
+            "qos_constraint": "limit",
+            "qos_metric": "bandwidth",
+            "qos_value": "5",
+            "qos_unit": "gbps",
+            "target": "server racks",
+            "start": "16:00",
+            "end": "19:00"
+        },
+        "intent_statement": "define intent qosIntent: for endpoint('server racks') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "traffic": "all",
+            "target": "server racks"
+        },
+        "intent_statement": "define intent blockTraffic: for traffic('all') block traffic('all') for endpoint('server racks')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "traffic": "all traffic",
+            "target": "server racks"
+        },
+        "intent_statement": "define intent qosIntent: for endpoint('server racks') block traffic('all traffic')"
+    },
+    {
+        "entities": {
+            "traffic": "torrent",
+            "qos_constraint": "max 100mbps"
+        },
+        "intent_statement": "define intent qosIntent: set bandwidth('max', '100', 'mbps') for traffic('torrent')"
+    },
+    {
+        "entities": {
+            "traffic": "traffic",
+            "middlebox": "dpi",
+            "target": "labs",
+            "operation": "forward"
+        },
+        "intent_statement": "define intent forwardTraffic: for traffic('traffic') add middlebox('dpi') for group('labs')"
+    },
+    {
+        "entities": {
+            "group": "students",
+            "qos_constraint": "download",
+            "qos_metric": "quota",
+            "qos_value": "10",
+            "qos_unit": "gb per week",
+            "operation": "set"
+        },
+        "intent_statement": "define intent qosIntent: for group('students') set quota('download', '10', 'gb per week')"
+    },
+    {
+        "entities": {
+            "traffic": "torrent",
+            "qos_constraint": "limit",
+            "qos_metric": "bandwidth",
+            "qos_value": "100",
+            "qos_unit": "mbps"
+        },
+        "intent_statement": "define intent qosIntent: for traffic('torrent') limit bandwidth('100', 'mbps')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "service": "F2movies",
+            "group": "students",
+            "target": "labs"
+        },
+        "intent_statement": "define intent blockIntent: for group('students') block service('F2movies') for target('labs')"
+    },
+    {
+        "entities": {
+            "group": "students",
+            "qos_constraint": "download",
+            "qos_metric": "quota",
+            "qos_value": "10",
+            "qos_unit": "gb/wk",
+            "target": "dorms",
+            "operation": "set"
+        },
+        "intent_statement": "define intent qosIntent: for group('students') in dorms set quota(download, 10, gb/wk)"
+    },
+    {
+        "entities": {
+            "traffic": "all",
+            "origin": "Internet",
+            "destination": "labs",
+            "middlebox": "Deep Packet Inspection",
+            "operation": "inspect"
+        },
+        "intent_statement": "define intent: from endpoint('Internet') to endpoint('labs') add middlebox('Deep Packet Inspection')"
+    },
+    {
+        "entities": {
+            "traffic": "torrent",
+            "group": "guests",
+            "qos_constraint": "limit",
+            "qos_metric": "bandwidth",
+            "qos_value": "100",
+            "qos_unit": "mbps"
+        },
+        "intent_statement": "define intent qosIntent: for group('guests') set bandwidth('max', '100', 'mbps') traffic('torrent')"
+    },
+    {
+        "entities": {
+            "traffic": "internet",
+            "operation": "inspect"
+        },
+        "intent_statement": "define intent: inspect traffic('internet')"
+    },
+    {
+        "entities": {
+            "group": "students",
+            "qos_constraint": "download",
+            "qos_value": "10",
+            "qos_unit": "gb/wk"
+        },
+        "intent_statement": "define intent qosIntent: for group('students') set quota('download', '10', 'gb/wk')"
+    },
+    {
+        "entities": {
+            "qos_constraint": "limit",
+            "qos_metric": "bandwidth",
+            "qos_value": "50",
+            "qos_unit": "mbps",
+            "group": "professors"
+        },
+        "intent_statement": "define intent qosIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+    },
+    {
+        "entities": {
+            "origin": "internet",
+            "middlebox": "firewall",
+            "operation": "pass through"
+        },
+        "intent_statement": "define intent qosIntent: from endpoint('internet') add middlebox('firewall')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "traffic": "all",
+            "group": "students"
+        },
+        "intent_statement": "define intent blockAllTrafficForStudents: block traffic('all') for group('students')"
+    },
+    {
+        "entities": {
+            "operation": "add",
+            "middlebox": "firewall"
+        },
+        "intent_statement": "define intent qosIntent: add middlebox('firewall')"
+    },
+    {
+        "entities": {
+            "origin": "gateway",
+            "destination": "network",
+            "middlebox": "firewall",
+            "operation": "add"
+        },
+        "intent_statement": "define intent qosIntent: from endpoint('gateway') to endpoint('network') add middlebox('firewall')"
+    },
+    {
+        "entities": {
+            "origin": "my house",
+            "destination": "PUCRS",
+            "middlebox": "dpi",
+            "operation": "add"
+        },
+        "intent_statement": "define intent networkIntent: from endpoint('my house') to endpoint('PUCRS') add middlebox('dpi')"
+    },
+    {
+        "entities": {
+            "origin": "dorms",
+            "destination": "internet",
+            "operation": "add",
+            "middlebox": "nat"
+        },
+        "intent_statement": "define intent: from endpoint('dorms') to endpoint('internet') add middlebox('nat')"
+    },
+    {
+        "entities": {
+            "origin": "university",
+            "destination": "internet",
+            "middlebox": "firewall",
+            "operation": "add"
+        },
+        "intent_statement": "define intent qosIntent: from endpoint('university') to endpoint('internet') add middlebox('firewall')"
+    },
+    {
+        "entities": {
+            "middlebox": "traffic shaper",
+            "origin": "internet",
+            "destination": "dorms"
+        },
+        "intent_statement": "define intent qosIntent: from endpoint('internet') to endpoint('dorms') add middlebox('traffic shaper')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "service": "netflix",
+            "target": "PUC"
+        },
+        "intent_statement": "define intent blockNetflixOnPUC: for target('PUC') block service('netflix')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "traffic": "streaming",
+            "group": "UFRGS"
+        },
+        "intent_statement": "define intent blockStreaming: for group('UFRGS') block traffic('streaming')"
+    },
+    {
+        "entities": {
+            "middlebox": "inspection",
+            "group": "university",
+            "hour": "12pm"
+        },
+        "intent_statement": "define intent inspectionIntent: for group('university') add middlebox('inspection') start hour('10pm') end hour('12pm')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "traffic": "netflix"
+        },
+        "intent_statement": "define intent blockNetflix: block traffic('netflix')"
+    },
+    {
+        "entities": {
+            "middlebox": "monitor",
+            "target": "university",
+            "start": "04:00",
+            "end": "22:00"
+        },
+        "intent_statement": "define intent: add middlebox('monitor') for target('university') start hour('04:00') end hour('22:00')"
+    },
+    {
+        "entities": {
+            "middlebox": "traffic monitor",
+            "origin": "PUC",
+            "destination": "UFRGS",
+            "operation": "add"
+        },
+        "intent_statement": "define intent: from endpoint('PUC') to endpoint('UFRGS') add middlebox('traffic monitor')"
+    },
+    {
+        "entities": {
+            "middlebox": "shaping",
+            "origin": "gateway",
+            "start": "18:00",
+            "end": "midnight"
+        },
+        "intent_statement": "define intent qosIntent: for endpoint('gateway') add middlebox('shaping') start hour('18:00') end hour('midnight')"
+    },
+    {
+        "entities": {
+            "middlebox": [
+                "firewall",
+                "address translation"
+            ],
+            "group": [
+                "att",
+                "verizon"
+            ],
+            "operation": "add"
+        },
+        "intent_statement": "define intent networkIntent: for group('att'), group('verizon') add middlebox('firewall'), middlebox('address translation')"
+    },
+    {
+        "entities": {
+            "qos_metric": "quota",
+            "qos_value": "10",
+            "qos_unit": "gb/wk",
+            "group": "students",
+            "operation": "set"
+        },
+        "intent_statement": "define intent qosIntent: set quota('10', 'gb/wk') for group('students')"
+    },
+    {
+        "entities": {
+            "origin": "dorms",
+            "destination": "internet",
+            "middlebox": "firewall",
+            "operation": "must pass through"
+        },
+        "intent_statement": "define intent qosIntent: from endpoint('dorms') to endpoint('internet') add middlebox('firewall')"
+    },
+    {
+        "entities": {
+            "group": "students",
+            "qos_metric": "quota",
+            "qos_value": "1",
+            "qos_unit": "GB/wk"
+        },
+        "intent_statement": "define intent qosIntent: set quota('1', 'GB/wk') for group('students')"
+    },
+    {
+        "entities": {
+            "middlebox": "inspection",
+            "group": "university",
+            "start": "22:00",
+            "end": "12:00",
+            "operation": "add"
+        },
+        "intent_statement": "define intent qosIntent: for group('university') add middlebox('inspection') start hour('22:00') end hour('12:00')"
+    },
+    {
+        "entities": {
+            "operation": "remove",
+            "middlebox": "firewall",
+            "origin": "university",
+            "destination": "my house"
+        },
+        "intent_statement": "define intent qosIntent: from endpoint('university') to endpoint('my house') remove middlebox('firewall')"
+    },
+    {
+        "entities": {
+            "operation": "add",
+            "middlebox": "security",
+            "origin": "entry",
+            "destination": "backend"
+        },
+        "intent_statement": "define intent: from endpoint('entry') to endpoint('backend') add middlebox('security')"
+    },
+    {
+        "entities": {
+            "origin": "gateway",
+            "destination": "network",
+            "middlebox": "nat",
+            "operation": "remove"
+        },
+        "intent_statement": "define intent: from endpoint('gateway') to endpoint('network') remove middlebox('nat')"
+    },
+    {
+        "entities": {
+            "operation": "remove",
+            "middlebox": "load balancing",
+            "origin": "gateway",
+            "destination": "database"
+        },
+        "intent_statement": "define intent: from endpoint('gateway') to endpoint('database') remove middlebox('load balancing')"
+    },
+    {
+        "entities": {
+            "middlebox": "firewall",
+            "origin": "gateway",
+            "destination": "my house",
+            "start": "06:00",
+            "end": "21:00",
+            "operation": "add"
+        },
+        "intent_statement": "define intent qosIntent: from endpoint('gateway') to endpoint('my house') add middlebox('firewall') start hour('06:00') end hour('21:00')"
+    },
+    {
+        "entities": {
+            "middlebox": "nat",
+            "target": "gateway",
+            "operation": "remove",
+            "start": "18:00",
+            "end": "midnight"
+        },
+        "intent_statement": "define intent removeNatIntent: for endpoint('gateway') remove middlebox('nat') start hour('18:00') end hour('midnight')"
+    },
+    {
+        "entities": {
+            "operation": "provide",
+            "qos_metric": "quota",
+            "group": "staff",
+            "qos_value": "10",
+            "qos_unit": "GB per day"
+        },
+        "intent_statement": "define intent dataPlanQuota: set quota('10', 'GB per day') for group('staff')"
+    },
+    {
+        "entities": {
+            "operation": "provide",
+            "qos_metric": "quota",
+            "group": "students",
+            "qos_value": "1",
+            "qos_unit": "GB/wk"
+        },
+        "intent_statement": "define intent qosIntent: set quota('1', 'GB/wk') for group('students')"
+    },
+    {
+        "entities": {
+            "operation": [
+                "block",
+                "set"
+            ],
+            "traffic": "streaming",
+            "group": "students",
+            "qos_value": "10",
+            "qos_unit": "Mbps"
+        },
+        "intent_statement": "define intent qosIntent: for group('students') block traffic('streaming') set bandwidth('max', '10', 'Mbps')"
+    },
+    {
+        "entities": {
+            "operation": "allow",
+            "traffic": "social media",
+            "group": "HR department"
+        },
+        "intent_statement": "define intent qosIntent: for group('HR department') allow traffic('social media')"
+    },
+    {
+        "entities": {
+            "operation": "allow",
+            "group": "students",
+            "service": "Facebook"
+        },
+        "intent_statement": "define intent allowFacebook: allow service('Facebook') for group('students')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "group": "students",
+            "service": "Netflix",
+            "origin": "laboratories",
+            "destination": "internet"
+        },
+        "intent_statement": "define intent blockNetflix: from endpoint('laboratories') to endpoint('internet') block service('Netflix') for group('students')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "traffic": "all traffic",
+            "group": "HR",
+            "target": "backend servers"
+        },
+        "intent_statement": "define intent blockAllTrafficFromHRToBackend: for group('HR') block traffic('all traffic') to endpoint('backend servers')"
+    },
+    {
+        "entities": {
+            "group": "students",
+            "qos_metric": "quota",
+            "qos_value": "10",
+            "qos_unit": "gb/wk"
+        },
+        "intent_statement": "define intent qosIntent: for group('students') set quota('10', 'gb/wk')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "traffic": [
+                "streaming",
+                "gaming"
+            ],
+            "group": "students",
+            "location": "classrooms"
+        },
+        "intent_statement": "define intent blockTrafficIntent: for group('students') block traffic('streaming'), traffic('gaming') in location('classrooms')"
+    },
+    {
+        "entities": {
+            "middlebox": [
+                "intrusion detection",
+                "address translation"
+            ],
+            "target": "servers"
+        },
+        "intent_statement": "define intent qosIntent: for group('servers') add middlebox('intrusion detection'), middlebox('address translation')"
+    },
+    {
+        "entities": {
+            "operation": "dismiss",
+            "qos_metric": "rate limiting",
+            "group": "faculty"
+        },
+        "intent_statement": "define intent qosIntent: unset rate limiting for group('faculty')"
+    },
+    {
+        "entities": {
+            "operation": "dismiss",
+            "middlebox": "all middleboxes",
+            "origin": "UFRGS",
+            "destination": "PUCRS"
+        },
+        "intent_statement": "define intent networkIntent: from endpoint('UFRGS') to endpoint('PUCRS') dismiss middlebox('all middleboxes')"
+    },
+    {
+        "entities": {
+            "operation": "include",
+            "middlebox": "parental control",
+            "service": "PlayStation"
+        },
+        "intent_statement": "define intent parentalControlIntent: for service('PlayStation') add middlebox('parental control')"
+    },
+    {
+        "entities": {
+            "group": "Staff members",
+            "traffic": "social media",
+            "operation": "block"
+        },
+        "intent_statement": "define intent qosIntent: for group('staff members') block traffic('social media')"
+    },
+    {
+        "entities": {
+            "group": "users",
+            "qos_metric": "500 kbps",
+            "qos_constraint": "100 Gb per month"
+        },
+        "intent_statement": "define intent qosIntent: set bandwidth('500', 'kbps') when quota('100', 'gb/mth') is reached for group('users')"
+    },
+    {
+        "entities": {
+            "traffic": "Netflix",
+            "start": "18:00",
+            "end": "midnight",
+            "operation": "prioritize"
+        },
+        "intent_statement": "define intent qosIntent: for traffic('Netflix') prioritize start hour('18:00') end hour('midnight')"
+    },
+    {
+        "entities": {
+            "middlebox": "load balancer",
+            "origin": "gateway",
+            "destination": "application servers"
+        },
+        "intent_statement": "define intent balanceTraffic: from endpoint('gateway') to endpoint('application servers') add middlebox('load balancer')"
+    },
+    {
+        "entities": {
+            "traffic": "torrent",
+            "group": "students",
+            "operation": "block"
+        },
+        "intent_statement": "define intent blockTorrentTraffic: block traffic('torrent') for group('students')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "service": "bittorrent",
+            "group": "professors"
+        },
+        "intent_statement": "define intent qosIntent: block service('bittorrent') for group('professors')"
+    },
+    {
+        "entities": {
+            "group": "staff",
+            "operation": "allow",
+            "protocol": "ftp"
+        },
+        "intent_statement": "define intent: for group('staff') allow protocol('ftp')"
+    },
+    {
+        "entities": {
+            "group": "students",
+            "operation": "cannot run",
+            "service": "file servers"
+        },
+        "intent_statement": "define intent qosIntent: for group('students') block service('file servers')"
+    },
+    {
+        "entities": {
+            "operation": "add",
+            "middlebox": "parental control",
+            "origin": "my house",
+            "destination": "internet"
+        },
+        "intent_statement": "define intent: from endpoint('my house') to endpoint('internet') add middlebox('parental control')"
+    },
+    {
+        "entities": {
+            "group": "students",
+            "qos_metric": "bandwidth",
+            "qos_value": "five",
+            "qos_unit": "gigabytes of bandwidth per week"
+        },
+        "intent_statement": "define intent qosIntent: for group('students') set quota('five', 'gigabytes of bandwidth per week')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "traffic": "HTTP",
+            "protocol": "HTTPS",
+            "target": "all hosts"
+        },
+        "intent_statement": "define intent blockHTTP: block traffic('HTTP') allow protocol('HTTPS') for target('all hosts')"
+    },
+    {
+        "entities": {
+            "operation": "permit",
+            "traffic": "gaming",
+            "service": "PS4",
+            "start": "13:00",
+            "end": "18:00"
+        },
+        "intent_statement": "define intent qosIntent: allow traffic('gaming') for service('PS4') start hour('13:00') end hour('18:00')"
+    },
+    {
+        "entities": {
+            "operation": "allow",
+            "traffic": "email",
+            "group": "staff"
+        },
+        "intent_statement": "define intent allowEmailTraffic: allow traffic('email') for group('staff')"
+    },
+    {
+        "entities": {
+            "operation": "grant",
+            "protocol": "sftp",
+            "group": "students",
+            "start": "08:00",
+            "end": "17:00"
+        },
+        "intent_statement": "define intent accessIntent: for group('students') allow protocol('sftp') start hour('08:00') end hour('17:00')"
+    },
+    {
+        "entities": {
+            "operation": "dismiss",
+            "qos_metric": [
+                "rate limits",
+                "quotas"
+            ],
+            "target": "hosts"
+        },
+        "intent_statement": "define intent qosIntent: for endpoint('hosts') unset quota('rate limits'), quota('quotas')"
+    },
+    {
+        "entities": {
+            "traffic": "VoIP",
+            "target": "meeting room 23",
+            "start": "13:00",
+            "end": "14:00",
+            "operation": "prioritize"
+        },
+        "intent_statement": "define intent qosIntent: for traffic('VoIP') prioritize for target('meeting room 23') start hour('13:00') end hour('14:00')"
+    },
+    {
+        "entities": {
+            "operation": "forward",
+            "traffic": "external",
+            "destination": "DMZ"
+        },
+        "intent_statement": "define intent forwardIntent: forward traffic('external') to endpoint('DMZ')"
+    },
+    {
+        "entities": {
+            "qos_constraint": "limit",
+            "qos_value": "10",
+            "qos_unit": "Mbps",
+            "qos_metric": "download rate",
+            "group": "dorms",
+            "origin": "internet"
+        },
+        "intent_statement": "define intent qosIntent: from endpoint('internet') to group('dorms') set bandwidth('max', '10', 'Mbps')"
+    },
+    {
+        "entities": {
+            "traffic": "SIP",
+            "hour": "08:00",
+            "group": "dorms",
+            "operation": "block"
+        },
+        "intent_statement": "define intent blockSIP: for group('dorms') block traffic('SIP') start hour('19:00') end hour('08:00')"
+    },
+    {
+        "entities": {
+            "operation": "grant",
+            "protocol": "ssh",
+            "group": "professors"
+        },
+        "intent_statement": "define intent accessIntent: grant protocol('ssh') for group('professors')"
+    },
+    {
+        "entities": {
+            "middlebox": "packet filter",
+            "group": "guests",
+            "traffic": "traffic",
+            "operation": "setup"
+        },
+        "intent_statement": "define intent qosIntent: for group('guests') add middlebox('packet filter')"
+    },
+    {
+        "entities": {
+            "operation": "set",
+            "qos_value": "1",
+            "qos_unit": "gb/d",
+            "qos_metric": "download limit",
+            "group": "guests"
+        },
+        "intent_statement": "define intent qosIntent: for group('guests') set quota('1', 'gb/d')"
+    },
+    {
+        "entities": {
+            "operation": "prohibit",
+            "target": "internal campus computers",
+            "origin": "internet"
+        },
+        "intent_statement": "define intent blockIntent: from endpoint('internet') to endpoint('internal campus computers') block all"
+    },
+    {
+        "entities": {
+            "operation": "increase",
+            "qos_metric": "bandwidth consumption limit",
+            "group": "professors",
+            "qos_value": "100",
+            "qos_unit": "Mbps"
+        },
+        "intent_statement": "define intent qosIntent: for group('professors') set bandwidth('max', '100', 'mbps')"
+    },
+    {
+        "entities": {
+            "operation": "allow",
+            "protocol": "RTSP",
+            "traffic": "traffic",
+            "target": "LAN"
+        },
+        "intent_statement": "define intent qosIntent: for traffic('LAN') allow protocol('RTSP')"
+    },
+    {
+        "entities": {
+            "operation": "install",
+            "middlebox": "email scanner",
+            "origin": "gateway"
+        },
+        "intent_statement": "define intent installEmailScanner: from endpoint('gateway') add middlebox('email_scanner')"
+    },
+    {
+        "entities": {
+            "operation": "block",
+            "traffic": "VoIP",
+            "start": "00:00",
+            "end": "06:00"
+        },
+        "intent_statement": "define intent blockVoIPIntent: block traffic('VoIP') start hour('00:00') end hour('06:00')"
+    },
+    {
+        "entities": {
+            "qos_constraint": "limit",
+            "qos_metric": "bandwidth",
+            "qos_value": "1",
+            "qos_unit": "gbps",
+            "traffic": "traffic",
+            "destination": "DMZ"
+        },
+        "intent_statement": "define intent qosIntent: for traffic('traffic') set bandwidth('limit', '1', 'gbps') to endpoint('DMZ')"
+    },
+    {
+        "entities": {
+            "operation": "set",
+            "qos_value": "10",
+            "qos_unit": "kbps",
+            "qos_metric": "upload rate",
+            "group": "faculty"
+        },
+        "intent_statement": "define intent qosIntent: for group('faculty') set quota('upload', '10', 'kbps')"
+    },
+    {
+        "entities": {
+            "operation": "allow",
+            "service": "Skype",
+            "group": "users"
+        },
+        "intent_statement": "define intent allowSkype: allow service('Skype') for group('users')"
+    },
+    {
+        "entities": {
+            "operation": "deny",
+            "protocol": "ssh",
+            "group": "students"
+        },
+        "intent_statement": "define intent denySSHAccess: deny protocol('ssh') for group('students')"
+    },
+    {
+        "entities": {
+            "middlebox": "tcp accelerator",
+            "origin": "lan",
+            "destination": "video server",
+            "operation": "setup"
+        },
+        "intent_statement": "define intent networkIntent: from endpoint('lan') to endpoint('video server') add middlebox('tcp accelerator')"
+    },
+    {
+        "entities": {
+            "origin": "internet",
+            "destination": "internal campus computers",
+            "protocol": "SSH",
+            "operation": "allow"
+        },
+        "intent_statement": "define intent accessIntent: from endpoint('internet') to endpoint('internal_campus_computers') allow protocol('SSH')"
+    },
+    {
+        "entities": {
+            "operation": "reduce",
+            "qos_metric": "download rate",
+            "group": "faculty members",
+            "qos_value": "20",
+            "qos_unit": "Mbps"
+        },
+        "intent_statement": "define intent qosIntent: for group('faculty members') set bandwidth('max', '20', 'mbps')"
+    },
+    {
+        "entities": {
+            "operation": "allow",
+            "origin": "computers",
+            "destination": "DMZ"
+        },
+        "intent_statement": "define intent networkIntent: from endpoint('computers') to endpoint('DMZ') allow traffic('all')"
+    },
+    {
+        "entities": {
+            "middlebox": "monitors",
+            "traffic": "network"
+        },
+        "intent_statement": "define intent monitorIntent: add middlebox('monitors') for traffic('network')"
+    }
+]

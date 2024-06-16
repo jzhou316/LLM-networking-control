@@ -1,0 +1,9 @@
+A user is trying to describe network intents in the following grammar. The original network intent was the following: {intent}. The user attempts to describe the intent in the following grammar and gets the following: {request}
+
+This string does not match the grammar. Error found in word that starts at character {column}. So first figure out what word starts at the position {column}, and explicitly say so. Also give an explanation and cite specific parts of the grammar as evidence.
+
+Return the corrected version as a string in the following format:
+
+```python
+<"Substitute the corrected version here">
+```

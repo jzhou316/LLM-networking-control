@@ -3,16 +3,16 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
-import re, ast, os
+import re, ast, os, asyncio
 
-OPENAI_API_KEY = ""
-LANGCHAIN_API_KEY = ""
+OPENAI_API_KEY = "sk-proj-qJ1qUAx4jc1ltuUsYjl4T3BlbkFJKKwhXNSCV6Nc4Kf5iSTI"
+LANGCHAIN_API_KEY = "ls__00910ef8094d47719d8412b32fa933cc"
 
 langchain.verbose = False
 
 class OpenAIChatHandler:
     def __init__(self):
-        self.llm = ChatOpenAI(temperature=0.1,  openai_api_key=OPENAI_API_KEY, model="gpt-4o")
+        self.llm = ChatOpenAI(temperature=0.5,  openai_api_key=OPENAI_API_KEY, model="gpt-4o")
         self.store = {}
         os.environ["LANGCHAIN_TRACING_V2"] = "true"
         os.environ["LANGCHAIN_PROJECT"] = "LLM for network config"
@@ -24,7 +24,7 @@ class OpenAIChatHandler:
             self.store[session_id] = ChatMessageHistory()
         return self.store[session_id]
     
-    def invoke(self, system_template: str, human_template: str, 
+    async def invoke(self, system_template: str, human_template: str, 
                system_input_variables: list, human_input_variables: list,
                system_input_values: list, human_input_values: list, session_id: str):
         assert len(system_input_variables) == len(system_input_values)

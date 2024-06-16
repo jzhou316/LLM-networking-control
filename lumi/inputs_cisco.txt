@@ -1,0 +1,13 @@
+Configure connected interfaces between leaf and spine devices in separate class A IP network segments. Configure each leaf connected to the end-hosts appropriately so there is no conflict in IP addressing done for interfaces between leaf and spine devices.
+Connect Ethernet4 of each Leaf to Ethernet4 of each Spine and assign IP addresses to them to bring up connectivity
+Configure iBGP between Leaf and Spine devices. Configure eBGP between each leaf and end-hosts. Ensure end-hosts can ping each other.
+Assign different AS numbers on Leaf and Spine layers. Bring up the bgp peering between leaf and spine nodes using the IP addresses configured on the connected interfaces. Advertise the host routes from the locally connected servers within bgp 
+ensure VXLAN works over the BGP and end-hosts can ping each other.
+first ensure that the underlay connectivity has been established between leaf and spine routers. Then enable the overlay configuration on each of the leaf router. L2VNI configuration needs to be enabled for Intra vlan traffic and L3VNI configuration is needed for Inter vlan 
+Configure layer-3 port-channels between interfaces connected between leaf and spine devices. Ensure that any two members of the same physical interface on either leaf or spine are not on the same port-channel. 
+Connect multiple interfaces between leaf and spine routers. Group them together using portchannel configuration 
+If the IP address learned in the route is for directly connected neighbor then allow IP traffic for that route. Other wise deny. 
+Configure acls on each leaf node filtering unwanted traffic. Allow only certain hosts behind leaf0 to talk to hosts behind leaf1. This is done by specifying the allowed source and destination IP addresses within the acl 
+Classify IP traffic that originates on end-hosts to DCP 2. Ensure that traffic that has DSCP set to 2 is mapped to Traffic class 3. Rest of the traffic should be mapped to 1. On every leaf device, apply to every interface that is connected to the end-hosts. 
+Configure the buffer pools for ingress and egress traffic profiles. On each leaf enable qos policy by mapping traffic to different classes using the DSCP values. Then map the traffic classes to different queues. 
+Enable the OSPF router process on each leaf and spine node. Then enable the corresponding ospf configuration on each of the interfaces exchanging ospf data with peers. Configure the networks which needed to be advertised via ospf on each of the nodes 

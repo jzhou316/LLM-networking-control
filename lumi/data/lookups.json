@@ -1,0 +1,57 @@
+﻿{
+  "version": "2.0",
+  "nlu": [
+    {
+      "lookup": "entity",
+      "examples": "- aggregate\n- group\n- grouping\n- location\n- place\n- middlebox\n- network function\n- virtual network function\n- internet application\n- service\n- website\n- flow\n- traffic\n- type of traffic\n"
+    },
+    {
+      "lookup": "traffic",
+      "examples": "- news\n- all\n- all traffic\n- traffic\n- streaming\n- music\n- video sites\n- videos\n- streaming traffic\n- P2P application\n- torrent traffic\n- peer to peer\n- peer2peer\n- torrent\n- peer-to-peer\n- students can download 10gb in dorms\n- social\n- social websites\n- social media\n- social-media\n"
+    },
+    {
+      "lookup": "location",
+      "examples": "- video server\n- verizon\n- Verizon\n- Federal Unversity of Rio Grande do Sul\n- UFRGS\n- university\n- HR\n- human resources\n- HR department\n- the internal Rose-Hulman network\n- internal-network\n- Servers\n- house\n- wired/wireless network\n- system\n- wired network\n- wireless\n- wireless network\n- my network\n- network\n- ps4\n- playstation\n- videogame\n- playstation 4\n- PUCRS\n- PUC\n- database\n- base of data\n- data\n- server\n- servers\n- server racks\n- MITNet\n- China\n- my mac\n- my macbook\n- macbook\n- bedrooms\n- housing\n- dorms\n- student housing\n- domitories\n- residents\n- student dorms\n- resident\n- backend servers\n- backend server\n- backend\n- UW network\n- block just nintendo network\n- University of Illinois\n- University Housing\n- individual\n- hosts\n- host\n- all hosts\n- computers\n- campus\n- entire campus\n- meeting room 23\n- NYURoam wireless networks\n- NYURoam\n- RHIT-OPEN wireless network\n- RHIT-OPEN\n- att\n- ATT\n- at and t\n- at&t\n- AT&T\n- DMZ\n- demilitarized zone\n- r&d\n- development\n- r&d division\n- programming divinsion\n- development division\n- marketing\n- marketing department\n- UIC wireless-connected\n- my pc\n- my computer\n- pc\n- personal computer\n- labs\n- laboratories\n- students labs\n- student laboratories\n- student labs\n- application\n- application servers\n- local area network\n- LAN\n- guests\n- classroom\n- classrooms\n- class\n- entry\n- network gateway\n- external\n- entrypoint\n- gateway\n- internet\n"
+    },
+    {
+      "lookup": "hour",
+      "examples": "- 01:00\n- 1am\n- 02:00\n- 2am\n- 03:00\n- 3am\n- 04:00\n- 4am\n- 05:00\n- 5am\n- 06:00\n- 6am\n- 07:00\n- 7am\n- 08:00\n- 8am\n- 09:00\n- 9am\n- 10:00\n- 10am\n- 11:00\n- 11am\n- 12:00\n- 12pm\n- noon\n- 13:00\n- 1pm\n- 14:00\n- 2pm\n- 15:00\n- 3pm\n- 16:00\n- 4pm\n- 17:00\n- 5pm\n- 18:00\n- 6pm\n- 19:00\n- 7pm\n- 20:00\n- 8pm\n- 21:00\n- 9pm\n- 10pm\n- 22:00\n- 11pm\n- 23:00\n- 00:00\n- 12am\n- 24:00\n- midnight\n"
+    },
+    {
+      "lookup": "service",
+      "examples": "- youtube\n- AIM Chat\n- NETBIOS\n- netbios\n- MSN video\n- Netflix\n- instagram\n- CS\n- CS server\n- Counter Strike\n- CounterStrike server\n- bittorrent\n- skype\n- blizzard battlenet\n- battlenet\n- PC-Telephone\n- PC Telephone\n- pc-telephone\n- IRC\n- irc\n- mail server\n- mail\n- mail servers\n- email\n- file share server\n- downloading\n- download server\n- file server\n- file sharing\n- Sorenson Videophone 200\n- file transfer\n- file transfering\n- facebook\n- Facebook\n- popcorn\n- popcorn-time\n- Amazon\n- amazon prime video\n- prime video\n- everquest\n- Everquest\n- MSN application sharing\n- F2movies\n- F2movies traffic\n- Net2Phone\n- vimeo\n- H323 video conferencing\n- video and audio conferencing products that use the H.323\n- PlayStation 2\n- ps2\n- MSN\n- MSN chat\n- MSN audio\n"
+    },
+    {
+      "lookup": "protocol",
+      "examples": "- dns\n- ftp\n- http\n- https\n- quic\n- rtsp\n- sftp\n- smtp\n- snmp\n- ssh\n- tcp\n- udp\n- imap\n- IMAP\n- pop3\n- POP3\n- secure imap\n- secure IMAP\n- secure pop\n- secure POP\n- telnet\n- Telnet\n"
+    },
+    {
+      "lookup": "operation",
+      "examples": "- add\n- append\n- include\n- increase\n- must pass through\n- pass through\n- forward\n- forward through\n- affix\n- allow\n- allowed\n- allowing\n- grant\n- let\n- permit\n- let on\n- authorize\n- pass\n- admit\n- tolerate\n- do not block\n- must not be blocked\n- unblock\n- block\n- blocked\n- blocking\n- can not run\n- cannot run\n- deny\n- do not let\n- may not run\n- prevent\n- stop\n- obstruct\n- cut off\n- deter\n- halt\n- intercept\n- impede\n- stall\n- thwart\n- hinder\n- hold up\n- close\n- close off\n- bar\n- barred\n- do not allow\n- must not be allowed\n- cut out\n- delete\n- remove\n- abolish\n- extract\n- clear away\n- discard\n- get rid of\n- detach\n- expel\n- take out\n- withdraw\n- exclude\n- Define\n- allocate\n- fix\n- provide\n- set\n- settle\n- will have\n- place\n- establish\n- put\n- dismiss\n- does not have any\n- unfix\n- unset\n- unsettle\n- withhold\n"
+    },
+    {
+      "lookup": "group",
+      "examples": "- all professors\n- teachers\n- professors\n- all teachers\n- all prof\n- prof\n- Guests' network\n- guests\n- guest users\n- all students\n- undergrads\n- students\n- scholar\n- resident\n- Staff members\n- staff\n- for all staff\n- faculty\n- consumers\n- network users\n- user\n- users\n"
+    },
+    {
+      "lookup": "middlebox",
+      "examples": "- nat\n- address translation\n- translation\n- network address translation\n- all\n- all middleboxes\n- overuse notification\n- balancing\n- load balancing\n- load balancer\n- Balance\n- intrusion prevention\n- ips\n- intrusion prevention system\n- For Dorms set download 10 gb/wk\n- unit firewall\n- custom unit firewall\n- traffic shaping\n- traffic shaper\n- priority\n- shaping\n- prioritize\n- network border system\n- network border infrastructure system\n- copyright\n- copyright violation\n- copyright-monitoring\n- private netwok\n- vpn\n- privacy\n- tunneling\n- intrusion detection system\n- ids\n- intrusion detection\n- deep packet inspection\n- inspect\n- deep inspection\n- packet inspection\n- dpi\n- parent inspection\n- child protection\n- children protection\n- parental control\n- content control\n- using notification\n- system traffic monitor\n- network traffic monitor\n- traffic monitor\n- monitors\n- network throughput monitor\n"
+    },
+    {
+      "lookup": "qos_constraint",
+      "examples": "- download\n- downstream\n- inbound\n- incoming\n- capped\n- capped at\n- limit\n- limited\n- max\n- maximum\n- cap\n- ceiling\n- at most\n- peak\n- min\n- minimum\n- lowest amount\n- minimal\n- outbound\n- outgoing\n- upload\n- uploading\n- upstream\n"
+    },
+    {
+      "lookup": "qos_metric",
+      "examples": "- bandwidth\n- bandwidth consumption\n- bandwidth rate\n- cap\n- capped at\n- download rate\n- is rate-limited to\n- link\n- rate\n- rate limits\n- speed\n- throughput\n- data transfer rate\n- upload rate\n- data plan\n- data transfer limit\n- may use\n- may use up to\n- quota\n- reach\n- reached\n- should not use more than\n- should use more than\n- usage limit\n- data\n- no more than\n- network usage\n"
+    },
+    {
+      "lookup": "qos_unit",
+      "examples": "- gigabytes\n- gb\n- gigabyte\n- GB a day\n- GB per 24-hour period\n- gb/d\n- gigabytes of bandwidth per day\n- GB of data in a day\n- gb daily\n- gb day\n- gigabytes daily\n- gigabytes daily\n- GB monthly\n- GB of Free monthly usage\n- GB per month\n- Gb per month\n- gb/mth\n- GB of data in a month\n- gigabytes month\n- gigabytes monthly\n- gb month\n- gb monthly\n- GB of data weekly\n- gb every week\n- gb per week\n- gb/wk\n- gigabyte every week\n- gigabyte per week\n- gigabytes of bandwidth per week\n- gigabytes per each 7 day period\n- GB of data in a week\n- gb per seven days\n- gigabyte per seven days\n- gb week\n- gb a week\n- gigabyte a week\n- gigabyte weekly\n- gb weekly\n- gbps\n- gigabit per second\n- gigabit per seconds\n- Kbps\n- kbps\n- Megabyte per hour\n- Megabyte/hr\n- Megabytes per hour\n- mb/hr\n- megabyte per hour\n- megabyte/hr\n- mb every week\n- mb per week\n- mb/wk\n- megabyte every week\n- megabyte per week\n- Mb/s\n- Mbps\n- mbps\n- megabit per second\n- megabits per seconds\n- gb/hr\n- gb per hour\n- gygabit per hour\n- GB per hour\n- GB of data in an hour\n- GB\n"
+    },
+    {
+      "lookup": "qos_value",
+      "examples": "- 1\n- 10\n- 100\n- 18\n- 2\n- 20\n- 200\n- 2000\n- 3\n- 30\n- 4\n- 5\n- 500\n- 5000\n- 6\n- five\n- does not enforce\n- does not have\n- does not have any\n- doesn't have\n- doesn't have any\n- none\n"
+    }
+  ]
+}

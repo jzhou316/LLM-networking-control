@@ -1,0 +1,469 @@
+﻿{
+  "version": "2.0",
+  "nlu": [
+    {
+      "synonym": "01:00",
+      "examples": "- 01:00\n- 1am\n"
+    },
+    {
+      "synonym": "02:00",
+      "examples": "- 02:00\n- 2am\n"
+    },
+    {
+      "synonym": "03:00",
+      "examples": "- 03:00\n- 3am\n"
+    },
+    {
+      "synonym": "04:00",
+      "examples": "- 04:00\n- 4am\n"
+    },
+    {
+      "synonym": "05:00",
+      "examples": "- 05:00\n- 5am\n"
+    },
+    {
+      "synonym": "06:00",
+      "examples": "- 06:00\n- 6am\n"
+    },
+    {
+      "synonym": "07:00",
+      "examples": "- 07:00\n- 7am\n"
+    },
+    {
+      "synonym": "08:00",
+      "examples": "- 08:00\n- 8am\n"
+    },
+    {
+      "synonym": "09:00",
+      "examples": "- 09:00\n- 9am\n"
+    },
+    {
+      "synonym": 600,
+      "examples": "- 10:00\n- 10am\n"
+    },
+    {
+      "synonym": 660,
+      "examples": "- 11:00\n- 11am\n"
+    },
+    {
+      "synonym": 720,
+      "examples": "- 12:00\n- 12pm\n- noon\n"
+    },
+    {
+      "synonym": 780,
+      "examples": "- 13:00\n- 1pm\n"
+    },
+    {
+      "synonym": 840,
+      "examples": "- 14:00\n- 2pm\n"
+    },
+    {
+      "synonym": 900,
+      "examples": "- 15:00\n- 3pm\n"
+    },
+    {
+      "synonym": 960,
+      "examples": "- 16:00\n- 4pm\n"
+    },
+    {
+      "synonym": 1020,
+      "examples": "- 17:00\n- 5pm\n"
+    },
+    {
+      "synonym": 1080,
+      "examples": "- 18:00\n- 6pm\n"
+    },
+    {
+      "synonym": 1140,
+      "examples": "- 19:00\n- 7pm\n"
+    },
+    {
+      "synonym": 1200,
+      "examples": "- 20:00\n- 8pm\n"
+    },
+    {
+      "synonym": 1260,
+      "examples": "- 21:00\n- 9pm\n"
+    },
+    {
+      "synonym": 1320,
+      "examples": "- 10pm\n- 22:00\n"
+    },
+    {
+      "synonym": 1380,
+      "examples": "- 11pm\n- 23:00\n"
+    },
+    {
+      "synonym": 1440,
+      "examples": "- 00:00\n- 12am\n- 24:00\n- midnight\n"
+    },
+    {
+      "synonym": "Battlenet",
+      "examples": "- blizzard battlenet\n- Battlenet\n- battlenet\n"
+    },
+    {
+      "synonym": "CounterStrike server",
+      "examples": "- CS\n- CS server\n- Counter Strike\n- CounterStrike server\n"
+    },
+    {
+      "synonym": "DMZ",
+      "examples": "- DMZ\n- demilitarized zone\n"
+    },
+    {
+      "synonym": "F2movies",
+      "examples": "- F2movies\n- F2movies traffic\n"
+    },
+    {
+      "synonym": "H323 video conferencing",
+      "examples": "- H323 video conferencing\n- video and audio conferencing products that use the H.323\n"
+    },
+    {
+      "synonym": "HR",
+      "examples": "- HR\n- human resources\n- Human Resources\n- HR department\n"
+    },
+    {
+      "synonym": "LAN",
+      "examples": "- local area network\n- LAN\n"
+    },
+    {
+      "synonym": "MSN chat",
+      "examples": "- MSN\n- MSN chat\n"
+    },
+    {
+      "synonym": "NETBIOS",
+      "examples": "- NETBIOS\n- netbios\n"
+    },
+    {
+      "synonym": "NYURoam",
+      "examples": "- NYURoam wireless networks\n- NYURoam\n"
+    },
+    {
+      "synonym": "PC Telephone",
+      "examples": "- PC-Telephone\n- PC Telephone\n- pc-telephone\n"
+    },
+    {
+      "synonym": "PUCRS",
+      "examples": "- PUCRS\n- PUC\n"
+    },
+    {
+      "synonym": "PlayStation 2",
+      "examples": "- PlayStation 2\n- ps2\n"
+    },
+    {
+      "synonym": "RHIT-OPEN",
+      "examples": "- RHIT-OPEN wireless network\n- RHIT-OPEN\n"
+    },
+    {
+      "synonym": "Servers",
+      "examples": "- Servers\n"
+    },
+    {
+      "synonym": "UFRGS",
+      "examples": "- Federal Unversity of Rio Grande do Sul\n- UFRGS\n"
+    },
+    {
+      "synonym": "add",
+      "examples": "- add\n- append\n- include\n- increase\n- must pass through\n- pass through\n- forward\n- forward through\n- affix\n"
+    },
+    {
+      "synonym": "all",
+      "examples": "- traffic\n- all\n- all traffic\n- all middleboxes\n"
+    },
+    {
+      "synonym": "allow",
+      "examples": "- allow\n- allowed\n- allowing\n- grant\n- let\n- permit\n- let on\n- authorize\n- pass\n- admit\n- tolerate\n- do not block\n- must not be blocked\n- unblock\n"
+    },
+    {
+      "synonym": "amazon-prime",
+      "examples": "- Amazon\n- amazon prime video\n- prime video\n"
+    },
+    {
+      "synonym": "application",
+      "examples": "- application\n- application servers\n"
+    },
+    {
+      "synonym": "at&t",
+      "examples": "- att\n- ATT\n- AT and T\n- at and t\n- at&t\n- AT&T\n"
+    },
+    {
+      "synonym": "backend",
+      "examples": "- backend servers\n- backend server\n- backend\n"
+    },
+    {
+      "synonym": "bandwidth",
+      "examples": "- capped at\n- cap\n- bandwidth\n- bandwidth consumption\n- bandwidth rate\n- download rate\n- is rate-limited to\n- link\n- rate\n- rate limits\n- speed\n- throughput\n- data transfer rate\n- upload rate\n"
+    },
+    {
+      "synonym": "block",
+      "examples": "- block\n- blocked\n- blocking\n- can not run\n- cannot run\n- deny\n- do not let\n- may not run\n- prevent\n- stop\n- obstruct\n- cut off\n- deter\n- halt\n- intercept\n- impede\n- stall\n- thwart\n- hinder\n- hold up\n- close\n- close off\n- bar\n- barred\n- do not allow\n- must not be allowed\n"
+    },
+    {
+      "synonym": "campus",
+      "examples": "- campus\n- entire campus\n"
+    },
+    {
+      "synonym": "classrooms",
+      "examples": "- classroom\n- classrooms\n- class\n"
+    },
+    {
+      "synonym": "copyright monitoring",
+      "examples": "- copyright\n- copyright violation\n- copyright-monitoring\n"
+    },
+    {
+      "synonym": "database",
+      "examples": "- database\n- base of data\n"
+    },
+    {
+      "synonym": "dorms",
+      "examples": "- bedrooms\n- housing\n- dorms\n- student housing\n- domitories\n- residents\n- student dorms\n"
+    },
+    {
+      "synonym": "download",
+      "examples": "- Download\n- download\n- downstream\n- inbound\n- incoming\n"
+    },
+    {
+      "synonym": "dpi",
+      "examples": "- deep packet inspection\n- inspect\n- deep inspection\n- packet inspection\n- dpi\n"
+    },
+    {
+      "synonym": "email",
+      "examples": "- mail server\n- mail\n- mail servers\n- email\n"
+    },
+    {
+      "synonym": "file sharing",
+      "examples": "- file share server\n- downloading\n- download server\n- file server\n- file sharing\n"
+    },
+    {
+      "synonym": "file transfer",
+      "examples": "- file transfer\n- file transfering\n"
+    },
+    {
+      "synonym": "gateway",
+      "examples": "- entry\n- network gateway\n- external\n- entrypoint\n- gateway\n- internet\n"
+    },
+    {
+      "synonym": "gb",
+      "examples": "- Gigabytes\n- gb\n- gigabyte\n"
+    },
+    {
+      "synonym": "gb/d",
+      "examples": "- GB a day\n- GB per 24-hour period\n- gb/d\n- gigabytes of bandwidth per day\n- GB of data in a day\n- gb daily\n- gb day\n- gigabytes daily\n"
+    },
+    {
+      "synonym": "gb/hr",
+      "examples": "- gb/hr\n- gb per hour\n- gygabit per hour\n- GB per hour\n- GB of data in an hour\n- GB\n"
+    },
+    {
+      "synonym": "gb/mth",
+      "examples": "- GB monthly\n- GB of Free monthly usage\n- GB per month\n- Gb per month\n- gb/mth\n- GB of data in a month\n- gigabytes month\n- gigabytes monthly\n- gb month\n- gb monthly\n"
+    },
+    {
+      "synonym": "gb/wk",
+      "examples": "- GB of data weekly\n- gb every week\n- gb per week\n- gb/wk\n- gigabyte every week\n- gigabyte per week\n- gigabytes of bandwidth per week\n- gigabytes per each 7 day period\n- GB of data in a week\n- gb per seven days\n- gigabyte per seven days\n- gb week\n- gb a week\n- gigabyte a week\n- gigabyte weekly\n- gb weekly\n"
+    },
+    {
+      "synonym": "gbps",
+      "examples": "- gbps\n- gigabit per second\n- gigabit per seconds\n"
+    },
+    {
+      "synonym": "group",
+      "examples": "- aggregate\n- group\n- grouping\n"
+    },
+    {
+      "synonym": "guests",
+      "examples": "- guests\n- Guests' network\n- guest users\n"
+    },
+    {
+      "synonym": "hosts",
+      "examples": "- individual\n- hosts\n- host\n- all hosts\n- computers\n"
+    },
+    {
+      "synonym": "ids",
+      "examples": "- intrusion detection system\n- ids\n- intrusion detection\n"
+    },
+    {
+      "synonym": "imap",
+      "examples": "- imap\n- IMAP\n"
+    },
+    {
+      "synonym": "internal-network",
+      "examples": "- the internal Rose-Hulman network\n- internal-network\n"
+    },
+    {
+      "synonym": "ips",
+      "examples": "- intrusion prevention\n- ips\n- intrusion prevention system\n"
+    },
+    {
+      "synonym": "irc",
+      "examples": "- IRC\n- irc\n"
+    },
+    {
+      "synonym": "kbps",
+      "examples": "- Kbps\n- kbps\n"
+    },
+    {
+      "synonym": "labs",
+      "examples": "- labs\n- laboratories\n- students labs\n- student laboratories\n- student labs\n"
+    },
+    {
+      "synonym": "load balancer",
+      "examples": "- balancing\n- load balancing\n- load balancer\n- Balance\n"
+    },
+    {
+      "synonym": "macbook",
+      "examples": "- my mac\n- my macbook\n- macbook\n"
+    },
+    {
+      "synonym": "marketing",
+      "examples": "- marketing\n- marketing department\n"
+    },
+    {
+      "synonym": "max",
+      "examples": "- capped\n- limit\n- limited\n- max\n- maximum\n- ceiling\n- at most\n- peak\n"
+    },
+    {
+      "synonym": "mb/hr",
+      "examples": "- Megabyte per hour\n- Megabyte/hr\n- Megabytes per hour\n- mb/hr\n- megabyte per hour\n- megabyte/hr\n"
+    },
+    {
+      "synonym": "mb/wk",
+      "examples": "- mb every week\n- mb per week\n- mb/wk\n- megabyte every week\n- megabyte per week\n"
+    },
+    {
+      "synonym": "mbps",
+      "examples": "- Mb/s\n- Mbps\n- mbps\n- megabit per second\n- megabits per seconds\n"
+    },
+    {
+      "synonym": "middlebox",
+      "examples": "- middlebox\n- network function\n- virtual network function\n"
+    },
+    {
+      "synonym": "min",
+      "examples": "- min\n- minimum\n- lowest amount\n- minimal\n"
+    },
+    {
+      "synonym": "nat",
+      "examples": "- nat\n- address translation\n- translation\n- network address translation\n"
+    },
+    {
+      "synonym": "network",
+      "examples": "- wired/wireless network\n- system\n- wired network\n- wireless\n- wireless network\n- my network\n- network\n"
+    },
+    {
+      "synonym": "network border system",
+      "examples": "- network border system\n- network border infrastructure system\n"
+    },
+    {
+      "synonym": "none",
+      "examples": "- does not have any\n- does not enforce\n- does not have\n- doesn't have\n- doesn't have any\n- none\n"
+    },
+    {
+      "synonym": "parental control",
+      "examples": "- parent inspection\n- child protection\n- children protection\n- parental control\n- content control\n"
+    },
+    {
+      "synonym": "pc",
+      "examples": "- my pc\n- my computer\n- pc\n- personal computer\n"
+    },
+    {
+      "synonym": "popcorn-time",
+      "examples": "- popcorn\n- popcorn-time\n"
+    },
+    {
+      "synonym": "professors",
+      "examples": "- all professors\n- teachers\n- professors\n- all teachers\n- all prof\n- prof\n"
+    },
+    {
+      "synonym": "ps4",
+      "examples": "- ps4\n- playstation\n- PlayStation\n- videogame\n- playstation 4\n"
+    },
+    {
+      "synonym": "quota",
+      "examples": "- data\n- data plan\n- data transfer limit\n- may use\n- may use up to\n- quota\n- reach\n- reached\n- should not use more than\n- should use more than\n- usage limit\n- no more than\n- network usage\n"
+    },
+    {
+      "synonym": "r&d",
+      "examples": "- r&d\n- development\n- r&d division\n- programming divinsion\n- development division\n"
+    },
+    {
+      "synonym": "remove",
+      "examples": "- cut out\n- delete\n- remove\n- abolish\n- extract\n- clear away\n- discard\n- get rid of\n- detach\n- expel\n- take out\n- withdraw\n- exclude\n"
+    },
+    {
+      "synonym": "servers",
+      "examples": "- server\n- servers\n- server racks\n"
+    },
+    {
+      "synonym": "service",
+      "examples": "- internet application\n- service\n- website\n"
+    },
+    {
+      "synonym": "set",
+      "examples": "- place\n- Define\n- allocate\n- fix\n- provide\n- set\n- settle\n- will have\n- establish\n- put\n"
+    },
+    {
+      "synonym": "social-media",
+      "examples": "- social\n- social websites\n- social media\n- social-media\n"
+    },
+    {
+      "synonym": "staff",
+      "examples": "- Staff members\n- staff\n- for all staff\n- faculty\n"
+    },
+    {
+      "synonym": "streaming",
+      "examples": "- streaming\n- music\n- video sites\n- videos\n- streaming traffic\n"
+    },
+    {
+      "synonym": "students",
+      "examples": "- resident\n- all students\n- undergrads\n- students\n- scholar\n"
+    },
+    {
+      "synonym": "telnet",
+      "examples": "- telnet\n- Telnet\n"
+    },
+    {
+      "synonym": "torrent",
+      "examples": "- P2P application\n- torrent traffic\n- peer to peer\n- peer2peer\n- torrent\n- peer-to-peer\n"
+    },
+    {
+      "synonym": "traffic",
+      "examples": "- flow\n- type of traffic\n"
+    },
+    {
+      "synonym": "traffic monitor",
+      "examples": "- using notification\n- system traffic monitor\n- network traffic monitor\n- traffic monitor\n- monitors\n- network throughput monitor\n"
+    },
+    {
+      "synonym": "traffic shaping",
+      "examples": "- traffic shaping\n- traffic shaper\n- priority\n- shaping\n- prioritize\n"
+    },
+    {
+      "synonym": "unit firewall",
+      "examples": "- unit firewall\n- custom unit firewall\n"
+    },
+    {
+      "synonym": "unset",
+      "examples": "- dismiss\n- unfix\n- unset\n- unsettle\n- withhold\n"
+    },
+    {
+      "synonym": "upload",
+      "examples": "- Upload\n- outbound\n- outgoing\n- upload\n- uploading\n- upstream\n"
+    },
+    {
+      "synonym": "users",
+      "examples": "- network users\n- user\n- users\n"
+    },
+    {
+      "synonym": "verizon",
+      "examples": "- verizon\n- Verizon\n"
+    },
+    {
+      "synonym": "virtual private network",
+      "examples": "- private netwok\n- vpn\n- privacy\n- tunneling\n"
+    },
+    {
+      "synonym": "youtube",
+      "examples": "- youtube\n- YouTube\n"
+    }
+  ]
+}

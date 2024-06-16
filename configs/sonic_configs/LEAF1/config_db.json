@@ -64,7 +64,7 @@
             "default_pfcwd_status": "disable",
             "hostname": "LEAF1",
             "hwsku": "32x100Gb",
-            "mac": "02:1c:c7:92:cb:16",
+            "mac": "02:16:b9:df:66:d4",
             "platform": "x86_64-8101_32h_o-r0",
             "synchronous_mode": "enable"
         }

@@ -1,0 +1,491 @@
+[
+    {
+        "text": "Configure connected interfaces between leaf and spine devices in separate class A IP network segments.",
+        "extracted_entities": [
+            {
+                "type": "qos_metric",
+                "value": "separate"
+            },
+            {
+                "type": "location",
+                "value": "classrooms"
+            },
+            {
+                "type": "middlebox",
+                "value": "addressing"
+            },
+            {
+                "type": "destination",
+                "value": [
+                    {
+                        "entity": "location",
+                        "start": 140,
+                        "end": 149,
+                        "confidence_entity": 0.9951491951942444,
+                        "value": "end-hosts",
+                        "extractor": "DIETClassifier"
+                    }
+                ]
+            },
+            {
+                "type": "target",
+                "value": [
+                    {
+                        "entity": "location",
+                        "start": 140,
+                        "end": 149,
+                        "confidence_entity": 0.9951491951942444,
+                        "value": "end-hosts",
+                        "extractor": "DIETClassifier"
+                    }
+                ]
+            },
+            {
+                "type": "target",
+                "value": [
+                    {
+                        "entity": "group",
+                        "start": 93,
+                        "end": 101,
+                        "confidence_entity": 0.888401448726654,
+                        "value": "segments",
+                        "extractor": "DIETClassifier"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "text": "Connect Ethernet4 of each Leaf to Ethernet4 of each Spine and assign IP addresses to them to bring up connectivity",
+        "extracted_entities": [
+            {
+                "type": "location",
+                "value": "Ethernet4"
+            },
+            {
+                "type": "middlebox",
+                "value": "addresses"
+            },
+            {
+                "type": "middlebox",
+                "value": "connectivity"
+            },
+            {
+                "type": "destination",
+                "value": [
+                    {
+                        "entity": "location",
+                        "start": 34,
+                        "end": 43,
+                        "confidence_entity": 0.9321795105934143,
+                        "value": "Ethernet4",
+                        "extractor": "DIETClassifier"
+                    }
+                ]
+            },
+            {
+                "type": "target",
+                "value": [
+                    {
+                        "entity": "location",
+                        "start": 34,
+                        "end": 43,
+                        "confidence_entity": 0.9321795105934143,
+                        "value": "Ethernet4",
+                        "extractor": "DIETClassifier"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "text": "Configure iBGP between Leaf and Spine devices. Configure eBGP between each leaf and end-hosts. Ensure end-hosts can ping each other.",
+        "extracted_entities": [
+            {
+                "type": "location",
+                "value": "end-hosts"
+            },
+            {
+                "type": "destination",
+                "value": [
+                    {
+                        "entity": "location",
+                        "start": 84,
+                        "end": 93,
+                        "confidence_entity": 0.9930900931358337,
+                        "value": "end-hosts",
+                        "extractor": "DIETClassifier"
+                    }
+                ]
+            },
+            {
+                "type": "target",
+                "value": [
+                    {
+                        "entity": "location",
+                        "start": 84,
+                        "end": 93,
+                        "confidence_entity": 0.9930900931358337,
+                        "value": "end-hosts",
+                        "extractor": "DIETClassifier"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "text": "Assign different AS numbers on Leaf and Spine layers. Bring up the bgp peering between leaf and spine nodes using the IP addresses configured on the connected interfaces. Advertise the host routes from the locally connected servers within bgp",
+        "extracted_entities": [
+            {
+                "type": "operation",
+                "value": "different"
+            },
+            {
+                "type": "middlebox",
+                "value": "Spine"
+            },
+            {
+                "type": "location",
+                "value": "layers"
+            },
+            {
+                "type": "value",
+                "value": "using"
+            },
+            {
+                "type": "middlebox",
+                "value": "addresses"
+            },
+            {
+                "type": "location",
+                "value": "servers"
+            },
+            {
+                "type": "target",
+                "value": [
+                    {
+                        "entity": "location",
+                        "start": 185,
+                        "end": 189,
+                        "confidence_entity": 0.9835730195045471,
+                        "value": "hosts",
+                        "extractor": "DIETClassifier",
+                        "processors": [
+                            "EntitySynonymMapper"
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "target",
+                "value": [
+                    {
+                        "entity": "group",
+                        "start": 20,
+                        "end": 27,
+                        "confidence_entity": 0.3112565577030182,
+                        "value": "numbers",
+                        "extractor": "DIETClassifier"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "text": "Ensure VXLAN works over the BGP and end-hosts can ping each other.",
+        "extracted_entities": [
+            {
+                "type": "destination",
+                "value": [
+                    {
+                        "entity": "location",
+                        "start": 36,
+                        "end": 45,
+                        "confidence_entity": 0.9956295490264893,
+                        "value": "end-hosts",
+                        "extractor": "DIETClassifier"
+                    }
+                ]
+            },
+            {
+                "type": "target",
+                "value": [
+                    {
+                        "entity": "location",
+                        "start": 36,
+                        "end": 45,
+                        "confidence_entity": 0.9956295490264893,
+                        "value": "end-hosts",
+                        "extractor": "DIETClassifier"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "text": "First ensure that the underlay connectivity has been established between leaf and spine routers. Then enable the overlay configuration on each of the leaf router. L2VNI configuration needs to be enabled for Intra vlan traffic and L3VNI configuration is needed for Inter vlan",
+        "extracted_entities": [
+            {
+                "type": "value",
+                "value": "first"
+            },
+            {
+                "type": "middlebox",
+                "value": "connectivity"
+            },
+            {
+                "type": "target",
+                "value": [
+                    {
+                        "entity": "traffic",
+                        "start": 218,
+                        "end": 225,
+                        "confidence_entity": 0.555980920791626,
+                        "value": "all",
+                        "extractor": "DIETClassifier",
+                        "processors": [
+                            "EntitySynonymMapper"
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "text": "Configure layer-3 port-channels between interfaces connected between leaf and spine devices. Ensure that any two members of the same physical interface on either leaf or spine are not on the same port-channel.",
+        "extracted_entities": [
+            {
+                "type": "qos_value",
+                "value": "layer-3"
+            },
+            {
+                "type": "middlebox",
+                "value": "spine"
+            },
+            {
+                "type": "hour",
+                "value": "or"
+            },
+            {
+                "type": "target",
+                "value": [
+                    {
+                        "entity": "group",
+                        "start": 113,
+                        "end": 120,
+                        "confidence_entity": 0.8821443319320679,
+                        "value": "members",
+                        "extractor": "DIETClassifier"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "text": "Connect multiple interfaces between leaf and spine routers. Group them together using portchannel configuration",
+        "extracted_entities": [
+            {
+                "type": "middlebox",
+                "value": "spine"
+            },
+            {
+                "type": "value",
+                "value": "using"
+            }
+        ]
+    },
+    {
+        "text": "If the IP address learned in the route is for directly connected neighbor then allow IP traffic for that route. Other wise deny.",
+        "extracted_entities": [
+            {
+                "type": "middlebox",
+                "value": "address"
+            },
+            {
+                "type": "operation",
+                "value": "allow"
+            },
+            {
+                "type": "operation",
+                "value": "block"
+            }
+        ]
+    },
+    {
+        "text": "Configure acls on each leaf node filtering unwanted traffic. Allow only certain hosts behind leaf0 to talk to hosts behind leaf1. This is done by specifying the allowed source and destination IP addresses within the acl",
+        "extracted_entities": [
+            {
+                "type": "middlebox",
+                "value": "filtering"
+            },
+            {
+                "type": "operation",
+                "value": "Allow"
+            },
+            {
+                "type": "operation",
+                "value": "allow"
+            },
+            {
+                "type": "entity",
+                "value": "destination"
+            },
+            {
+                "type": "middlebox",
+                "value": "addresses"
+            },
+            {
+                "type": "destination",
+                "value": [
+                    {
+                        "entity": "location",
+                        "start": 110,
+                        "end": 115,
+                        "confidence_entity": 0.9982790946960449,
+                        "value": "hosts",
+                        "extractor": "DIETClassifier"
+                    }
+                ]
+            },
+            {
+                "type": "target",
+                "value": [
+                    {
+                        "entity": "location",
+                        "start": 80,
+                        "end": 85,
+                        "confidence_entity": 0.9984099864959717,
+                        "value": "hosts",
+                        "extractor": "DIETClassifier"
+                    }
+                ]
+            },
+            {
+                "type": "target",
+                "value": [
+                    {
+                        "entity": "location",
+                        "start": 110,
+                        "end": 115,
+                        "confidence_entity": 0.9982790946960449,
+                        "value": "hosts",
+                        "extractor": "DIETClassifier"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "text": "Classify IP traffic that originates on end-hosts to DCP 2. Ensure that traffic that has DSCP set to 2 is mapped to Traffic class 3. Rest of the traffic should be mapped to 1. On every leaf device, apply to every interface that is connected to the end-hosts.",
+        "extracted_entities": [
+            {
+                "type": "location",
+                "value": "Classify"
+            },
+            {
+                "type": "operation",
+                "value": "IP"
+            },
+            {
+                "type": "middlebox",
+                "value": "originates"
+            },
+            {
+                "type": "qos_value",
+                "value": "2"
+            },
+            {
+                "type": "operation",
+                "value": "set"
+            },
+            {
+                "type": "qos_value",
+                "value": "2"
+            },
+            {
+                "type": "operation",
+                "value": "is"
+            },
+            {
+                "type": "location",
+                "value": "classrooms"
+            },
+            {
+                "type": "qos_value",
+                "value": "3"
+            },
+            {
+                "type": "qos_value",
+                "value": "1"
+            },
+            {
+                "type": "operation",
+                "value": "device"
+            },
+            {
+                "type": "operation",
+                "value": "is"
+            },
+            {
+                "type": "destination",
+                "value": [
+                    {
+                        "entity": "location",
+                        "start": 247,
+                        "end": 256,
+                        "confidence_entity": 0.9978228807449341,
+                        "value": "end-hosts",
+                        "extractor": "DIETClassifier"
+                    }
+                ]
+            },
+            {
+                "type": "target",
+                "value": [
+                    {
+                        "entity": "location",
+                        "start": 247,
+                        "end": 256,
+                        "confidence_entity": 0.9978228807449341,
+                        "value": "end-hosts",
+                        "extractor": "DIETClassifier"
+                    }
+                ]
+            },
+            {
+                "type": "target",
+                "value": [
+                    {
+                        "entity": "location",
+                        "start": 39,
+                        "end": 48,
+                        "confidence_entity": 0.9978379607200623,
+                        "value": "end-hosts",
+                        "extractor": "DIETClassifier"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "text": "Configure the buffer pools for ingress and egress traffic profiles. On each leaf enable qos policy by mapping traffic to different classes using the DSCP values. Then map the traffic classes to different queues.",
+        "extracted_entities": [
+            {
+                "type": "middlebox",
+                "value": "mapping"
+            },
+            {
+                "type": "location",
+                "value": "classes"
+            },
+            {
+                "type": "value",
+                "value": "using"
+            },
+            {
+                "type": "location",
+                "value": "classes"
+            }
+        ]
+    }
+]

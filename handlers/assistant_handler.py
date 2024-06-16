@@ -1,7 +1,7 @@
-import time, os
+import time, os, asyncio
 from openai import OpenAI
 
-OPENAI_API_KEY=""
+OPENAI_API_KEY="sk-proj-qJ1qUAx4jc1ltuUsYjl4T3BlbkFJKKwhXNSCV6Nc4Kf5iSTI"
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 CONFIG_FILE_PATHS = ["configs/sonic_configs/LEAF0/config_db.json", "configs/sonic_configs/LEAF0/frr.txt", "configs/sonic_configs/LEAF1/config_db.json", "configs/sonic_configs/LEAF1/frr.txt", "configs/sonic_configs/SPINE0/config_db.json", "configs/sonic_configs/SPINE0/frr.txt", "configs/sonic_configs/SPINE1/config_db.json", "configs/sonic_configs/SPINE1/frr.txt"]
@@ -72,7 +72,7 @@ class AssistantHandler:
             for file_stream in file_streams:
                 file_stream.close()
     
-    def run_state_assistant(self, message):
+    async def run_state_assistant(self, message):
         run = client.beta.threads.create_and_run(
           assistant_id=self.state_assistant.id,
           thread={"messages": [{"role": "user", "content": message}]}
@@ -89,7 +89,7 @@ class AssistantHandler:
             else:
                 time.sleep(1)
 
-    def run_fdb_assistant(self, message):
+    async def run_fdb_assistant(self, message):
         run = client.beta.threads.create_and_run(
           assistant_id=self.fdb_assistant.id,
           thread={"messages": [{"role": "user", "content": message}]}

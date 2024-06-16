@@ -18,10 +18,10 @@ class DatasetHandler:
             json.dump(configurations, file, indent=4)
 
     # Function to insert a new configuration
-    def insert_configuration(self, nl_request, json_config, yang_status, modules, latency, iterations, comments=None):
+    def insert_configuration(self, nl_request, json_config, yang_status, modules, latencies, iterations, comments=None):
         # Iterations records number of times an error log prompt was sent to the API
         configurations = self.load_configurations()
-        configurations.append({"nl_request": nl_request, "yang_config": json_config, "yang_modules": modules, "yang_status": yang_status, "latency": latency, "iterations": iterations, "comments": comments})
+        configurations.append({"nl_request": nl_request, "yang_config": json_config, "yang_modules": modules, "yang_status": yang_status, "latencies": latencies, "total_time": sum(latencies), "iterations": iterations, "error_logs": comments, "input_length": len(nl_request), "output_length": len(json.dumps(json_config))})
         self.save_configurations(configurations)
 
     # Function to convert string to dict
