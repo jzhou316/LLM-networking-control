@@ -1,276 +1,461 @@
 [
     {
-        "entities": {
-            "traffic": "torrent",
-            "group": "guest",
+        "text": "torrent traffic must be allowed for guest but limited to 100 mbps",
+        "extracted_entities": {
+            "traffic": "torrent traffic",
+            "group": "guests",
             "qos_constraint": "limit",
             "qos_value": "100",
             "qos_unit": "mbps",
             "operation": "allow"
         },
-        "intent_statement": "define intent qosIntent: for group('guest') allow traffic('torrent') set bandwidth('max', '100', 'mbps')"
+        "nile_statement": "define intent qosIntent: for group('guests') allow traffic('torrent') set bandwidth('max', '100', 'mbps')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.168711423873901,
+        "intent_length": 65,
+        "nile_length": 105
     },
     {
-        "entities": {
-            "traffic": "all traffic",
-            "target": "server racks",
-            "qos_metric": "bandwidth",
+        "text": "make sure all traffic to server racks is throttled to 1 gbps from 4pm to 9pm",
+        "extracted_entities": {
+            "traffic": "all",
+            "destination": "server racks",
+            "qos_constraint": "limit",
             "qos_value": "1",
             "qos_unit": "gbps",
-            "start": "4pm",
-            "end": "9pm"
+            "start": "16:00",
+            "end": "21:00"
         },
-        "intent_statement": "define intent qosIntent: for traffic('all traffic') set bandwidth('max', '1', 'gbps') for target('server racks') start hour('4pm') end hour('9pm')"
+        "nile_statement": "define intent qosIntent: for endpoint('serverRacks') set bandwidth('max', '1', 'gbps') start hour('16:00') end hour('21:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 13.688396215438843,
+        "intent_length": 76,
+        "nile_length": 124
     },
     {
-        "entities": {
-            "middlebox": "dpi",
-            "origin": "dmz",
+        "text": "please remove DPI from DMZ starting at 6am until 9pm",
+        "extracted_entities": {
+            "middlebox": "DPI",
+            "origin": "DMZ",
             "start": "06:00",
             "end": "21:00",
             "operation": "remove"
         },
-        "intent_statement": "define intent: from endpoint('dmz') remove middlebox('dpi') start hour('06:00') end hour('21:00')"
+        "nile_statement": "define intent removeDPI: from endpoint('DMZ') to endpoint('DMZ') remove middlebox('DPI') start hour('06:00') end hour('21:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.46542763710022,
+        "intent_length": 52,
+        "nile_length": 126
     },
     {
-        "entities": {
-            "operation": "block",
-            "traffic": "streaming"
+        "text": "please do not let any music streaming in the network",
+        "extracted_entities": {
+            "traffic": "streaming",
+            "operation": "block"
         },
-        "intent_statement": "define intent blockStreaming: block traffic('streaming')"
+        "nile_statement": "define intent blockStreaming: for traffic('streaming') block traffic('streaming')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.085835695266724,
+        "intent_length": 52,
+        "nile_length": 81
     },
     {
-        "entities": {
+        "text": "make tcp traffic pass through traffic shaper from 5pm to 8pm",
+        "extracted_entities": {
             "traffic": "tcp",
             "middlebox": "traffic shaper",
-            "start": "17:00",
-            "end": "20:00"
+            "start": "5pm",
+            "end": "8pm"
         },
-        "intent_statement": "define intent qosIntent: for traffic('tcp') add middlebox('traffic shaper') start hour('17:00') end hour('20:00')"
+        "nile_statement": "define intent qosIntent: for traffic('tcp') add middlebox('trafficShaper') start hour('17:00') end hour('20:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.711992979049683,
+        "intent_length": 60,
+        "nile_length": 112
     },
     {
-        "entities": {
-            "operation": "allow",
-            "traffic": "social media"
+        "text": "social media traffic must not be blocked",
+        "extracted_entities": {
+            "traffic": "social media",
+            "operation": "must not be blocked"
         },
-        "intent_statement": "define intent: qosIntent: allow traffic('social media')"
+        "nile_statement": "define intent allowSocialMedia: for traffic('socialMedia') allow traffic('socialMedia')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 6.30928373336792,
+        "intent_length": 40,
+        "nile_length": 87
     },
     {
-        "entities": {
-            "operation": "block",
-            "traffic": "streaming",
-            "service": "youtube"
+        "text": "Please, Lumi, block Youtube and all other streaming traffic",
+        "extracted_entities": {
+            "traffic": [
+                "youtube",
+                "streaming"
+            ],
+            "operation": "block"
         },
-        "intent_statement": "define intent blockStreaming: block traffic('streaming'), service('youtube')"
+        "nile_statement": "define intent blockStreaming: for service('youtube'), traffic('streaming') block service('youtube'), traffic('streaming')",
+        "grammar_check": true,
+        "iterations": 4,
+        "time": 19.806453704833984,
+        "intent_length": 59,
+        "nile_length": 121
     },
     {
-        "entities": {
-            "operation": "unblock",
-            "traffic": "torrent"
+        "text": "Lumi, please unblock all torrent traffic",
+        "extracted_entities": {
+            "traffic": "torrent",
+            "operation": "unblock"
         },
-        "intent_statement": "define intent unblockTorrentTraffic: allow traffic('torrent')"
+        "nile_statement": "define intent unblockTorrent: for traffic('torrent') allow traffic('torrent')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.881147146224976,
+        "intent_length": 40,
+        "nile_length": 77
     },
     {
-        "entities": {
+        "text": "Lumi, for the guest network, limit the traffic of torrent protocol to 100 mbps",
+        "extracted_entities": {
             "group": "guests",
             "traffic": "torrent",
             "qos_constraint": "limit",
             "qos_value": "100",
             "qos_unit": "mbps"
         },
-        "intent_statement": "define intent qosIntent: for group('guests') set bandwidth('max', '100', 'mbps') for traffic('torrent')"
+        "nile_statement": "define intent qosIntent: for group('guests') set bandwidth('max', '100', 'mbps') allow traffic('torrent')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 17.21888303756714,
+        "intent_length": 78,
+        "nile_length": 105
     },
     {
-        "entities": {
+        "text": "unblock facebook",
+        "extracted_entities": {
             "operation": "unblock",
             "service": "facebook"
         },
-        "intent_statement": "define intent unblockFacebook: unblock service('facebook')"
+        "nile_statement": "define intent unblockFacebook: for service('facebook') allow service('facebook')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 6.820175647735596,
+        "intent_length": 16,
+        "nile_length": 80
     },
     {
-        "entities": {
+        "text": "unblock traffic",
+        "extracted_entities": {
             "operation": "unblock",
             "traffic": "traffic"
         },
-        "intent_statement": "define intent qosIntent: allow traffic('traffic')"
+        "nile_statement": "define intent unblockTrafficIntent: for traffic('someTraffic') allow traffic('someTraffic')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 11.62434196472168,
+        "intent_length": 15,
+        "nile_length": 91
     },
     {
-        "entities": {
+        "text": "block facebook",
+        "extracted_entities": {
             "operation": "block",
             "service": "facebook"
         },
-        "intent_statement": "define intent blockFacebook: block service('facebook')"
+        "nile_statement": "define intent blockFacebook: for service('facebook') block service('facebook')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 7.0814049243927,
+        "intent_length": 14,
+        "nile_length": 78
     },
     {
-        "entities": {
-            "operation": "block",
-            "traffic": "F2movies",
-            "origin": "Internet",
-            "destination": "Labs"
-        },
-        "intent_statement": "define intent blockIntent: from endpoint('Internet') to endpoint('Labs') block traffic('F2movies')"
-    },
-    {
-        "entities": {
+        "text": "Block F2movies traffic from Internet to Labs",
+        "extracted_entities": {
             "operation": "block",
             "service": "F2movies",
             "origin": "Internet",
-            "destination": "student Labs"
+            "destination": "Labs"
         },
-        "intent_statement": "define intent blockF2moviesTraffic: from endpoint('Internet') to endpoint('student Labs') block service('F2movies')"
+        "nile_statement": "define intent blockIntent: from endpoint('Internet') to endpoint('Labs') block service('F2movies')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 5.135987997055054,
+        "intent_length": 44,
+        "nile_length": 98
     },
     {
-        "entities": {
-            "middlebox": "dpi",
-            "traffic": "all",
-            "origin": "internet",
-            "destination": "labs",
-            "operation": "add"
+        "text": "Block F2movies traffic from Internet to student Labs",
+        "extracted_entities": {
+            "service": "F2movies",
+            "origin": "Internet",
+            "destination": "student Labs",
+            "operation": "block"
         },
-        "intent_statement": "define intent dpiIntent: from endpoint('internet') to endpoint('labs') add middlebox('dpi')"
+        "nile_statement": "define intent blockF2movies: from endpoint('Internet') to endpoint('studentLabs') block service('F2movies')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.10129427909851,
+        "intent_length": 52,
+        "nile_length": 107
     },
     {
-        "entities": {
+        "text": "Add DPI middlebox into all traffic from Internet to the Labs",
+        "extracted_entities": {
+            "middlebox": "DPI",
             "traffic": "all",
             "origin": "Internet",
             "destination": "Labs",
-            "middlebox": "DPI"
-        },
-        "intent_statement": "define intent: qosIntent: from endpoint('Internet') to endpoint('Labs') add middlebox('DPI')"
-    },
-    {
-        "entities": {
-            "middlebox": "dpi",
-            "target": "labs",
             "operation": "add"
         },
-        "intent_statement": "define intent addDPI: for target('labs') add middlebox('dpi')"
+        "nile_statement": "define intent dpiIntent: from endpoint('Internet') to endpoint('Labs') add middlebox('DPI')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.250492095947266,
+        "intent_length": 60,
+        "nile_length": 91
     },
     {
-        "entities": {
-            "operation": "add",
-            "middlebox": "dpi",
-            "location": "labs"
+        "text": "All traffic from the Internet to the Labs has to go to DPI server and then goes to the Labs",
+        "extracted_entities": {
+            "traffic": "all traffic",
+            "origin": "Internet",
+            "destination": "Labs",
+            "middlebox": "DPI",
+            "operation": "add"
         },
-        "intent_statement": "define intent addDPI: for location('labs') add middlebox('dpi')"
+        "nile_statement": "define intent trafficIntent: from endpoint('Internet') to endpoint('Labs') add middlebox('DPI')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 5.085551023483276,
+        "intent_length": 91,
+        "nile_length": 95
     },
     {
-        "entities": {
+        "text": "add dpi to labs network",
+        "extracted_entities": {
+            "middlebox": "dpi",
+            "operation": "add",
+            "group": "labs"
+        },
+        "nile_statement": "define intent addDpiIntent: for group('labs') add middlebox('dpi')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 5.1447203159332275,
+        "intent_length": 23,
+        "nile_length": 66
+    },
+    {
+        "text": "Hey Lumi, add DPI to the labs network",
+        "extracted_entities": {
             "operation": "add",
             "middlebox": "dpi",
             "target": "labs"
         },
-        "intent_statement": "define intent addDPI: for target('labs') add middlebox('dpi')"
+        "nile_statement": "define intent dpiIntent: for group('labs') add middlebox('dpi')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 7.4736809730529785,
+        "intent_length": 37,
+        "nile_length": 63
     },
     {
-        "entities": {
+        "text": "hey Lumi, add dpi to labs",
+        "extracted_entities": {
+            "middlebox": "dpi",
+            "operation": "add",
+            "target": "labs"
+        },
+        "nile_statement": "define intent dpiIntent: for group('labs') add middlebox('dpi')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 6.9501729011535645,
+        "intent_length": 25,
+        "nile_length": 63
+    },
+    {
+        "text": "limit servers bandwidth to 5gbps between 4pm and 7pm",
+        "extracted_entities": {
             "qos_constraint": "limit",
             "qos_metric": "bandwidth",
             "qos_value": "5",
             "qos_unit": "gbps",
-            "start": "4pm",
-            "end": "7pm",
+            "start": "16:00",
+            "end": "19:00",
             "target": "servers"
         },
-        "intent_statement": "define intent qosIntent: for servers set bandwidth('max', '5', 'gbps') start hour('4pm') end hour('7pm')"
+        "nile_statement": "define intent qosIntent: for group('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.55742621421814,
+        "intent_length": 52,
+        "nile_length": 117
     },
     {
-        "entities": {
+        "text": "unblock facebook traffic",
+        "extracted_entities": {
             "operation": "unblock",
             "service": "facebook"
         },
-        "intent_statement": "define intent unblockFacebook: unblock service('facebook')"
+        "nile_statement": "define intent unblockFacebook: for service('facebook') allow service('facebook')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 11.832131624221802,
+        "intent_length": 24,
+        "nile_length": 80
     },
     {
-        "entities": {
-            "operation": "allow",
-            "traffic": "all"
+        "text": "allow all traffic",
+        "extracted_entities": {
+            "traffic": "all",
+            "operation": "allow"
         },
-        "intent_statement": "define intent: qosIntent: allow traffic('all')"
+        "nile_statement": "define intent allowAllTraffic: for traffic('all') allow traffic('all')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 7.009128570556641,
+        "intent_length": 17,
+        "nile_length": 70
     },
     {
-        "entities": {
+        "text": "block all student traffic in the network",
+        "extracted_entities": {
             "operation": "block",
             "group": "students",
             "traffic": "all"
         },
-        "intent_statement": "define intent: blockStudentTraffic: block traffic('all') for group('students')"
+        "nile_statement": "define intent blockStudentTraffic: for group('students') block traffic('all')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.51486086845398,
+        "intent_length": 40,
+        "nile_length": 77
     },
     {
-        "entities": {
+        "text": "block all student traffic",
+        "extracted_entities": {
             "operation": "block",
             "group": "students",
             "traffic": "all"
         },
-        "intent_statement": "define intent blockStudentTraffic: for group('students') block traffic('all')"
+        "nile_statement": "define intent blockStudentTraffic: for group('students') block traffic('all')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.066633462905884,
+        "intent_length": 25,
+        "nile_length": 77
     },
     {
-        "entities": {
-            "operation": "block",
-            "traffic": "all traffic"
+        "text": "block all traffic",
+        "extracted_entities": {
+            "traffic": "all traffic",
+            "operation": "block"
         },
-        "intent_statement": "define intent blockAllTraffic: block traffic('all traffic')"
+        "nile_statement": "define intent blockAllTraffic: for traffic('allTraffic') block traffic('allTraffic')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 7.799677848815918,
+        "intent_length": 17,
+        "nile_length": 84
     },
     {
-        "entities": {
+        "text": "Limit students in the dorm to 10 GB per week",
+        "extracted_entities": {
             "group": "students",
-            "location": "dorms",
+            "qos_constraint": "limit",
             "qos_metric": "quota",
             "qos_value": "10",
-            "qos_unit": "gb/wk"
+            "qos_unit": "GB per week",
+            "target": "dorms"
         },
-        "intent_statement": "define intent qosIntent: for group('students') set quota('10', 'gb/wk') at location('dorms')"
+        "nile_statement": "define intent qosIntent: for group('students'), group('dorms') set quota('any', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 13.26451587677002,
+        "intent_length": 44,
+        "nile_length": 94
     },
     {
-        "entities": {
+        "text": "Make sure all traffic from the Internet to the labs is inspected by the DPI middlebox",
+        "extracted_entities": {
             "origin": "Internet",
             "destination": "labs",
-            "middlebox": "dpi",
-            "operation": "add",
+            "middlebox": "DPI",
+            "operation": "inspect",
             "traffic": "all"
         },
-        "intent_statement": "define intent qosIntent: from endpoint('Internet') to endpoint('labs') add middlebox('dpi') for traffic('all')"
+        "nile_statement": "define intent trafficInspection: from endpoint('Internet') to endpoint('labs') add middlebox('DPI')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.063782930374146,
+        "intent_length": 85,
+        "nile_length": 99
     },
     {
-        "entities": {
+        "text": "Between internet and servers limit traffic to 5Gbps start 16:00 finish 19:00",
+        "extracted_entities": {
             "origin": "internet",
             "destination": "servers",
             "qos_constraint": "limit",
             "traffic": "traffic",
             "qos_value": "5",
-            "qos_unit": "gbps",
+            "qos_unit": "Gbps",
             "start": "16:00",
             "end": "19:00"
         },
-        "intent_statement": "define intent qosIntent: from endpoint('internet') to endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+        "nile_statement": "define intent qosIntent: from endpoint('internet') to endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 11.956691265106201,
+        "intent_length": 76,
+        "nile_length": 145
     },
     {
-        "entities": {
+        "text": "Between internet and servers limit traffic to 5Gbps interval 4pm to 7pm",
+        "extracted_entities": {
             "origin": "internet",
             "destination": "servers",
-            "qos_constraint": "limit",
             "traffic": "traffic",
+            "qos_constraint": "limit",
             "qos_value": "5",
-            "qos_unit": "gbps",
+            "qos_unit": "Gbps",
             "start": "16:00",
             "end": "19:00"
         },
-        "intent_statement": "define intent qosIntent: from endpoint('internet') to endpoint('servers') limit traffic('traffic') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+        "nile_statement": "define intent qosIntent: from endpoint('internet') to endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 15.275763988494873,
+        "intent_length": 71,
+        "nile_length": 145
     },
     {
-        "entities": {
+        "text": "limit the bandwidth to 5Gb for rack servers from 4 pm until 7 pm",
+        "extracted_entities": {
             "qos_constraint": "limit",
             "qos_metric": "bandwidth",
             "qos_value": "5",
-            "qos_unit": "gbps",
-            "location": "rack servers",
+            "qos_unit": "Gbps",
+            "origin": "rack servers",
             "start": "16:00",
             "end": "19:00"
         },
-        "intent_statement": "define intent qosIntent: for location('rack servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+        "nile_statement": "define intent qosIntent: for endpoint('rackservers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.684885501861572,
+        "intent_length": 64,
+        "nile_length": 124
     },
     {
-        "entities": {
+        "text": "limit traffic to 5Gbps  Between internet and servers for 16:00 to 19:00",
+        "extracted_entities": {
             "traffic": "traffic",
             "qos_constraint": "limit",
             "qos_value": "5",
@@ -280,230 +465,374 @@
             "start": "16:00",
             "end": "19:00"
         },
-        "intent_statement": "define intent qosIntent: from endpoint('internet') to endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+        "nile_statement": "define intent qosIntent: from endpoint('internet') to endpoint('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.944412231445312,
+        "intent_length": 71,
+        "nile_length": 145
     },
     {
-        "entities": {
+        "text": "set quota to 10 GB per week at labs",
+        "extracted_entities": {
             "operation": "set",
-            "quota": "10",
-            "qos_unit": "gb/wk",
-            "location": "labs"
-        },
-        "intent_statement": "define intent qosIntent: for location('labs') set quota('10', 'gb/wk')"
-    },
-    {
-        "entities": {
-            "operation": "set",
-            "quota": "10",
-            "qos_unit": "gb/wk",
-            "target": "servers"
-        },
-        "intent_statement": "define intent qosIntent: for endpoint('servers') set quota('10', 'gb/wk')"
-    },
-    {
-        "entities": {
             "qos_metric": "quota",
             "qos_value": "10",
             "qos_unit": "gb/wk",
-            "group": "dorms",
-            "operation": "set"
+            "location": "labs"
         },
-        "intent_statement": "define intent qosIntent: for group('dorms') set quota('10', 'gb/wk')"
+        "nile_statement": "define intent qosIntent: for endpoint('labs') set quota('any', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 3,
+        "time": 23.648446321487427,
+        "intent_length": 35,
+        "nile_length": 77
     },
     {
-        "entities": {
+        "text": "set quota to 10 GB per week at servers",
+        "extracted_entities": {
+            "operation": "set",
+            "qos_metric": "quota",
+            "qos_value": "10",
+            "qos_unit": "GB per week",
+            "target": "servers"
+        },
+        "nile_statement": "define intent qosIntent: for endpoint('servers') set quota('any', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.418678760528564,
+        "intent_length": 38,
+        "nile_length": 80
+    },
+    {
+        "text": "Set quota to 10 GB per week dorms",
+        "extracted_entities": {
+            "qos_metric": "quota",
+            "qos_value": "10",
+            "qos_unit": "gb/wk",
+            "group": "students",
+            "target": "dorms",
+            "operation": "set"
+        },
+        "nile_statement": "define intent qosIntent: for group('students') set quota('any', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.494940280914307,
+        "intent_length": 33,
+        "nile_length": 78
+    },
+    {
+        "text": "Set quota to 10 GB per week at guest",
+        "extracted_entities": {
             "operation": "set",
             "qos_metric": "quota",
             "qos_value": "10",
             "qos_unit": "gb/wk",
             "group": "guest"
         },
-        "intent_statement": "define intent: qosIntent: for group('guest') set quota('10', 'gb/wk')"
+        "nile_statement": "define intent qosIntent: for group('guest') set quota('any', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.549001216888428,
+        "intent_length": 36,
+        "nile_length": 75
     },
     {
-        "entities": {
+        "text": "Set quota to 10 GB per week at dorms",
+        "extracted_entities": {
+            "qos_metric": "quota",
+            "qos_value": "10",
+            "qos_unit": "gb/wk",
+            "group": "students",
+            "location": "dorms",
+            "operation": "set"
+        },
+        "nile_statement": "define intent qosIntent: for group('students') set quota('any', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 12.043844938278198,
+        "intent_length": 36,
+        "nile_length": 78
+    },
+    {
+        "text": "set quota to 10 GB per week at LAN",
+        "extracted_entities": {
             "operation": "set",
             "qos_metric": "quota",
             "qos_value": "10",
             "qos_unit": "gb/wk",
-            "target": "dorms"
+            "target": "LAN"
         },
-        "intent_statement": "define intent qosIntent: for target('dorms') set quota('10', 'gb/wk')"
+        "nile_statement": "define intent qosIntent: for endpoint('LAN') set quota('any', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.968316555023193,
+        "intent_length": 34,
+        "nile_length": 76
     },
     {
-        "entities": {
-            "operation": "set",
-            "quota": "10",
-            "qos_unit": "gb/wk",
-            "location": "LAN"
-        },
-        "intent_statement": "define intent qosIntent: for location('LAN') set quota('10', 'gb/wk')"
-    },
-    {
-        "entities": {
-            "operation": "block",
-            "traffic": "all traffic",
-            "target": "dorms"
-        },
-        "intent_statement": "define intent blockAllTraffic: for traffic('all traffic') block traffic('all traffic') for group('dorms')"
-    },
-    {
-        "entities": {
+        "text": "block all traffic at Dorms location",
+        "extracted_entities": {
+            "location": "Dorms",
             "traffic": "all",
+            "operation": "block"
+        },
+        "nile_statement": "define intent blockAllTraffic: for location('Dorms') block traffic('allTraffic')",
+        "grammar_check": true,
+        "iterations": 3,
+        "time": 13.700134754180908,
+        "intent_length": 35,
+        "nile_length": 80
+    },
+    {
+        "text": "Limit traffic to 10 GB per week at Dorms",
+        "extracted_entities": {
+            "location": "Dorms",
+            "qos_constraint": "limit",
+            "qos_metric": "quota",
+            "qos_value": "10",
+            "qos_unit": "gb/wk"
+        },
+        "nile_statement": "define intent qosIntent: for group('Dorms') set quota('any', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 17.822273015975952,
+        "intent_length": 40,
+        "nile_length": 75
+    },
+    {
+        "text": "for endpoint dorms set quota download 10 gb/wk",
+        "extracted_entities": {
+            "endpoint": "dorms",
+            "qos_constraint": "download",
+            "qos_metric": "quota",
             "qos_value": "10",
             "qos_unit": "gb/wk",
-            "target": "dorms",
-            "operation": "limit"
+            "operation": "set"
         },
-        "intent_statement": "define intent qosIntent: for traffic('all') limit quota('10', 'gb/wk') for target('dorms')"
+        "nile_statement": "define intent qosIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 6.440372467041016,
+        "intent_length": 46,
+        "nile_length": 83
     },
     {
-        "entities": {
-            "target": "dorms",
-            "operation": "set",
-            "qos_metric": "quota",
-            "qos_constraint": "download",
-            "qos_value": "10",
-            "qos_unit": "gb/wk"
-        },
-        "intent_statement": "define intent qosIntent: for endpoint('dorms') set quota('download', '10', 'gb/wk')"
-    },
-    {
-        "entities": {
-            "target": "dorms",
-            "operation": "set",
+        "text": "At endpoint Dorms set quota to 10 GB per week",
+        "extracted_entities": {
+            "endpoint": "Dorms",
             "qos_metric": "quota",
             "qos_value": "10",
-            "qos_unit": "gb/wk"
+            "qos_unit": "gb/wk",
+            "operation": "set"
         },
-        "intent_statement": "define intent qosIntent: for endpoint('dorms') set quota('10', 'gb/wk')"
+        "nile_statement": "define intent qosIntent: for endpoint('Dorms') set quota('any', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.739494800567627,
+        "intent_length": 45,
+        "nile_length": 78
     },
     {
-        "entities": {
+        "text": "Students shall download no more than 1000000 MB per week",
+        "extracted_entities": {
             "group": "students",
             "qos_constraint": "download",
             "qos_value": "1000000",
             "qos_unit": "mb/wk"
         },
-        "intent_statement": "define intent qosIntent: for group('students') set quota('download', '1000000', 'mb/wk')"
+        "nile_statement": "define intent qosIntent: for group('students') set quota('download', '1000000', 'mb/wk')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 7.411405563354492,
+        "intent_length": 56,
+        "nile_length": 88
     },
     {
-        "entities": {
+        "text": "hey lumi, please add a DPI to ensure students from the labs are not accessing suspicious applications",
+        "extracted_entities": {
             "middlebox": "dpi",
             "group": "students",
             "location": "labs",
-            "operation": "add",
-            "traffic": "suspicious applications"
+            "operation": "add"
         },
-        "intent_statement": "define intent qosIntent: for group('students') add middlebox('dpi') for location('labs') block traffic('suspicious applications')"
+        "nile_statement": "define intent dpiIntent: for group('students') add middlebox('dpi')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.261852741241455,
+        "intent_length": 101,
+        "nile_length": 67
     },
     {
-        "entities": {
-            "traffic": "rack servers",
+        "text": "Limit rack servers to 5gbps during 5pm to 7pm",
+        "extracted_entities": {
+            "location": "rack servers",
             "qos_constraint": "limit",
-            "qos_value": "5",
-            "qos_unit": "gbps",
-            "start": "5pm",
-            "end": "7pm"
-        },
-        "intent_statement": "define intent qosIntent: for traffic('rack servers') set bandwidth('max', '5', 'gbps') start hour('17:00') end hour('19:00')"
-    },
-    {
-        "entities": {
-            "qos_constraint": "limit",
-            "qos_metric": "bandwidth",
             "qos_value": "5",
             "qos_unit": "gbps",
             "start": "17:00",
-            "end": "19:00",
-            "target": "servers"
+            "end": "19:00"
         },
-        "intent_statement": "define intent qosIntent: for target('servers') set bandwidth('max', '5', 'gbps') start hour('17:00') end hour('19:00')"
+        "nile_statement": "define intent qosIntent: for group('rackservers') set bandwidth('max', '5', 'gbps') start hour('17:00') end hour('19:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.550918579101562,
+        "intent_length": 45,
+        "nile_length": 121
     },
     {
-        "entities": {
+        "text": "Limit servers to 5gbps during 5pm to 7pm",
+        "extracted_entities": {
             "qos_constraint": "limit",
-            "qos_metric": "bandwidth",
             "qos_value": "5",
             "qos_unit": "gbps",
             "target": "servers",
-            "start": "4pm",
+            "start": "5pm",
             "end": "7pm"
         },
-        "intent_statement": "define intent qosIntent: for target('servers') set bandwidth('max', '5', 'gbps') start hour('4pm') end hour('7pm')"
+        "nile_statement": "define intent qosIntent: for group('servers') set bandwidth('max', '5', 'gbps') start hour('17:00') end hour('19:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.675574779510498,
+        "intent_length": 40,
+        "nile_length": 117
     },
     {
-        "entities": {
+        "text": "Set 5gbps limit for servers during 4pm to 7pm",
+        "extracted_entities": {
+            "qos_constraint": "limit",
+            "qos_value": "5",
+            "qos_unit": "gbps",
+            "target": "servers",
+            "start": "16:00",
+            "end": "19:00"
+        },
+        "nile_statement": "define intent qosIntent: for group('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.857991695404053,
+        "intent_length": 45,
+        "nile_length": 117
+    },
+    {
+        "text": "please lumi, block f2movies traffic from internet to students labs",
+        "extracted_entities": {
             "operation": "block",
             "service": "F2movies",
             "origin": "internet",
             "group": "students",
             "destination": "labs"
         },
-        "intent_statement": "define intent blockF2moviesTraffic: from endpoint('internet') to endpoint('labs') block service('F2movies') for group('students')"
+        "nile_statement": "define intent blockF2movies: from endpoint('internet') to endpoint('labs') block service('F2movies')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.601127862930298,
+        "intent_length": 66,
+        "nile_length": 100
     },
     {
-        "entities": {
+        "text": "hey lumi, please allow traffic only from professors",
+        "extracted_entities": {
             "operation": "allow",
             "traffic": "traffic",
             "group": "professors"
         },
-        "intent_statement": "define intent qosIntent: allow traffic('traffic') for group('professors')"
+        "nile_statement": "define intent allowTrafficIntent: for group('professors') allow traffic('specificTraffic')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.206966161727905,
+        "intent_length": 51,
+        "nile_length": 90
     },
     {
-        "entities": {
+        "text": "please lumi, define dorms quota to 10 gb per week",
+        "extracted_entities": {
             "location": "dorms",
             "qos_metric": "quota",
             "qos_value": "10",
-            "qos_unit": "gb per week",
+            "qos_unit": "gb/wk",
             "operation": "set"
         },
-        "intent_statement": "define intent qosIntent: for location('dorms') set quota('10', 'gb per week')"
+        "nile_statement": "define intent dormsQuota: for endpoint('dorms') set quota('any', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.75820803642273,
+        "intent_length": 49,
+        "nile_length": 79
     },
     {
-        "entities": {
+        "text": "Students shall download no more than 1000000 megabytes per week",
+        "extracted_entities": {
             "group": "students",
-            "qos_constraint": "download",
+            "qos_constraint": "no more than",
+            "qos_metric": "download",
             "qos_value": "1000000",
             "qos_unit": "mb/wk"
         },
-        "intent_statement": "define intent qosIntent: for group('students') set quota('download', '1000000', 'mb/wk')"
+        "nile_statement": "define intent qosIntent: for group('students') set quota('download', '1000000', 'mb/wk')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 5.779764890670776,
+        "intent_length": 63,
+        "nile_length": 88
     },
     {
-        "entities": {
+        "text": "please limit bandwidth to 5 Gigabits per second for the server racks everyday from 4 PM  to 7PM",
+        "extracted_entities": {
             "qos_constraint": "limit",
             "qos_metric": "bandwidth",
             "qos_value": "5",
             "qos_unit": "gbps",
             "target": "server racks",
-            "hour": "19:00"
+            "hour": [
+                "16:00",
+                "19:00"
+            ]
         },
-        "intent_statement": "define intent qosIntent: for target('server racks') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+        "nile_statement": "define intent qosIntent: for endpoint('serverRacks') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.228918313980103,
+        "intent_length": 95,
+        "nile_length": 124
     },
     {
-        "entities": {
+        "text": "limit the bandwidth in server racks to 5gbps between 4pm and 7pm",
+        "extracted_entities": {
             "qos_constraint": "limit",
             "qos_metric": "bandwidth",
             "qos_value": "5",
             "qos_unit": "gbps",
-            "target": "server racks",
+            "location": "server racks",
             "start": "16:00",
             "end": "19:00"
         },
-        "intent_statement": "define intent qosIntent: for target('server racks') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+        "nile_statement": "define intent qosIntent: for group('serverRacks') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 15.062053203582764,
+        "intent_length": 64,
+        "nile_length": 121
     },
     {
-        "entities": {
+        "text": "I want the torrent traffic from guest users to be no more than 100 mbps",
+        "extracted_entities": {
             "traffic": "torrent",
             "group": "guests",
-            "qos_metric": "bandwidth",
+            "qos_constraint": "no more than",
             "qos_value": "100",
             "qos_unit": "mbps"
         },
-        "intent_statement": "define intent qosIntent: for group('guests') set bandwidth('max', '100', 'mbps') traffic('torrent')"
+        "nile_statement": "define intent qosIntent: for group('guests'), traffic('torrent') set bandwidth('max', '100', 'mbps')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.670236349105835,
+        "intent_length": 71,
+        "nile_length": 100
     },
     {
-        "entities": {
+        "text": "limit network usage of all students in the dorms to no more than 10 gb per seven days",
+        "extracted_entities": {
             "group": "students",
             "location": "dorms",
             "qos_constraint": "limit",
@@ -511,28 +840,46 @@
             "qos_value": "10",
             "qos_unit": "gb per seven days"
         },
-        "intent_statement": "define intent qosIntent: for group('students') set quota('10', 'gb per seven days')"
+        "nile_statement": "define intent limitNetworkUsage: for group('students') set quota('any', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 12.251307249069214,
+        "intent_length": 85,
+        "nile_length": 86
     },
     {
-        "entities": {
+        "text": "prevent all f2movies traffic from reaching the students in the labs",
+        "extracted_entities": {
             "service": "F2movies",
             "group": "students",
             "location": "labs",
             "operation": "prevent"
         },
-        "intent_statement": "define intent qosIntent: for group('students') in location('labs') block service('F2movies')"
+        "nile_statement": "define intent blockF2movies: for service('F2movies') block traffic('students')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 15.406762599945068,
+        "intent_length": 67,
+        "nile_length": 78
     },
     {
-        "entities": {
+        "text": "Add monitor for the university from 4am to 10pm",
+        "extracted_entities": {
             "middlebox": "monitor",
-            "location": "university",
-            "start": "4am",
-            "end": "10pm"
+            "target": "university",
+            "start": "04:00",
+            "end": "22:00"
         },
-        "intent_statement": "define intent monitorIntent: for location('university') add middlebox('monitor') start hour('4am') end hour('10pm')"
+        "nile_statement": "define intent monitorIntent: for group('university') add middlebox('monitor') start hour('04:00') end hour('22:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.59705901145935,
+        "intent_length": 47,
+        "nile_length": 115
     },
     {
-        "entities": {
+        "text": "set a maximum of 5 gbps to the servers from 4pm to 7pm",
+        "extracted_entities": {
             "qos_constraint": "maximum",
             "qos_value": "5",
             "qos_unit": "gbps",
@@ -540,48 +887,76 @@
             "start": "16:00",
             "end": "19:00"
         },
-        "intent_statement": "define intent qosIntent: for target('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+        "nile_statement": "define intent qosIntent: for group('servers') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.447160720825195,
+        "intent_length": 54,
+        "nile_length": 117
     },
     {
-        "entities": {
+        "text": "students should download no more than 10 GB of data in a week",
+        "extracted_entities": {
             "group": "students",
             "qos_constraint": "download",
             "qos_metric": "quota",
             "qos_value": "10",
             "qos_unit": "gb/wk"
         },
-        "intent_statement": "define intent: qosIntent: for group('students') set quota('download', '10', 'gb/wk')"
+        "nile_statement": "define intent qosIntent: for group('students') set quota('download', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 5.078191041946411,
+        "intent_length": 61,
+        "nile_length": 83
     },
     {
-        "entities": {
-            "traffic": "torrent",
+        "text": "set torrent traffic from guests to 100 mbps",
+        "extracted_entities": {
+            "traffic": "torrent traffic",
             "group": "guests",
             "qos_value": "100",
-            "qos_unit": "mbps",
-            "operation": "set"
+            "qos_unit": "mbps"
         },
-        "intent_statement": "define intent qosIntent: for group('guests') set bandwidth('max', '100', 'mbps') traffic('torrent')"
+        "nile_statement": "define intent qosIntent: for traffic('torrent'), group('guests') set bandwidth('max', '100', 'mbps')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 13.224701642990112,
+        "intent_length": 43,
+        "nile_length": 100
     },
     {
-        "entities": {
+        "text": "From internet to Labs add DPI",
+        "extracted_entities": {
             "origin": "internet",
-            "destination": "labs",
-            "middlebox": "dpi",
+            "destination": "Labs",
+            "middlebox": "DPI",
             "operation": "add"
         },
-        "intent_statement": "define intent dpiIntent: from endpoint('internet') to endpoint('labs') add middlebox('dpi')"
+        "nile_statement": "define intent networkIntent: from endpoint('internet') to endpoint('Labs') add middlebox('DPI')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 7.525656461715698,
+        "intent_length": 29,
+        "nile_length": 95
     },
     {
-        "entities": {
+        "text": "From internet to Labs block F2movies",
+        "extracted_entities": {
             "origin": "internet",
-            "destination": "labs",
-            "service": "F2movies",
-            "operation": "block"
+            "destination": "Labs",
+            "service": "F2movies"
         },
-        "intent_statement": "define intent: from endpoint('internet') to endpoint('labs') block service('F2movies')"
+        "nile_statement": "define intent blockF2movies: from endpoint('internet') to endpoint('Labs') block service('F2movies')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 6.375509977340698,
+        "intent_length": 36,
+        "nile_length": 100
     },
     {
-        "entities": {
+        "text": "limit the bandwidth rate of the server racks to 5 gbps from 4pm to 7pm",
+        "extracted_entities": {
             "qos_constraint": "limit",
             "qos_metric": "bandwidth",
             "qos_value": "5",
@@ -590,256 +965,430 @@
             "start": "16:00",
             "end": "19:00"
         },
-        "intent_statement": "define intent qosIntent: for endpoint('server racks') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')"
+        "nile_statement": "define intent qosIntent: for endpoint('serverRacks') set bandwidth('max', '5', 'gbps') start hour('16:00') end hour('19:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.736822605133057,
+        "intent_length": 70,
+        "nile_length": 124
     },
     {
-        "entities": {
+        "text": "block traffic of the server racks",
+        "extracted_entities": {
             "operation": "block",
             "traffic": "all",
             "target": "server racks"
         },
-        "intent_statement": "define intent blockTraffic: for traffic('all') block traffic('all') for endpoint('server racks')"
+        "nile_statement": "define intent blockTraffic: for endpoint('serverRacks') block traffic('all')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 16.25708317756653,
+        "intent_length": 33,
+        "nile_length": 76
     },
     {
-        "entities": {
+        "text": "block all traffic for the server racks",
+        "extracted_entities": {
             "operation": "block",
             "traffic": "all traffic",
             "target": "server racks"
         },
-        "intent_statement": "define intent qosIntent: for endpoint('server racks') block traffic('all traffic')"
+        "nile_statement": "define intent blockTraffic: for endpoint('serverRacks') block traffic('allTraffic')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.08607792854309,
+        "intent_length": 38,
+        "nile_length": 83
     },
     {
-        "entities": {
+        "text": "limit to 100 Mbps the bandwidth torrent traffic can consume",
+        "extracted_entities": {
             "traffic": "torrent",
-            "qos_constraint": "max 100mbps"
+            "qos_constraint": "limit",
+            "qos_value": "100",
+            "qos_unit": "mbps"
         },
-        "intent_statement": "define intent qosIntent: set bandwidth('max', '100', 'mbps') for traffic('torrent')"
+        "nile_statement": "define intent qosIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 12.01740574836731,
+        "intent_length": 59,
+        "nile_length": 83
     },
     {
-        "entities": {
+        "text": "forward traffic for labs through the dpi",
+        "extracted_entities": {
             "traffic": "traffic",
+            "group": "labs",
             "middlebox": "dpi",
-            "target": "labs",
             "operation": "forward"
         },
-        "intent_statement": "define intent forwardTraffic: for traffic('traffic') add middlebox('dpi') for group('labs')"
+        "nile_statement": "define intent forwardTraffic: for group('labs') add middlebox('dpi')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 13.162761211395264,
+        "intent_length": 40,
+        "nile_length": 68
     },
     {
-        "entities": {
+        "text": "put a download quota for students of 10 gb per week",
+        "extracted_entities": {
             "group": "students",
             "qos_constraint": "download",
             "qos_metric": "quota",
             "qos_value": "10",
-            "qos_unit": "gb per week",
-            "operation": "set"
+            "qos_unit": "gb per week"
         },
-        "intent_statement": "define intent qosIntent: for group('students') set quota('download', '10', 'gb per week')"
+        "nile_statement": "define intent qosIntent: for group('students') set quota('download', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 14.529531955718994,
+        "intent_length": 51,
+        "nile_length": 83
     },
     {
-        "entities": {
-            "traffic": "torrent",
+        "text": "limit torrent traffic to 100 mbps",
+        "extracted_entities": {
+            "traffic": "torrent traffic",
             "qos_constraint": "limit",
-            "qos_metric": "bandwidth",
             "qos_value": "100",
             "qos_unit": "mbps"
         },
-        "intent_statement": "define intent qosIntent: for traffic('torrent') limit bandwidth('100', 'mbps')"
+        "nile_statement": "define intent qosIntent: for traffic('torrent') set bandwidth('max', '100', 'mbps')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 16.424437761306763,
+        "intent_length": 33,
+        "nile_length": 83
     },
     {
-        "entities": {
-            "operation": "block",
+        "text": "block F2movies traffic for students in the labs",
+        "extracted_entities": {
             "service": "F2movies",
             "group": "students",
-            "target": "labs"
+            "location": "labs",
+            "operation": "block"
         },
-        "intent_statement": "define intent blockIntent: for group('students') block service('F2movies') for target('labs')"
+        "nile_statement": "define intent blockF2movies: for group('students') block service('F2movies')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 7.985486268997192,
+        "intent_length": 47,
+        "nile_length": 76
     },
     {
-        "entities": {
-            "group": "students",
+        "text": "set a 10 GB per week download quota for students in dorms",
+        "extracted_entities": {
             "qos_constraint": "download",
             "qos_metric": "quota",
             "qos_value": "10",
             "qos_unit": "gb/wk",
-            "target": "dorms",
-            "operation": "set"
+            "group": "students",
+            "location": "dorms"
         },
-        "intent_statement": "define intent qosIntent: for group('students') in dorms set quota(download, 10, gb/wk)"
+        "nile_statement": "define intent qosIntent: for group('students'), group('dorms') set quota('download', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.29243803024292,
+        "intent_length": 57,
+        "nile_length": 99
     },
     {
-        "entities": {
-            "traffic": "all",
+        "text": "ensure that all traffic from the Internet to the labs is carefully inspected by the Deep Packet Inspection middlebox",
+        "extracted_entities": {
+            "traffic": "all traffic",
             "origin": "Internet",
             "destination": "labs",
-            "middlebox": "Deep Packet Inspection",
-            "operation": "inspect"
+            "middlebox": "Deep Packet Inspection"
         },
-        "intent_statement": "define intent: from endpoint('Internet') to endpoint('labs') add middlebox('Deep Packet Inspection')"
+        "nile_statement": "define intent trafficInspection: from endpoint('Internet') to endpoint('labs') add middlebox('DeepPacketInspection')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 13.606576681137085,
+        "intent_length": 116,
+        "nile_length": 116
     },
     {
-        "entities": {
-            "traffic": "torrent",
+        "text": "limit torrent traffic for guests to 100 Mbps",
+        "extracted_entities": {
+            "traffic": "torrent traffic",
             "group": "guests",
             "qos_constraint": "limit",
-            "qos_metric": "bandwidth",
             "qos_value": "100",
             "qos_unit": "mbps"
         },
-        "intent_statement": "define intent qosIntent: for group('guests') set bandwidth('max', '100', 'mbps') traffic('torrent')"
+        "nile_statement": "define intent qosIntent: for group('guests') set bandwidth('max', '100', 'mbps') allow traffic('torrent')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 14.883299112319946,
+        "intent_length": 44,
+        "nile_length": 105
     },
     {
-        "entities": {
-            "traffic": "internet",
+        "text": "inspect all internet traffic",
+        "extracted_entities": {
+            "traffic": "all",
             "operation": "inspect"
         },
-        "intent_statement": "define intent: inspect traffic('internet')"
+        "nile_statement": "define intent inspectTraffic: for traffic('all') add middlebox('dpi')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 5.237465143203735,
+        "intent_length": 28,
+        "nile_length": 69
     },
     {
-        "entities": {
+        "text": "Students can download up to 10 GB per week of data.",
+        "extracted_entities": {
             "group": "students",
             "qos_constraint": "download",
             "qos_value": "10",
-            "qos_unit": "gb/wk"
+            "qos_unit": "gb per week",
+            "qos_metric": "data"
         },
-        "intent_statement": "define intent qosIntent: for group('students') set quota('download', '10', 'gb/wk')"
+        "nile_statement": "define intent qosIntent: for group('students') set quota('download', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 12.90896201133728,
+        "intent_length": 51,
+        "nile_length": 83
     },
     {
-        "entities": {
+        "text": "Limit bandwidth usage to 50 mbps for professors.",
+        "extracted_entities": {
+            "group": "professors",
             "qos_constraint": "limit",
             "qos_metric": "bandwidth",
             "qos_value": "50",
-            "qos_unit": "mbps",
-            "group": "professors"
+            "qos_unit": "mbps"
         },
-        "intent_statement": "define intent qosIntent: for group('professors') set bandwidth('max', '50', 'mbps')"
+        "nile_statement": "define intent qosIntent: for group('professors') set bandwidth('max', '50', 'mbps')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 12.337003946304321,
+        "intent_length": 48,
+        "nile_length": 83
     },
     {
-        "entities": {
-            "origin": "internet",
+        "text": "Please make traffic coming from the Internet pass through a firewall.",
+        "extracted_entities": {
+            "traffic": "Internet",
             "middlebox": "firewall",
             "operation": "pass through"
         },
-        "intent_statement": "define intent qosIntent: from endpoint('internet') add middlebox('firewall')"
+        "nile_statement": "define intent qosIntent: from endpoint('Internet') to endpoint('Internet') add middlebox('firewall')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.438908576965332,
+        "intent_length": 69,
+        "nile_length": 100
     },
     {
-        "entities": {
-            "operation": "block",
+        "text": "Hey Lumi please block traffic for all students",
+        "extracted_entities": {
+            "group": "students",
             "traffic": "all",
-            "group": "students"
+            "operation": "block"
         },
-        "intent_statement": "define intent blockAllTrafficForStudents: block traffic('all') for group('students')"
+        "nile_statement": "define intent blockTrafficIntent: for group('students') block traffic('all')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 7.2576515674591064,
+        "intent_length": 46,
+        "nile_length": 76
     },
     {
-        "entities": {
-            "operation": "add",
-            "middlebox": "firewall"
+        "text": "add a firewall",
+        "extracted_entities": {
+            "middlebox": "firewall",
+            "operation": "add"
         },
-        "intent_statement": "define intent qosIntent: add middlebox('firewall')"
+        "nile_statement": "define intent addFirewallIntent: for endpoint('genericEndpoint') add middlebox('firewall')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 13.290525674819946,
+        "intent_length": 14,
+        "nile_length": 90
     },
     {
-        "entities": {
+        "text": "From gateway to network add middlebox firewall",
+        "extracted_entities": {
             "origin": "gateway",
             "destination": "network",
             "middlebox": "firewall",
             "operation": "add"
         },
-        "intent_statement": "define intent qosIntent: from endpoint('gateway') to endpoint('network') add middlebox('firewall')"
+        "nile_statement": "define intent qosIntent: from endpoint('gateway') to endpoint('network') add middlebox('firewall')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 5.372776508331299,
+        "intent_length": 46,
+        "nile_length": 98
     },
     {
-        "entities": {
-            "origin": "my house",
+        "text": "From my house to PUCRS add middlebox dpi",
+        "extracted_entities": {
+            "origin": "house",
             "destination": "PUCRS",
             "middlebox": "dpi",
             "operation": "add"
         },
-        "intent_statement": "define intent networkIntent: from endpoint('my house') to endpoint('PUCRS') add middlebox('dpi')"
+        "nile_statement": "define intent qosIntent: from endpoint('house') to endpoint('PUCRS') add middlebox('dpi')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 5.179742097854614,
+        "intent_length": 40,
+        "nile_length": 89
     },
     {
-        "entities": {
+        "text": "From dorms to internet add nat",
+        "extracted_entities": {
             "origin": "dorms",
             "destination": "internet",
-            "operation": "add",
-            "middlebox": "nat"
+            "middlebox": "nat",
+            "operation": "add"
         },
-        "intent_statement": "define intent: from endpoint('dorms') to endpoint('internet') add middlebox('nat')"
+        "nile_statement": "define intent networkIntent: from endpoint('dorms') to endpoint('internet') add middlebox('nat')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 6.154376983642578,
+        "intent_length": 30,
+        "nile_length": 96
     },
     {
-        "entities": {
+        "text": "From university to internet add firewall",
+        "extracted_entities": {
             "origin": "university",
             "destination": "internet",
             "middlebox": "firewall",
             "operation": "add"
         },
-        "intent_statement": "define intent qosIntent: from endpoint('university') to endpoint('internet') add middlebox('firewall')"
+        "nile_statement": "define intent qosIntent: from endpoint('university') to endpoint('internet') add middlebox('firewall')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 6.281509637832642,
+        "intent_length": 40,
+        "nile_length": 102
     },
     {
-        "entities": {
+        "text": "Please add traffic shaper between the internet and the dorms",
+        "extracted_entities": {
             "middlebox": "traffic shaper",
             "origin": "internet",
             "destination": "dorms"
         },
-        "intent_statement": "define intent qosIntent: from endpoint('internet') to endpoint('dorms') add middlebox('traffic shaper')"
+        "nile_statement": "define intent qosIntent: from endpoint('internet') to endpoint('dorms') add middlebox('trafficShaper')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.055031776428223,
+        "intent_length": 60,
+        "nile_length": 102
     },
     {
-        "entities": {
+        "text": "Please, block netflix traffic on PUC",
+        "extracted_entities": {
             "operation": "block",
             "service": "netflix",
             "target": "PUC"
         },
-        "intent_statement": "define intent blockNetflixOnPUC: for target('PUC') block service('netflix')"
+        "nile_statement": "define intent blockNetflix: for endpoint('PUC') block service('netflix')",
+        "grammar_check": true,
+        "iterations": 3,
+        "time": 18.637938737869263,
+        "intent_length": 36,
+        "nile_length": 72
     },
     {
-        "entities": {
+        "text": "Block streaming traffic on UFRGS",
+        "extracted_entities": {
             "operation": "block",
             "traffic": "streaming",
             "group": "UFRGS"
         },
-        "intent_statement": "define intent blockStreaming: for group('UFRGS') block traffic('streaming')"
+        "nile_statement": "define intent blockStreaming: for group('UFRGS') block traffic('streaming')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 5.301981210708618,
+        "intent_length": 32,
+        "nile_length": 75
     },
     {
-        "entities": {
+        "text": "Add inspection for the university from 10pm to 12pm",
+        "extracted_entities": {
             "middlebox": "inspection",
-            "group": "university",
-            "hour": "12pm"
+            "target": "university",
+            "start": "22:00",
+            "end": "12:00"
         },
-        "intent_statement": "define intent inspectionIntent: for group('university') add middlebox('inspection') start hour('10pm') end hour('12pm')"
+        "nile_statement": "define intent inspectionIntent: for group('university') add middlebox('inspection') start hour('22:00') end hour('00:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.296371459960938,
+        "intent_length": 51,
+        "nile_length": 121
     },
     {
-        "entities": {
+        "text": "Block traffic from netflix",
+        "extracted_entities": {
             "operation": "block",
-            "traffic": "netflix"
+            "service": "netflix"
         },
-        "intent_statement": "define intent blockNetflix: block traffic('netflix')"
+        "nile_statement": "define intent blockNetflix: for service('netflix') block traffic('netflix')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.26535177230835,
+        "intent_length": 26,
+        "nile_length": 75
     },
     {
-        "entities": {
+        "text": "Add monitor for the university from 04:00 to 22:00",
+        "extracted_entities": {
             "middlebox": "monitor",
             "target": "university",
             "start": "04:00",
             "end": "22:00"
         },
-        "intent_statement": "define intent: add middlebox('monitor') for target('university') start hour('04:00') end hour('22:00')"
+        "nile_statement": "define intent monitorIntent: for group('university') add middlebox('monitor') start hour('04:00') end hour('22:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.037688255310059,
+        "intent_length": 50,
+        "nile_length": 115
     },
     {
-        "entities": {
+        "text": "Add traffic monitor from PUC to UFRGS",
+        "extracted_entities": {
             "middlebox": "traffic monitor",
             "origin": "PUC",
             "destination": "UFRGS",
             "operation": "add"
         },
-        "intent_statement": "define intent: from endpoint('PUC') to endpoint('UFRGS') add middlebox('traffic monitor')"
+        "nile_statement": "define intent qosIntent: from endpoint('PUC') to endpoint('UFRGS') add middlebox('trafficMonitor')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.063342094421387,
+        "intent_length": 37,
+        "nile_length": 98
     },
     {
-        "entities": {
+        "text": "add shaping for gateway everyday from 18:00 to midnight",
+        "extracted_entities": {
             "middlebox": "shaping",
             "origin": "gateway",
             "start": "18:00",
-            "end": "midnight"
+            "end": "midnight",
+            "operation": "add"
         },
-        "intent_statement": "define intent qosIntent: for endpoint('gateway') add middlebox('shaping') start hour('18:00') end hour('midnight')"
+        "nile_statement": "define intent qosIntent: for endpoint('gateway') add middlebox('shaping') start hour('18:00') end hour('00:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.327513694763184,
+        "intent_length": 55,
+        "nile_length": 111
     },
     {
-        "entities": {
+        "text": "Add a firewall and address translation for att and verizon",
+        "extracted_entities": {
             "middlebox": [
                 "firewall",
                 "address translation"
@@ -847,185 +1396,297 @@
             "group": [
                 "att",
                 "verizon"
-            ],
-            "operation": "add"
+            ]
         },
-        "intent_statement": "define intent networkIntent: for group('att'), group('verizon') add middlebox('firewall'), middlebox('address translation')"
+        "nile_statement": "define intent qosIntent: for group('att'), group('verizon') add middlebox('firewall'), middlebox('addressTranslation')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.651539325714111,
+        "intent_length": 58,
+        "nile_length": 118
     },
     {
-        "entities": {
+        "text": "Define a quota of 10 GB per week for all students",
+        "extracted_entities": {
+            "group": "students",
             "qos_metric": "quota",
             "qos_value": "10",
-            "qos_unit": "gb/wk",
-            "group": "students",
-            "operation": "set"
+            "qos_unit": "GB per week"
         },
-        "intent_statement": "define intent qosIntent: set quota('10', 'gb/wk') for group('students')"
+        "nile_statement": "define intent quotaIntent: for group('students') set quota('any', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 16.2183735370636,
+        "intent_length": 49,
+        "nile_length": 80
     },
     {
-        "entities": {
+        "text": "Dorms traffic to internet must pass through a firewall",
+        "extracted_entities": {
             "origin": "dorms",
             "destination": "internet",
             "middlebox": "firewall",
             "operation": "must pass through"
         },
-        "intent_statement": "define intent qosIntent: from endpoint('dorms') to endpoint('internet') add middlebox('firewall')"
+        "nile_statement": "define intent firewallIntent: from endpoint('dorms') to endpoint('internet') add middlebox('firewall')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 7.423863172531128,
+        "intent_length": 54,
+        "nile_length": 102
     },
     {
-        "entities": {
+        "text": "We provide a quota to all students of 1 GB/wk of usage.",
+        "extracted_entities": {
             "group": "students",
             "qos_metric": "quota",
             "qos_value": "1",
-            "qos_unit": "GB/wk"
+            "qos_unit": "gb/wk"
         },
-        "intent_statement": "define intent qosIntent: set quota('1', 'GB/wk') for group('students')"
+        "nile_statement": "define intent quotaIntent: for group('students') set quota('any', '1', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.713549375534058,
+        "intent_length": 55,
+        "nile_length": 79
     },
     {
-        "entities": {
+        "text": "Add inspection for the university from 22:00 to 12:00",
+        "extracted_entities": {
             "middlebox": "inspection",
             "group": "university",
             "start": "22:00",
-            "end": "12:00",
-            "operation": "add"
+            "end": "12:00"
         },
-        "intent_statement": "define intent qosIntent: for group('university') add middlebox('inspection') start hour('22:00') end hour('12:00')"
+        "nile_statement": "define intent inspectionIntent: for group('university') add middlebox('inspection') start hour('22:00') end hour('12:00')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 5.1905434131622314,
+        "intent_length": 53,
+        "nile_length": 121
     },
     {
-        "entities": {
-            "operation": "remove",
+        "text": "Remove firewall from the university to my house",
+        "extracted_entities": {
             "middlebox": "firewall",
             "origin": "university",
-            "destination": "my house"
+            "destination": "my house",
+            "operation": "remove"
         },
-        "intent_statement": "define intent qosIntent: from endpoint('university') to endpoint('my house') remove middlebox('firewall')"
+        "nile_statement": "define intent removeFirewall: from endpoint('university') to endpoint('myHouse') remove middlebox('firewall')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.664539098739624,
+        "intent_length": 47,
+        "nile_length": 109
     },
     {
-        "entities": {
+        "text": "add security from entry to backend",
+        "extracted_entities": {
             "operation": "add",
             "middlebox": "security",
             "origin": "entry",
             "destination": "backend"
         },
-        "intent_statement": "define intent: from endpoint('entry') to endpoint('backend') add middlebox('security')"
+        "nile_statement": "define intent securityIntent: from endpoint('entry') to endpoint('backend') add middlebox('security')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 6.485639333724976,
+        "intent_length": 34,
+        "nile_length": 101
     },
     {
-        "entities": {
+        "text": "From gateway to my network remove nat",
+        "extracted_entities": {
             "origin": "gateway",
             "destination": "network",
             "middlebox": "nat",
             "operation": "remove"
         },
-        "intent_statement": "define intent: from endpoint('gateway') to endpoint('network') remove middlebox('nat')"
+        "nile_statement": "define intent removeNat: from endpoint('gateway') to endpoint('network') remove middlebox('nat')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 7.804394721984863,
+        "intent_length": 37,
+        "nile_length": 96
     },
     {
-        "entities": {
+        "text": "Remove load balancing from gateway to database",
+        "extracted_entities": {
             "operation": "remove",
             "middlebox": "load balancing",
             "origin": "gateway",
             "destination": "database"
         },
-        "intent_statement": "define intent: from endpoint('gateway') to endpoint('database') remove middlebox('load balancing')"
+        "nile_statement": "define intent removeLoadBalancing: from endpoint('gateway') to endpoint('database') remove middlebox('loadBalancing')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.690963506698608,
+        "intent_length": 46,
+        "nile_length": 117
     },
     {
-        "entities": {
+        "text": "Add firewall from gateway to my house from 06:00 to 21:00",
+        "extracted_entities": {
             "middlebox": "firewall",
             "origin": "gateway",
             "destination": "my house",
             "start": "06:00",
-            "end": "21:00",
-            "operation": "add"
+            "end": "21:00"
         },
-        "intent_statement": "define intent qosIntent: from endpoint('gateway') to endpoint('my house') add middlebox('firewall') start hour('06:00') end hour('21:00')"
+        "nile_statement": "define intent firewallIntent: from endpoint('gateway') to endpoint('myHouse') add middlebox('firewall') start hour('06:00') end hour('21:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.009599208831787,
+        "intent_length": 57,
+        "nile_length": 141
     },
     {
-        "entities": {
+        "text": "Remove nat for gateway everyday from 18:00 to midnight",
+        "extracted_entities": {
             "middlebox": "nat",
-            "target": "gateway",
-            "operation": "remove",
+            "origin": "gateway",
             "start": "18:00",
-            "end": "midnight"
+            "end": "midnight",
+            "operation": "remove"
         },
-        "intent_statement": "define intent removeNatIntent: for endpoint('gateway') remove middlebox('nat') start hour('18:00') end hour('midnight')"
+        "nile_statement": "define intent removeNat: from endpoint('gateway') to endpoint('gateway') remove middlebox('nat') start hour('18:00') end hour('00:00')",
+        "grammar_check": true,
+        "iterations": 3,
+        "time": 18.89482069015503,
+        "intent_length": 54,
+        "nile_length": 134
     },
     {
-        "entities": {
+        "text": "We provide a data plan quota for all staff of 10 GB per day",
+        "extracted_entities": {
             "operation": "provide",
             "qos_metric": "quota",
             "group": "staff",
             "qos_value": "10",
             "qos_unit": "GB per day"
         },
-        "intent_statement": "define intent dataPlanQuota: set quota('10', 'GB per day') for group('staff')"
+        "nile_statement": "define intent dataPlanQuota: for group('staff') set quota('any', '10', 'gb/d')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 11.550597190856934,
+        "intent_length": 59,
+        "nile_length": 78
     },
     {
-        "entities": {
-            "operation": "provide",
-            "qos_metric": "quota",
+        "text": "We provide a quota to all students of 1 GB per week of usage",
+        "extracted_entities": {
             "group": "students",
+            "qos_metric": "quota",
             "qos_value": "1",
-            "qos_unit": "GB/wk"
+            "qos_unit": "gb/wk",
+            "operation": "provide"
         },
-        "intent_statement": "define intent qosIntent: set quota('1', 'GB/wk') for group('students')"
+        "nile_statement": "define intent quotaIntent: for group('students') set quota('any', '1', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 12.091439008712769,
+        "intent_length": 60,
+        "nile_length": 79
     },
     {
-        "entities": {
+        "text": "Please Lumi, block streaming traffic for students and set a 10 Mbps bandwidth limit",
+        "extracted_entities": {
+            "traffic": "streaming",
+            "group": "students",
+            "qos_constraint": "max",
+            "qos_value": "10",
+            "qos_unit": "mbps",
             "operation": [
                 "block",
                 "set"
-            ],
-            "traffic": "streaming",
-            "group": "students",
-            "qos_value": "10",
-            "qos_unit": "Mbps"
+            ]
         },
-        "intent_statement": "define intent qosIntent: for group('students') block traffic('streaming') set bandwidth('max', '10', 'Mbps')"
+        "nile_statement": "define intent qosIntent: for group('students') block traffic('streaming') set bandwidth('max', '10', 'mbps')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.64177131652832,
+        "intent_length": 83,
+        "nile_length": 108
     },
     {
-        "entities": {
-            "operation": "allow",
+        "text": "Please allow social media for the HR department",
+        "extracted_entities": {
             "traffic": "social media",
-            "group": "HR department"
+            "group": "HR department",
+            "operation": "allow"
         },
-        "intent_statement": "define intent qosIntent: for group('HR department') allow traffic('social media')"
+        "nile_statement": "define intent allowSocialMedia: for group('HR') allow traffic('socialMedia')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.123227834701538,
+        "intent_length": 47,
+        "nile_length": 76
     },
     {
-        "entities": {
-            "operation": "allow",
+        "text": "Let students access Facebook",
+        "extracted_entities": {
             "group": "students",
-            "service": "Facebook"
+            "service": "Facebook",
+            "operation": "allow"
         },
-        "intent_statement": "define intent allowFacebook: allow service('Facebook') for group('students')"
+        "nile_statement": "define intent allowFacebook: for group('students') allow service('Facebook')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.807798147201538,
+        "intent_length": 28,
+        "nile_length": 76
     },
     {
-        "entities": {
-            "operation": "block",
+        "text": "Do no let students access Netflix from the laboratories to the internet",
+        "extracted_entities": {
             "group": "students",
             "service": "Netflix",
             "origin": "laboratories",
-            "destination": "internet"
+            "destination": "internet",
+            "operation": "block"
         },
-        "intent_statement": "define intent blockNetflix: from endpoint('laboratories') to endpoint('internet') block service('Netflix') for group('students')"
+        "nile_statement": "define intent blockNetflix: from endpoint('laboratories') to endpoint('internet') block service('Netflix')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 13.25651478767395,
+        "intent_length": 71,
+        "nile_length": 106
     },
     {
-        "entities": {
+        "text": "Block all traffic from HR to the backend servers",
+        "extracted_entities": {
             "operation": "block",
-            "traffic": "all traffic",
-            "group": "HR",
-            "target": "backend servers"
+            "traffic": "all",
+            "origin": "HR",
+            "destination": "backend"
         },
-        "intent_statement": "define intent blockAllTrafficFromHRToBackend: for group('HR') block traffic('all traffic') to endpoint('backend servers')"
+        "nile_statement": "define intent blockAllTraffic: from endpoint('HR') to endpoint('backend') block traffic('all')",
+        "grammar_check": true,
+        "iterations": 0,
+        "time": 7.294848918914795,
+        "intent_length": 48,
+        "nile_length": 94
     },
     {
-        "entities": {
+        "text": "Students may use up to 10 GB of data weekly",
+        "extracted_entities": {
             "group": "students",
-            "qos_metric": "quota",
+            "qos_constraint": "download",
             "qos_value": "10",
-            "qos_unit": "gb/wk"
+            "qos_unit": "gb/wk",
+            "qos_metric": "data"
         },
-        "intent_statement": "define intent qosIntent: for group('students') set quota('10', 'gb/wk')"
+        "nile_statement": "define intent quotaIntent: for group('students') set quota('download', '10', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.255057573318481,
+        "intent_length": 43,
+        "nile_length": 85
     },
     {
-        "entities": {
+        "text": "Block streaming and gaming traffic in classrooms",
+        "extracted_entities": {
             "operation": "block",
             "traffic": [
                 "streaming",
@@ -1034,165 +1695,294 @@
             "group": "students",
             "location": "classrooms"
         },
-        "intent_statement": "define intent blockTrafficIntent: for group('students') block traffic('streaming'), traffic('gaming') in location('classrooms')"
+        "nile_statement": "define intent blockTraffic: for group('classrooms') block traffic('streaming'), traffic('gaming')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.886296033859253,
+        "intent_length": 48,
+        "nile_length": 97
     },
     {
-        "entities": {
+        "text": "Add intrusion detection and address translation for servers network",
+        "extracted_entities": {
             "middlebox": [
                 "intrusion detection",
                 "address translation"
             ],
             "target": "servers"
         },
-        "intent_statement": "define intent qosIntent: for group('servers') add middlebox('intrusion detection'), middlebox('address translation')"
+        "nile_statement": "define intent qosIntent: for group('servers') add middlebox('intrusiondetection'), middlebox('addresstranslation')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.850172519683838,
+        "intent_length": 67,
+        "nile_length": 114
     },
     {
-        "entities": {
+        "text": "Dismiss rate limiting for faculty members",
+        "extracted_entities": {
             "operation": "dismiss",
             "qos_metric": "rate limiting",
             "group": "faculty"
         },
-        "intent_statement": "define intent qosIntent: unset rate limiting for group('faculty')"
+        "nile_statement": "define intent dismissRateLimiting: for group('faculty') unset quota('any', '0', 'gb/mth')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 14.634878158569336,
+        "intent_length": 41,
+        "nile_length": 89
     },
     {
-        "entities": {
+        "text": "Dismiss all middleboxes from UFRGS to PUCRS",
+        "extracted_entities": {
             "operation": "dismiss",
             "middlebox": "all middleboxes",
             "origin": "UFRGS",
             "destination": "PUCRS"
         },
-        "intent_statement": "define intent networkIntent: from endpoint('UFRGS') to endpoint('PUCRS') dismiss middlebox('all middleboxes')"
+        "nile_statement": "define intent dismissMiddleboxes: from endpoint('UFRGS') to endpoint('PUCRS') remove middlebox('allMiddleboxes')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.059163331985474,
+        "intent_length": 43,
+        "nile_length": 112
     },
     {
-        "entities": {
-            "operation": "include",
+        "text": "Include parental control for PlayStation",
+        "extracted_entities": {
             "middlebox": "parental control",
             "service": "PlayStation"
         },
-        "intent_statement": "define intent parentalControlIntent: for service('PlayStation') add middlebox('parental control')"
+        "nile_statement": "define intent parentalControlIntent: for service('PlayStation') add middlebox('parentalControl')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.41515827178955,
+        "intent_length": 40,
+        "nile_length": 96
     },
     {
-        "entities": {
+        "text": "Do not let Staff members access any social media",
+        "extracted_entities": {
             "group": "Staff members",
             "traffic": "social media",
             "operation": "block"
         },
-        "intent_statement": "define intent qosIntent: for group('staff members') block traffic('social media')"
+        "nile_statement": "define intent blockSocialMedia: for group('StaffMembers') block traffic('socialmedia')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.786490201950073,
+        "intent_length": 48,
+        "nile_length": 86
     },
     {
-        "entities": {
+        "text": "Set users bandwidth to 500 kbps when the 100 Gb per month quota is reached",
+        "extracted_entities": {
             "group": "users",
-            "qos_metric": "500 kbps",
-            "qos_constraint": "100 Gb per month"
+            "qos_metric": [
+                "bandwidth",
+                "quota"
+            ],
+            "qos_value": [
+                "500",
+                "100"
+            ],
+            "qos_unit": [
+                "kbps",
+                "gb/mth"
+            ],
+            "operation": "set"
         },
-        "intent_statement": "define intent qosIntent: set bandwidth('500', 'kbps') when quota('100', 'gb/mth') is reached for group('users')"
+        "nile_statement": "define intent qosIntent: for group('users') set bandwidth('max', '500', 'kbps') set quota('any', '100', 'gb/mth')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.167745113372803,
+        "intent_length": 74,
+        "nile_length": 113
     },
     {
-        "entities": {
-            "traffic": "Netflix",
+        "text": "Prioritize Netflix traffic from 18:00 to midnight",
+        "extracted_entities": {
+            "middlebox": "prioritize",
+            "service": "Netflix",
             "start": "18:00",
-            "end": "midnight",
-            "operation": "prioritize"
+            "end": "midnight"
         },
-        "intent_statement": "define intent qosIntent: for traffic('Netflix') prioritize start hour('18:00') end hour('midnight')"
+        "nile_statement": "define intent qosIntent: for service('Netflix') set bandwidth('max', '0', 'bps') start hour('18:00') end hour('00:00')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 18.554993152618408,
+        "intent_length": 49,
+        "nile_length": 118
     },
     {
-        "entities": {
+        "text": "Balance traffic coming from gateway to application servers",
+        "extracted_entities": {
             "middlebox": "load balancer",
             "origin": "gateway",
             "destination": "application servers"
         },
-        "intent_statement": "define intent balanceTraffic: from endpoint('gateway') to endpoint('application servers') add middlebox('load balancer')"
+        "nile_statement": "define intent balanceTraffic: from endpoint('gateway') to endpoint('applicationServers') add middlebox('loadBalancer')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 14.202962160110474,
+        "intent_length": 58,
+        "nile_length": 118
     },
     {
-        "entities": {
+        "text": "Block torrent traffic for all students",
+        "extracted_entities": {
             "traffic": "torrent",
             "group": "students",
             "operation": "block"
         },
-        "intent_statement": "define intent blockTorrentTraffic: block traffic('torrent') for group('students')"
+        "nile_statement": "define intent blockTorrentTraffic: for group('students') block traffic('torrent')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.224161386489868,
+        "intent_length": 38,
+        "nile_length": 81
     },
     {
-        "entities": {
+        "text": "Block bittorrent for professors",
+        "extracted_entities": {
             "operation": "block",
             "service": "bittorrent",
             "group": "professors"
         },
-        "intent_statement": "define intent qosIntent: block service('bittorrent') for group('professors')"
+        "nile_statement": "define intent blockBittorrentForProfessors: for group('professors') block service('bittorrent')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 12.15231966972351,
+        "intent_length": 31,
+        "nile_length": 95
     },
     {
-        "entities": {
+        "text": "Staff is allowed to access ftp",
+        "extracted_entities": {
             "group": "staff",
             "operation": "allow",
             "protocol": "ftp"
         },
-        "intent_statement": "define intent: for group('staff') allow protocol('ftp')"
+        "nile_statement": "define intent accessFtpIntent: for group('staff') allow protocol('ftp')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 14.517451047897339,
+        "intent_length": 30,
+        "nile_length": 71
     },
     {
-        "entities": {
+        "text": "Students cannot run file servers",
+        "extracted_entities": {
             "group": "students",
             "operation": "cannot run",
             "service": "file servers"
         },
-        "intent_statement": "define intent qosIntent: for group('students') block service('file servers')"
+        "nile_statement": "define intent blockFileServers: for group('students') block service('fileServers')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.361207485198975,
+        "intent_length": 32,
+        "nile_length": 82
     },
     {
-        "entities": {
-            "operation": "add",
+        "text": "Add parental control from my house to internet",
+        "extracted_entities": {
             "middlebox": "parental control",
             "origin": "my house",
-            "destination": "internet"
+            "destination": "internet",
+            "operation": "add"
         },
-        "intent_statement": "define intent: from endpoint('my house') to endpoint('internet') add middlebox('parental control')"
+        "nile_statement": "define intent parentalControlIntent: from endpoint('myHouse') to endpoint('internet') add middlebox('parentalControl')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.28215742111206,
+        "intent_length": 46,
+        "nile_length": 118
     },
     {
-        "entities": {
+        "text": "Students should not use more than five gigabytes of bandwidth per week",
+        "extracted_entities": {
             "group": "students",
-            "qos_metric": "bandwidth",
-            "qos_value": "five",
-            "qos_unit": "gigabytes of bandwidth per week"
+            "qos_metric": "quota",
+            "qos_value": "5",
+            "qos_unit": "gb/wk"
         },
-        "intent_statement": "define intent qosIntent: for group('students') set quota('five', 'gigabytes of bandwidth per week')"
+        "nile_statement": "define intent qosIntent: for group('students') set quota('any', '5', 'gb/wk')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.178151369094849,
+        "intent_length": 70,
+        "nile_length": 77
     },
     {
-        "entities": {
-            "operation": "block",
-            "traffic": "HTTP",
-            "protocol": "HTTPS",
+        "text": "Block all incoming HTTP traffic, allow only HTTPS for all hosts",
+        "extracted_entities": {
+            "operation": [
+                "block",
+                "allow"
+            ],
+            "protocol": [
+                "HTTP",
+                "HTTPS"
+            ],
             "target": "all hosts"
         },
-        "intent_statement": "define intent blockHTTP: block traffic('HTTP') allow protocol('HTTPS') for target('all hosts')"
+        "nile_statement": "define intent blockAllowIntent: for endpoint('allHosts') block protocol('HTTP') allow protocol('HTTPS')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 13.02436375617981,
+        "intent_length": 63,
+        "nile_length": 103
     },
     {
-        "entities": {
-            "operation": "permit",
+        "text": "Permit gaming for PS4 from 13:00 to 18:00",
+        "extracted_entities": {
             "traffic": "gaming",
             "service": "PS4",
             "start": "13:00",
-            "end": "18:00"
+            "end": "18:00",
+            "operation": "permit"
         },
-        "intent_statement": "define intent qosIntent: allow traffic('gaming') for service('PS4') start hour('13:00') end hour('18:00')"
+        "nile_statement": "define intent qosIntent: for traffic('gaming'), service('PS4') allow service('PS4') start hour('13:00') end hour('18:00')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 13.91473913192749,
+        "intent_length": 41,
+        "nile_length": 121
     },
     {
-        "entities": {
+        "text": "Email traffic is allowed for Staff members",
+        "extracted_entities": {
+            "traffic": "Email",
             "operation": "allow",
-            "traffic": "email",
-            "group": "staff"
+            "group": "Staff members"
         },
-        "intent_statement": "define intent allowEmailTraffic: allow traffic('email') for group('staff')"
+        "nile_statement": "define intent emailIntent: for group('Staff') allow traffic('Email')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.476372957229614,
+        "intent_length": 42,
+        "nile_length": 68
     },
     {
-        "entities": {
+        "text": "Grant SFTP access to all students from 08:00 to 17:00",
+        "extracted_entities": {
             "operation": "grant",
-            "protocol": "sftp",
+            "protocol": "SFTP",
             "group": "students",
             "start": "08:00",
             "end": "17:00"
         },
-        "intent_statement": "define intent accessIntent: for group('students') allow protocol('sftp') start hour('08:00') end hour('17:00')"
+        "nile_statement": "define intent accessIntent: for group('students') allow protocol('SFTP') start hour('08:00') end hour('17:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 7.34641432762146,
+        "intent_length": 53,
+        "nile_length": 110
     },
     {
-        "entities": {
+        "text": "Dismiss all rate limits and quotas for all hosts",
+        "extracted_entities": {
             "operation": "dismiss",
             "qos_metric": [
                 "rate limits",
@@ -1200,195 +1990,324 @@
             ],
             "target": "hosts"
         },
-        "intent_statement": "define intent qosIntent: for endpoint('hosts') unset quota('rate limits'), quota('quotas')"
+        "nile_statement": "define intent dismissLimits: for endpoint('hosts') unset bandwidth('max', '0', 'bps'), quota('any', '0', 'mb/d')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 11.706166982650757,
+        "intent_length": 48,
+        "nile_length": 112
     },
     {
-        "entities": {
+        "text": "Prioritize VoIP traffic on the meeting room 23 from 13:00 to 14:00",
+        "extracted_entities": {
             "traffic": "VoIP",
             "target": "meeting room 23",
             "start": "13:00",
-            "end": "14:00",
-            "operation": "prioritize"
+            "end": "14:00"
         },
-        "intent_statement": "define intent qosIntent: for traffic('VoIP') prioritize for target('meeting room 23') start hour('13:00') end hour('14:00')"
+        "nile_statement": "define intent qosIntent: for traffic('VoIP') set bandwidth('max', '1000', 'kbps') start hour('13:00') end hour('14:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 12.98635745048523,
+        "intent_length": 66,
+        "nile_length": 119
     },
     {
-        "entities": {
+        "text": "Forward all the external traffic to DMZ",
+        "extracted_entities": {
             "operation": "forward",
             "traffic": "external",
             "destination": "DMZ"
         },
-        "intent_statement": "define intent forwardIntent: forward traffic('external') to endpoint('DMZ')"
+        "nile_statement": "define intent forwardIntent: for traffic('external'), endpoint('DMZ') allow traffic('external')",
+        "grammar_check": true,
+        "iterations": 3,
+        "time": 17.571590900421143,
+        "intent_length": 39,
+        "nile_length": 95
     },
     {
-        "entities": {
+        "text": "Limit in 10 Mbps the download rate of dorms from internet",
+        "extracted_entities": {
             "qos_constraint": "limit",
             "qos_value": "10",
             "qos_unit": "Mbps",
             "qos_metric": "download rate",
-            "group": "dorms",
-            "origin": "internet"
+            "origin": "internet",
+            "destination": "dorms"
         },
-        "intent_statement": "define intent qosIntent: from endpoint('internet') to group('dorms') set bandwidth('max', '10', 'Mbps')"
+        "nile_statement": "define intent qosIntent: from endpoint('internet') to endpoint('dorms') set bandwidth('max', '10', 'mbps')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.636178016662598,
+        "intent_length": 57,
+        "nile_length": 106
     },
     {
-        "entities": {
+        "text": "Lumi, block SIP traffic from 19:00 to 08:00 for dorms",
+        "extracted_entities": {
             "traffic": "SIP",
-            "hour": "08:00",
+            "hour": [
+                "19:00",
+                "08:00"
+            ],
             "group": "dorms",
             "operation": "block"
         },
-        "intent_statement": "define intent blockSIP: for group('dorms') block traffic('SIP') start hour('19:00') end hour('08:00')"
+        "nile_statement": "define intent blockSIP: for group('dorms') block traffic('SIP') start hour('19:00') end hour('08:00')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.20321249961853,
+        "intent_length": 53,
+        "nile_length": 101
     },
     {
-        "entities": {
+        "text": "Grant SSH access to professors",
+        "extracted_entities": {
             "operation": "grant",
             "protocol": "ssh",
             "group": "professors"
         },
-        "intent_statement": "define intent accessIntent: grant protocol('ssh') for group('professors')"
+        "nile_statement": "define intent grantSSHAccess: for group('professors') allow protocol('ssh')",
+        "grammar_check": true,
+        "iterations": 3,
+        "time": 21.771207332611084,
+        "intent_length": 30,
+        "nile_length": 75
     },
     {
-        "entities": {
+        "text": "Setup a packet filter for guests traffic",
+        "extracted_entities": {
             "middlebox": "packet filter",
             "group": "guests",
-            "traffic": "traffic",
-            "operation": "setup"
+            "traffic": "traffic"
         },
-        "intent_statement": "define intent qosIntent: for group('guests') add middlebox('packet filter')"
+        "nile_statement": "define intent setupPacketFilter: for group('guests') add middlebox('packetFilter')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 11.514684438705444,
+        "intent_length": 40,
+        "nile_length": 82
     },
     {
-        "entities": {
+        "text": "Lumi, please set to 1 GB per day the download limit for guests",
+        "extracted_entities": {
             "operation": "set",
             "qos_value": "1",
             "qos_unit": "gb/d",
             "qos_metric": "download limit",
             "group": "guests"
         },
-        "intent_statement": "define intent qosIntent: for group('guests') set quota('1', 'gb/d')"
+        "nile_statement": "define intent qosIntent: for group('guests') set quota('download', '1', 'gb/d')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.458921909332275,
+        "intent_length": 62,
+        "nile_length": 79
     },
     {
-        "entities": {
+        "text": "Lumi, prohibit access to internal campus computers from the internet",
+        "extracted_entities": {
             "operation": "prohibit",
-            "target": "internal campus computers",
-            "origin": "internet"
+            "origin": "internet",
+            "destination": "internal campus computers"
         },
-        "intent_statement": "define intent blockIntent: from endpoint('internet') to endpoint('internal campus computers') block all"
+        "nile_statement": "define intent prohibitAccess: from endpoint('internet') to endpoint('internalCampusComputers') block traffic('all')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.65578556060791,
+        "intent_length": 68,
+        "nile_length": 115
     },
     {
-        "entities": {
+        "text": "Increase the bandwidth consumption limit for professors to 100 Mbps",
+        "extracted_entities": {
             "operation": "increase",
             "qos_metric": "bandwidth consumption limit",
             "group": "professors",
             "qos_value": "100",
             "qos_unit": "Mbps"
         },
-        "intent_statement": "define intent qosIntent: for group('professors') set bandwidth('max', '100', 'mbps')"
+        "nile_statement": "define intent qosIntent: for group('professors') set bandwidth('max', '100', 'mbps')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.461806535720825,
+        "intent_length": 67,
+        "nile_length": 84
     },
     {
-        "entities": {
+        "text": "Allow RTSP traffic in the LAN",
+        "extracted_entities": {
             "operation": "allow",
             "protocol": "RTSP",
-            "traffic": "traffic",
             "target": "LAN"
         },
-        "intent_statement": "define intent qosIntent: for traffic('LAN') allow protocol('RTSP')"
+        "nile_statement": "define intent allowRTSP: for traffic('LAN') allow protocol('RTSP')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 12.797852754592896,
+        "intent_length": 29,
+        "nile_length": 66
     },
     {
-        "entities": {
-            "operation": "install",
+        "text": "Lumi, please install an email scanner for the gateway",
+        "extracted_entities": {
             "middlebox": "email scanner",
             "origin": "gateway"
         },
-        "intent_statement": "define intent installEmailScanner: from endpoint('gateway') add middlebox('email_scanner')"
+        "nile_statement": "define intent installEmailScanner: from endpoint('gateway') to endpoint('gateway') add middlebox('emailScanner')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 17.456905364990234,
+        "intent_length": 53,
+        "nile_length": 112
     },
     {
-        "entities": {
-            "operation": "block",
+        "text": "Lumi, block VoIP traffic from 00:00 to 06:00",
+        "extracted_entities": {
             "traffic": "VoIP",
+            "operation": "block",
             "start": "00:00",
             "end": "06:00"
         },
-        "intent_statement": "define intent blockVoIPIntent: block traffic('VoIP') start hour('00:00') end hour('06:00')"
+        "nile_statement": "define intent blockVoIP: block traffic('VoIP') start hour('00:00') end hour('06:00')",
+        "grammar_check": false,
+        "iterations": 3,
+        "time": 16.228002071380615,
+        "intent_length": 44,
+        "nile_length": 84
     },
     {
-        "entities": {
+        "text": "Set to 1 Gbps bandwidth limit for the traffic to DMZ",
+        "extracted_entities": {
             "qos_constraint": "limit",
-            "qos_metric": "bandwidth",
             "qos_value": "1",
-            "qos_unit": "gbps",
+            "qos_unit": "Gbps",
             "traffic": "traffic",
             "destination": "DMZ"
         },
-        "intent_statement": "define intent qosIntent: for traffic('traffic') set bandwidth('limit', '1', 'gbps') to endpoint('DMZ')"
+        "nile_statement": "define intent qosIntent: for endpoint('DMZ') set bandwidth('max', '1', 'gbps')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 14.96658968925476,
+        "intent_length": 52,
+        "nile_length": 78
     },
     {
-        "entities": {
+        "text": "Lumi, set to 10 kbps the upload rate for faculty",
+        "extracted_entities": {
             "operation": "set",
             "qos_value": "10",
             "qos_unit": "kbps",
             "qos_metric": "upload rate",
             "group": "faculty"
         },
-        "intent_statement": "define intent qosIntent: for group('faculty') set quota('upload', '10', 'kbps')"
+        "nile_statement": "define intent qosIntent: for group('faculty') set bandwidth('max', '10', 'kbps')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 16.26562523841858,
+        "intent_length": 48,
+        "nile_length": 80
     },
     {
-        "entities": {
+        "text": "Please, allow Skype for all users",
+        "extracted_entities": {
             "operation": "allow",
             "service": "Skype",
             "group": "users"
         },
-        "intent_statement": "define intent allowSkype: allow service('Skype') for group('users')"
+        "nile_statement": "define intent allowSkype: for group('users') allow service('Skype')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 7.508507966995239,
+        "intent_length": 33,
+        "nile_length": 67
     },
     {
-        "entities": {
+        "text": "Deny SSH access to students",
+        "extracted_entities": {
             "operation": "deny",
             "protocol": "ssh",
             "group": "students"
         },
-        "intent_statement": "define intent denySSHAccess: deny protocol('ssh') for group('students')"
+        "nile_statement": "define intent denySSH: for group('students') block protocol('ssh')",
+        "grammar_check": true,
+        "iterations": 3,
+        "time": 16.685084581375122,
+        "intent_length": 27,
+        "nile_length": 66
     },
     {
-        "entities": {
-            "middlebox": "tcp accelerator",
-            "origin": "lan",
+        "text": "Lumi, setup a TCP accelerator between LAN and video server",
+        "extracted_entities": {
+            "middlebox": "TCP accelerator",
+            "origin": "LAN",
             "destination": "video server",
             "operation": "setup"
         },
-        "intent_statement": "define intent networkIntent: from endpoint('lan') to endpoint('video server') add middlebox('tcp accelerator')"
+        "nile_statement": "define intent networkIntent: from endpoint('LAN') to endpoint('videoServer') add middlebox('TCPAccelerator')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 16.405770301818848,
+        "intent_length": 58,
+        "nile_length": 108
     },
     {
-        "entities": {
+        "text": "Lumi, allow access to internal campus computers from the internet through SSH",
+        "extracted_entities": {
+            "operation": "allow",
             "origin": "internet",
             "destination": "internal campus computers",
-            "protocol": "SSH",
-            "operation": "allow"
+            "protocol": "SSH"
         },
-        "intent_statement": "define intent accessIntent: from endpoint('internet') to endpoint('internal_campus_computers') allow protocol('SSH')"
+        "nile_statement": "define intent accessIntent: from endpoint('internet') to endpoint('internalCampusComputers') allow protocol('SSH')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 9.564707517623901,
+        "intent_length": 77,
+        "nile_length": 114
     },
     {
-        "entities": {
-            "operation": "reduce",
-            "qos_metric": "download rate",
+        "text": "Reduce the download rate for faculty members to 20 Mbps",
+        "extracted_entities": {
             "group": "faculty members",
+            "qos_metric": "download rate",
             "qos_value": "20",
-            "qos_unit": "Mbps"
+            "qos_unit": "Mbps",
+            "operation": "reduce"
         },
-        "intent_statement": "define intent qosIntent: for group('faculty members') set bandwidth('max', '20', 'mbps')"
+        "nile_statement": "define intent qosIntent: for group('faculty') set bandwidth('max', '20', 'mbps')",
+        "grammar_check": true,
+        "iterations": 2,
+        "time": 16.2705979347229,
+        "intent_length": 55,
+        "nile_length": 80
     },
     {
-        "entities": {
+        "text": "Allow access from computers to DMZ",
+        "extracted_entities": {
             "operation": "allow",
             "origin": "computers",
             "destination": "DMZ"
         },
-        "intent_statement": "define intent networkIntent: from endpoint('computers') to endpoint('DMZ') allow traffic('all')"
+        "nile_statement": "define intent accessIntent: from endpoint('computers') to endpoint('DMZ') allow service('web')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 8.551154136657715,
+        "intent_length": 34,
+        "nile_length": 94
     },
     {
-        "entities": {
-            "middlebox": "monitors",
+        "text": "Lumi monitors the network traffic",
+        "extracted_entities": {
+            "middlebox": "traffic monitor",
             "traffic": "network"
         },
-        "intent_statement": "define intent monitorIntent: add middlebox('monitors') for traffic('network')"
+        "nile_statement": "define intent monitorIntent: for traffic('network') add middlebox('trafficMonitor')",
+        "grammar_check": true,
+        "iterations": 1,
+        "time": 10.135436773300171,
+        "intent_length": 33,
+        "nile_length": 83
     }
 ]
