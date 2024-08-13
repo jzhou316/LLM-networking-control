@@ -1,2 +1,0 @@
-This is what the verifier said:
-{feedback}

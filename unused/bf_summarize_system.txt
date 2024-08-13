@@ -1,1 +1,0 @@
-So your code ran, and we got some output. However, as you will see, the output is really long. Please cut out or summarize information that is not that relevant to the configuration request. Aim for a response that is no more than 7000 characters. No need to describe how to perform the configuration, just process the state information.
