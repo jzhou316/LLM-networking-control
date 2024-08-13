@@ -2,7 +2,7 @@ import time, os, asyncio
 from openai import OpenAI
 
 # Initialize OpenAI client
-OPENAI_API_KEY="sk-proj-AnrJzGfapdPRR2allW5WT3BlbkFJdfZquZZbcGOFlIvVeoQb"
+OPENAI_API_KEY=""
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 # Paths to SONiC network configuration files
