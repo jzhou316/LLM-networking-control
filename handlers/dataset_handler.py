@@ -21,9 +21,16 @@ class DatasetHandler:
     def insert_configuration(self, nl_request, json_config, yang_status, modules, latencies, iterations, comments=None):
         # Iterations records number of times an error log prompt was sent to the API
         configurations = self.load_configurations()
-        configurations.append({"nl_request": nl_request, "yang_config": json_config, "yang_modules": modules, "yang_status": yang_status, "latencies": latencies, "total_time": sum(latencies), "iterations": iterations, "error_logs": comments, "input_length": len(nl_request), "output_length": len(json.dumps(json_config))})
+        configurations.append({
+            "nl_request": nl_request, 
+            "yang_config": json_config, 
+            "yang_modules": modules, 
+            "yang_status": yang_status, 
+            "latencies": latencies, 
+            "total_time": sum(latencies), 
+            "iterations": iterations, 
+            "error_logs": comments, 
+            "input_length": len(nl_request), 
+            "output_length": len(json.dumps(json_config))
+        })
         self.save_configurations(configurations)
-
-    # Function to convert string to dict
-    def str_to_dict(self, str):
-        return json.loads(str)

@@ -2340,27 +2340,14 @@
                     {
                         "action": "append",
                         "path": [
-                            "sonic-device_metadata:sonic-device_metadata",
-                            "DEVICE_METADATA",
-                            "localhost"
-                        ],
-                        "value": {
-                            "localhost": {
-                                "bgp_asn": 65000
-                            }
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
                             "sonic-bgp-global:sonic-bgp-global",
                             "BGP_GLOBALS",
                             "BGP_GLOBALS_LIST"
                         ],
                         "value": {
                             "vrf_name": "default",
-                            "router_id": "10.0.0.1",
-                            "local_asn": 65000
+                            "router_id": "10.10.10.100",
+                            "local_asn": 100
                         }
                     },
                     {
@@ -2372,8 +2359,8 @@
                         ],
                         "value": {
                             "vrf_name": "default",
-                            "neighbor": "10.0.0.3",
-                            "asn": 65001
+                            "neighbor": "10.0.1.2",
+                            "asn": 200
                         }
                     },
                     {
@@ -2385,8 +2372,8 @@
                         ],
                         "value": {
                             "vrf_name": "default",
-                            "neighbor": "10.0.0.4",
-                            "asn": 65002
+                            "neighbor": "10.0.2.2",
+                            "asn": 200
                         }
                     },
                     {
@@ -2399,7 +2386,47 @@
                         "value": {
                             "vrf_name": "default",
                             "afi_safi": "ipv4_unicast",
-                            "network": "10.0.0.0/24"
+                            "max_ebgp_paths": 1,
+                            "max_ibgp_paths": 1
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp-global:sonic-bgp-global",
+                            "BGP_GLOBALS_AF_NETWORK",
+                            "BGP_GLOBALS_AF_NETWORK_LIST"
+                        ],
+                        "value": {
+                            "vrf_name": "default",
+                            "afi_safi": "ipv4_unicast",
+                            "ip_prefix": "10.0.1.0/24"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp-global:sonic-bgp-global",
+                            "BGP_GLOBALS_AF_NETWORK",
+                            "BGP_GLOBALS_AF_NETWORK_LIST"
+                        ],
+                        "value": {
+                            "vrf_name": "default",
+                            "afi_safi": "ipv4_unicast",
+                            "ip_prefix": "10.0.2.0/24"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp-global:sonic-bgp-global",
+                            "BGP_GLOBALS_AF_NETWORK",
+                            "BGP_GLOBALS_AF_NETWORK_LIST"
+                        ],
+                        "value": {
+                            "vrf_name": "default",
+                            "afi_safi": "ipv4_unicast",
+                            "ip_prefix": "10.10.10.100/32"
                         }
                     }
                 ]
@@ -2410,27 +2437,14 @@
                     {
                         "action": "append",
                         "path": [
-                            "sonic-device_metadata:sonic-device_metadata",
-                            "DEVICE_METADATA",
-                            "localhost"
-                        ],
-                        "value": {
-                            "localhost": {
-                                "bgp_asn": 65000
-                            }
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
                             "sonic-bgp-global:sonic-bgp-global",
                             "BGP_GLOBALS",
                             "BGP_GLOBALS_LIST"
                         ],
                         "value": {
                             "vrf_name": "default",
-                            "router_id": "10.0.0.2",
-                            "local_asn": 65000
+                            "router_id": "10.10.11.100",
+                            "local_asn": 100
                         }
                     },
                     {
@@ -2442,8 +2456,8 @@
                         ],
                         "value": {
                             "vrf_name": "default",
-                            "neighbor": "10.0.0.3",
-                            "asn": 65001
+                            "neighbor": "10.0.3.2",
+                            "asn": 200
                         }
                     },
                     {
@@ -2455,8 +2469,8 @@
                         ],
                         "value": {
                             "vrf_name": "default",
-                            "neighbor": "10.0.0.4",
-                            "asn": 65002
+                            "neighbor": "10.0.4.2",
+                            "asn": 200
                         }
                     },
                     {
@@ -2469,7 +2483,47 @@
                         "value": {
                             "vrf_name": "default",
                             "afi_safi": "ipv4_unicast",
-                            "network": "10.0.0.0/24"
+                            "max_ebgp_paths": 1,
+                            "max_ibgp_paths": 1
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp-global:sonic-bgp-global",
+                            "BGP_GLOBALS_AF_NETWORK",
+                            "BGP_GLOBALS_AF_NETWORK_LIST"
+                        ],
+                        "value": {
+                            "vrf_name": "default",
+                            "afi_safi": "ipv4_unicast",
+                            "ip_prefix": "10.0.3.0/24"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp-global:sonic-bgp-global",
+                            "BGP_GLOBALS_AF_NETWORK",
+                            "BGP_GLOBALS_AF_NETWORK_LIST"
+                        ],
+                        "value": {
+                            "vrf_name": "default",
+                            "afi_safi": "ipv4_unicast",
+                            "ip_prefix": "10.0.4.0/24"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp-global:sonic-bgp-global",
+                            "BGP_GLOBALS_AF_NETWORK",
+                            "BGP_GLOBALS_AF_NETWORK_LIST"
+                        ],
+                        "value": {
+                            "vrf_name": "default",
+                            "afi_safi": "ipv4_unicast",
+                            "ip_prefix": "10.10.11.100/32"
                         }
                     }
                 ]
@@ -2480,27 +2534,14 @@
                     {
                         "action": "append",
                         "path": [
-                            "sonic-device_metadata:sonic-device_metadata",
-                            "DEVICE_METADATA",
-                            "localhost"
-                        ],
-                        "value": {
-                            "localhost": {
-                                "bgp_asn": 65001
-                            }
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
                             "sonic-bgp-global:sonic-bgp-global",
                             "BGP_GLOBALS",
                             "BGP_GLOBALS_LIST"
                         ],
                         "value": {
                             "vrf_name": "default",
-                            "router_id": "10.0.0.3",
-                            "local_asn": 65001
+                            "router_id": "10.10.10.200",
+                            "local_asn": 200
                         }
                     },
                     {
@@ -2512,8 +2553,8 @@
                         ],
                         "value": {
                             "vrf_name": "default",
-                            "neighbor": "10.0.0.1",
-                            "asn": 65000
+                            "neighbor": "10.0.1.1",
+                            "asn": 100
                         }
                     },
                     {
@@ -2525,8 +2566,8 @@
                         ],
                         "value": {
                             "vrf_name": "default",
-                            "neighbor": "10.0.0.2",
-                            "asn": 65000
+                            "neighbor": "10.0.3.1",
+                            "asn": 100
                         }
                     },
                     {
@@ -2539,7 +2580,34 @@
                         "value": {
                             "vrf_name": "default",
                             "afi_safi": "ipv4_unicast",
-                            "network": "192.168.1.0/24"
+                            "max_ebgp_paths": 1,
+                            "max_ibgp_paths": 1
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp-global:sonic-bgp-global",
+                            "BGP_GLOBALS_AF_NETWORK",
+                            "BGP_GLOBALS_AF_NETWORK_LIST"
+                        ],
+                        "value": {
+                            "vrf_name": "default",
+                            "afi_safi": "ipv4_unicast",
+                            "ip_prefix": "10.0.5.0/24"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp-global:sonic-bgp-global",
+                            "BGP_GLOBALS_AF_NETWORK",
+                            "BGP_GLOBALS_AF_NETWORK_LIST"
+                        ],
+                        "value": {
+                            "vrf_name": "default",
+                            "afi_safi": "ipv4_unicast",
+                            "ip_prefix": "10.10.10.200/32"
                         }
                     }
                 ]
@@ -2550,27 +2618,14 @@
                     {
                         "action": "append",
                         "path": [
-                            "sonic-device_metadata:sonic-device_metadata",
-                            "DEVICE_METADATA",
-                            "localhost"
-                        ],
-                        "value": {
-                            "localhost": {
-                                "bgp_asn": 65002
-                            }
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
                             "sonic-bgp-global:sonic-bgp-global",
                             "BGP_GLOBALS",
                             "BGP_GLOBALS_LIST"
                         ],
                         "value": {
                             "vrf_name": "default",
-                            "router_id": "10.0.0.4",
-                            "local_asn": 65002
+                            "router_id": "10.10.11.200",
+                            "local_asn": 200
                         }
                     },
                     {
@@ -2582,8 +2637,8 @@
                         ],
                         "value": {
                             "vrf_name": "default",
-                            "neighbor": "10.0.0.1",
-                            "asn": 65000
+                            "neighbor": "10.0.2.1",
+                            "asn": 100
                         }
                     },
                     {
@@ -2595,8 +2650,8 @@
                         ],
                         "value": {
                             "vrf_name": "default",
-                            "neighbor": "10.0.0.2",
-                            "asn": 65000
+                            "neighbor": "10.0.4.1",
+                            "asn": 100
                         }
                     },
                     {
@@ -2609,7 +2664,34 @@
                         "value": {
                             "vrf_name": "default",
                             "afi_safi": "ipv4_unicast",
-                            "network": "192.168.2.0/24"
+                            "max_ebgp_paths": 1,
+                            "max_ibgp_paths": 1
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp-global:sonic-bgp-global",
+                            "BGP_GLOBALS_AF_NETWORK",
+                            "BGP_GLOBALS_AF_NETWORK_LIST"
+                        ],
+                        "value": {
+                            "vrf_name": "default",
+                            "afi_safi": "ipv4_unicast",
+                            "ip_prefix": "10.0.6.0/24"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-bgp-global:sonic-bgp-global",
+                            "BGP_GLOBALS_AF_NETWORK",
+                            "BGP_GLOBALS_AF_NETWORK_LIST"
+                        ],
+                        "value": {
+                            "vrf_name": "default",
+                            "afi_safi": "ipv4_unicast",
+                            "ip_prefix": "10.10.11.200/32"
                         }
                     }
                 ]
@@ -2619,1093 +2701,23 @@
             "sonic-device_metadata",
             "sonic-bgp-global",
             "sonic-bgp-neighbor",
+            "sonic-bgp-internal-neighbor",
+            "sonic-bgp-peergroup",
             "sonic-bgp-common",
             "sonic-interface",
             "sonic-route-map",
             "sonic-static-route"
         ],
-        "yang_status": false,
+        "yang_status": true,
         "latencies": [
-            26.922838926315308,
-            32.87807655334473,
-            23.635944843292236,
-            27.320788145065308,
-            25.947381734848022,
-            25.060903072357178
+            36.2117018699646,
+            36.0223491191864
         ],
-        "total_time": 161.76593327522278,
-        "iterations": 4,
-        "error_logs": [
-            [
-                [
-                    "S0",
-                    "sonic_yang(3):failed to parse data tree: Expecting JSON name/object but container \"localhost\" is represented in input data as name/array.\n"
-                ],
-                [
-                    "S1",
-                    "sonic_yang(3):failed to parse data tree: Expecting JSON name/object but container \"localhost\" is represented in input data as name/array.\n"
-                ],
-                [
-                    "L0",
-                    "sonic_yang(3):failed to parse data tree: Expecting JSON name/object but container \"localhost\" is represented in input data as name/array.\n"
-                ],
-                [
-                    "L1",
-                    "sonic_yang(3):failed to parse data tree: Expecting JSON name/object but container \"localhost\" is represented in input data as name/array.\n"
-                ]
-            ],
-            [
-                [
-                    "S0",
-                    "sonic_yang(3):failed to parse data tree: Expecting JSON name/object but container \"localhost\" is represented in input data as name/array.\n"
-                ],
-                [
-                    "S1",
-                    "sonic_yang(3):failed to parse data tree: Expecting JSON name/object but container \"localhost\" is represented in input data as name/array.\n"
-                ],
-                [
-                    "L0",
-                    "sonic_yang(3):failed to parse data tree: Expecting JSON name/object but container \"localhost\" is represented in input data as name/array.\n"
-                ],
-                [
-                    "L1",
-                    "sonic_yang(3):failed to parse data tree: Expecting JSON name/object but container \"localhost\" is represented in input data as name/array.\n"
-                ]
-            ],
-            [
-                [
-                    "S0",
-                    "sonic_yang(3):failed to parse data tree: Expecting JSON name/object but container \"localhost\" is represented in input data as name/array.\n"
-                ],
-                [
-                    "S1",
-                    "sonic_yang(3):failed to parse data tree: Expecting JSON name/object but container \"localhost\" is represented in input data as name/array.\n"
-                ],
-                [
-                    "L0",
-                    "sonic_yang(3):failed to parse data tree: Expecting JSON name/object but container \"localhost\" is represented in input data as name/array.\n"
-                ],
-                [
-                    "L1",
-                    "sonic_yang(3):failed to parse data tree: Expecting JSON name/object but container \"localhost\" is represented in input data as name/array.\n"
-                ]
-            ],
-            [
-                [
-                    "S0",
-                    "sonic_yang(3):failed to parse data tree: Expecting JSON name/object but container \"localhost\" is represented in input data as name/array.\n"
-                ],
-                [
-                    "S1",
-                    "sonic_yang(3):failed to parse data tree: Expecting JSON name/object but container \"localhost\" is represented in input data as name/array.\n"
-                ],
-                [
-                    "L0",
-                    "sonic_yang(3):failed to parse data tree: Expecting JSON name/object but container \"localhost\" is represented in input data as name/array.\n"
-                ],
-                [
-                    "L1",
-                    "sonic_yang(3):failed to parse data tree: Expecting JSON name/object but container \"localhost\" is represented in input data as name/array.\n"
-                ]
-            ]
-        ],
+        "total_time": 72.234050989151,
+        "iterations": 0,
+        "error_logs": null,
         "input_length": 242,
-        "output_length": 3726
-    },
-    {
-        "nl_request": "ensure VXLAN works over the BGP and end-hosts can ping each other.",
-        "yang_config": [
-            {
-                "device": "S0",
-                "config": [
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL",
-                            "VXLAN_TUNNEL_LIST"
-                        ],
-                        "value": {
-                            "name": "vxlan1000",
-                            "src_ip": "10.10.10.100"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "vxlan1000",
-                            "mapname": "map1000",
-                            "vlan": "Vlan1000",
-                            "vni": 1000
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_EVPN_NVO",
-                            "VXLAN_EVPN_NVO_LIST"
-                        ],
-                        "value": {
-                            "name": "evpn1000",
-                            "source_vtep": "vxlan1000"
-                        }
-                    }
-                ]
-            },
-            {
-                "device": "S1",
-                "config": [
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL",
-                            "VXLAN_TUNNEL_LIST"
-                        ],
-                        "value": {
-                            "name": "vxlan1000",
-                            "src_ip": "10.10.11.100"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "vxlan1000",
-                            "mapname": "map1000",
-                            "vlan": "Vlan1000",
-                            "vni": 1000
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_EVPN_NVO",
-                            "VXLAN_EVPN_NVO_LIST"
-                        ],
-                        "value": {
-                            "name": "evpn1000",
-                            "source_vtep": "vxlan1000"
-                        }
-                    }
-                ]
-            },
-            {
-                "device": "L0",
-                "config": [
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL",
-                            "VXLAN_TUNNEL_LIST"
-                        ],
-                        "value": {
-                            "name": "vxlan1000",
-                            "src_ip": "10.10.10.200"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "vxlan1000",
-                            "mapname": "map1000",
-                            "vlan": "Vlan1000",
-                            "vni": 1000
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_EVPN_NVO",
-                            "VXLAN_EVPN_NVO_LIST"
-                        ],
-                        "value": {
-                            "name": "evpn1000",
-                            "source_vtep": "vxlan1000"
-                        }
-                    }
-                ]
-            },
-            {
-                "device": "L1",
-                "config": [
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL",
-                            "VXLAN_TUNNEL_LIST"
-                        ],
-                        "value": {
-                            "name": "vxlan1000",
-                            "src_ip": "10.10.11.200"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "vxlan1000",
-                            "mapname": "map1000",
-                            "vlan": "Vlan1000",
-                            "vni": 1000
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_EVPN_NVO",
-                            "VXLAN_EVPN_NVO_LIST"
-                        ],
-                        "value": {
-                            "name": "evpn1000",
-                            "source_vtep": "vxlan1000"
-                        }
-                    }
-                ]
-            }
-        ],
-        "yang_modules": [
-            "sonic-vxlan",
-            "sonic-vnet",
-            "sonic-bgp-global",
-            "sonic-bgp-neighbor",
-            "sonic-interface",
-            "sonic-device_metadata"
-        ],
-        "yang_status": true,
-        "latencies": [
-            24.98705768585205,
-            21.181461811065674
-        ],
-        "total_time": 46.168519496917725,
-        "iterations": 0,
-        "error_logs": null,
-        "input_length": 66,
-        "output_length": 2280
-    },
-    {
-        "nl_request": "ensure VXLAN works over the BGP and end-hosts can ping each other.",
-        "yang_config": [
-            {
-                "device": "L0",
-                "config": [
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL",
-                            "VXLAN_TUNNEL_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan0",
-                            "src_ip": "10.10.10.200"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan0",
-                            "mapname": "map1",
-                            "vlan": "Vlan100",
-                            "vni": 10001
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_EVPN_NVO",
-                            "VXLAN_EVPN_NVO_LIST"
-                        ],
-                        "value": {
-                            "name": "evpn0",
-                            "source_vtep": "Vxlan0"
-                        }
-                    }
-                ]
-            },
-            {
-                "device": "L1",
-                "config": [
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL",
-                            "VXLAN_TUNNEL_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "src_ip": "10.10.11.200"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "mapname": "map2",
-                            "vlan": "Vlan200",
-                            "vni": 10002
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_EVPN_NVO",
-                            "VXLAN_EVPN_NVO_LIST"
-                        ],
-                        "value": {
-                            "name": "evpn1",
-                            "source_vtep": "Vxlan1"
-                        }
-                    }
-                ]
-            }
-        ],
-        "yang_modules": [
-            "sonic-bgp-common",
-            "sonic-bgp-global",
-            "sonic-bgp-neighbor",
-            "sonic-vxlan",
-            "sonic-vnet",
-            "sonic-interface",
-            "sonic-device_metadata"
-        ],
-        "yang_status": true,
-        "latencies": [
-            47.13389706611633,
-            13.390011310577393
-        ],
-        "total_time": 60.523908376693726,
-        "iterations": 0,
-        "error_logs": null,
-        "input_length": 66,
-        "output_length": 1038
-    },
-    {
-        "nl_request": "ensure VXLAN works over the BGP and end-hosts can ping each other.",
-        "yang_config": [
-            {
-                "device": "S0",
-                "config": [
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL",
-                            "VXLAN_TUNNEL_LIST"
-                        ],
-                        "value": {
-                            "name": "VXLAN_TUN0",
-                            "src_ip": "10.10.10.100"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_EVPN_NVO",
-                            "VXLAN_EVPN_NVO_LIST"
-                        ],
-                        "value": {
-                            "name": "EVPN_NVO0",
-                            "source_vtep": "VXLAN_TUN0"
-                        }
-                    }
-                ]
-            },
-            {
-                "device": "S1",
-                "config": [
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL",
-                            "VXLAN_TUNNEL_LIST"
-                        ],
-                        "value": {
-                            "name": "VXLAN_TUN0",
-                            "src_ip": "10.10.11.100"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_EVPN_NVO",
-                            "VXLAN_EVPN_NVO_LIST"
-                        ],
-                        "value": {
-                            "name": "EVPN_NVO0",
-                            "source_vtep": "VXLAN_TUN0"
-                        }
-                    }
-                ]
-            },
-            {
-                "device": "L0",
-                "config": [
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL",
-                            "VXLAN_TUNNEL_LIST"
-                        ],
-                        "value": {
-                            "name": "VXLAN_TUN0",
-                            "src_ip": "10.10.10.200"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_EVPN_NVO",
-                            "VXLAN_EVPN_NVO_LIST"
-                        ],
-                        "value": {
-                            "name": "EVPN_NVO0",
-                            "source_vtep": "VXLAN_TUN0"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "VXLAN_TUN0",
-                            "mapname": "VLAN100_MAP",
-                            "vlan": "Vlan100",
-                            "vni": 1000
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "VXLAN_TUN0",
-                            "mapname": "VLAN200_MAP",
-                            "vlan": "Vlan200",
-                            "vni": 2000
-                        }
-                    }
-                ]
-            },
-            {
-                "device": "L1",
-                "config": [
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL",
-                            "VXLAN_TUNNEL_LIST"
-                        ],
-                        "value": {
-                            "name": "VXLAN_TUN0",
-                            "src_ip": "10.10.11.200"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_EVPN_NVO",
-                            "VXLAN_EVPN_NVO_LIST"
-                        ],
-                        "value": {
-                            "name": "EVPN_NVO0",
-                            "source_vtep": "VXLAN_TUN0"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "VXLAN_TUN0",
-                            "mapname": "VLAN100_MAP",
-                            "vlan": "Vlan100",
-                            "vni": 1000
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "VXLAN_TUN0",
-                            "mapname": "VLAN200_MAP",
-                            "vlan": "Vlan200",
-                            "vni": 2000
-                        }
-                    }
-                ]
-            }
-        ],
-        "yang_modules": [
-            "sonic-vxlan",
-            "sonic-bgp-global",
-            "sonic-bgp-neighbor",
-            "sonic-bgp-peergroup",
-            "sonic-interface",
-            "sonic-device_metadata",
-            "sonic-vnet"
-        ],
-        "yang_status": true,
-        "latencies": [
-            24.850873947143555,
-            16.573533058166504,
-            17.916768074035645
-        ],
-        "total_time": 59.3411750793457,
-        "iterations": 1,
-        "error_logs": null,
-        "input_length": 66,
-        "output_length": 2308
-    },
-    {
-        "nl_request": "first ensure that the underlay connectivity has been established between leaf and spine routers. Then enable the overlay configuration on each of the leaf router. L2VNI configuration needs to be enabled for Intra vlan traffic and L3VNI configuration is needed for Inter vlan",
-        "yang_config": [
-            {
-                "device": "L0",
-                "config": [
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL",
-                            "VXLAN_TUNNEL_LIST"
-                        ],
-                        "value": {
-                            "name": "vni10010",
-                            "src_ip": "10.10.10.200"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "vni10010",
-                            "mapname": "map1",
-                            "vlan": "Vlan10",
-                            "vni": 10010
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_EVPN_NVO",
-                            "VXLAN_EVPN_NVO_LIST"
-                        ],
-                        "value": {
-                            "name": "vni20010",
-                            "source_vtep": "vni10010"
-                        }
-                    }
-                ]
-            },
-            {
-                "device": "L1",
-                "config": [
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL",
-                            "VXLAN_TUNNEL_LIST"
-                        ],
-                        "value": {
-                            "name": "vni10020",
-                            "src_ip": "10.10.11.200"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "vni10020",
-                            "mapname": "map2",
-                            "vlan": "Vlan20",
-                            "vni": 10020
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "sonic-vxlan:VXLAN_EVPN_NVO",
-                            "VXLAN_EVPN_NVO_LIST"
-                        ],
-                        "value": {
-                            "name": "vni20020",
-                            "source_vtep": "vni10020"
-                        }
-                    }
-                ]
-            }
-        ],
-        "yang_modules": [
-            "sonic-vxlan",
-            "sonic-vnet",
-            "sonic-vlan",
-            "sonic-vlan-sub-interface",
-            "sonic-interface",
-            "sonic-bgp-neighbor",
-            "sonic-loopback-interface"
-        ],
-        "yang_status": true,
-        "latencies": [
-            25.869900941848755,
-            10.89181137084961,
-            13.168730020523071
-        ],
-        "total_time": 49.930442333221436,
-        "iterations": 1,
-        "error_logs": null,
-        "input_length": 274,
-        "output_length": 1126
-    },
-    {
-        "nl_request": "first ensure that the underlay connectivity has been established between leaf and spine routers. Then enable the overlay configuration on each of the leaf router. L2VNI configuration needs to be enabled for Intra vlan traffic and L3VNI configuration is needed for Inter vlan",
-        "yang_config": [
-            {
-                "device": "L0",
-                "config": [
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vlan:sonic-vlan",
-                            "sonic-vlan:VLAN",
-                            "VLAN_LIST"
-                        ],
-                        "value": {
-                            "name": "Vlan10",
-                            "vlanid": 10,
-                            "description": "VLAN10"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vlan:sonic-vlan",
-                            "sonic-vlan:VLAN_INTERFACE",
-                            "VLAN_INTERFACE_LIST"
-                        ],
-                        "value": {
-                            "name": "Vlan10"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL",
-                            "VXLAN_TUNNEL_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "src_ip": "10.10.10.200"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "mapname": "map1",
-                            "vlan": "Vlan10",
-                            "vni": 10010
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_EVPN_NVO",
-                            "VXLAN_EVPN_NVO_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "source_vtep": "Vxlan1"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vrf:sonic-vrf",
-                            "VRF",
-                            "VRF_LIST"
-                        ],
-                        "value": {
-                            "name": "Vrf1",
-                            "vni": 5000
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "mapname": "map2",
-                            "vlan": "Vlan20",
-                            "vni": 5000
-                        }
-                    }
-                ]
-            },
-            {
-                "device": "L1",
-                "config": [
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vlan:sonic-vlan",
-                            "sonic-vlan:VLAN",
-                            "VLAN_LIST"
-                        ],
-                        "value": {
-                            "name": "Vlan10",
-                            "vlanid": 10,
-                            "description": "VLAN10"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vlan:sonic-vlan",
-                            "sonic-vlan:VLAN_INTERFACE",
-                            "VLAN_INTERFACE_LIST"
-                        ],
-                        "value": {
-                            "name": "Vlan10"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL",
-                            "VXLAN_TUNNEL_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "src_ip": "10.10.11.200"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "mapname": "map1",
-                            "vlan": "Vlan10",
-                            "vni": 10010
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_EVPN_NVO",
-                            "VXLAN_EVPN_NVO_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "source_vtep": "Vxlan1"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vrf:sonic-vrf",
-                            "VRF",
-                            "VRF_LIST"
-                        ],
-                        "value": {
-                            "name": "Vrf1",
-                            "vni": 5000
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "mapname": "map2",
-                            "vlan": "Vlan20",
-                            "vni": 5000
-                        }
-                    }
-                ]
-            }
-        ],
-        "yang_modules": [
-            "sonic-port",
-            "sonic-interface",
-            "sonic-vlan",
-            "sonic-vxlan",
-            "sonic-vnet",
-            "sonic-routing-policy-sets",
-            "sonic-static-route"
-        ],
-        "yang_status": true,
-        "latencies": [
-            26.811980724334717,
-            27.348408460617065,
-            24.44856023788452,
-            18.867603302001953
-        ],
-        "total_time": 97.47655272483826,
-        "iterations": 2,
-        "error_logs": null,
-        "input_length": 274,
-        "output_length": 2222
-    },
-    {
-        "nl_request": "first ensure that the underlay connectivity has been established between leaf and spine routers. Then enable the overlay configuration on each of the leaf router. L2VNI configuration needs to be enabled for Intra vlan traffic and L3VNI configuration is needed for Inter vlan",
-        "yang_config": [
-            {
-                "device": "L0",
-                "config": [
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL",
-                            "VXLAN_TUNNEL_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "src_ip": "10.10.10.200"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "mapname": "map1",
-                            "vlan": "Vlan10",
-                            "vni": 10010
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "mapname": "map2",
-                            "vlan": "Vlan20",
-                            "vni": 10020
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_EVPN_NVO",
-                            "VXLAN_EVPN_NVO_LIST"
-                        ],
-                        "value": {
-                            "name": "evpn_nvo1",
-                            "source_vtep": "Vxlan1"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "mapname": "map3",
-                            "vlan": "Vlan30",
-                            "vni": 10030
-                        }
-                    }
-                ]
-            },
-            {
-                "device": "L1",
-                "config": [
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL",
-                            "VXLAN_TUNNEL_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "src_ip": "10.10.11.200"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "mapname": "map1",
-                            "vlan": "Vlan10",
-                            "vni": 10010
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "mapname": "map2",
-                            "vlan": "Vlan20",
-                            "vni": 10020
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_EVPN_NVO",
-                            "VXLAN_EVPN_NVO_LIST"
-                        ],
-                        "value": {
-                            "name": "evpn_nvo1",
-                            "source_vtep": "Vxlan1"
-                        }
-                    },
-                    {
-                        "action": "append",
-                        "path": [
-                            "sonic-vxlan:sonic-vxlan",
-                            "VXLAN_TUNNEL_MAP",
-                            "VXLAN_TUNNEL_MAP_LIST"
-                        ],
-                        "value": {
-                            "name": "Vxlan1",
-                            "mapname": "map3",
-                            "vlan": "Vlan30",
-                            "vni": 10030
-                        }
-                    }
-                ]
-            }
-        ],
-        "yang_modules": [
-            "sonic-port",
-            "sonic-interface",
-            "sonic-vxlan",
-            "sonic-vlan",
-            "sonic-vlan-sub-interface",
-            "sonic-routing-policy-sets",
-            "sonic-vnet",
-            "sonic-loopback-interface",
-            "sonic-bgp-global",
-            "sonic-bgp-neighbor"
-        ],
-        "yang_status": true,
-        "latencies": [
-            33.327959299087524,
-            15.149681806564331,
-            18.085386991500854
-        ],
-        "total_time": 66.56302809715271,
-        "iterations": 1,
-        "error_logs": null,
-        "input_length": 274,
-        "output_length": 1780
+        "output_length": 5332
     },
     {
         "nl_request": "Configure layer-3 port-channels between interfaces connected between leaf and spine devices. Ensure that any two members of the same physical interface on either leaf or spine are not on the same port-channel.",
@@ -5479,6 +4491,1001 @@
         "error_logs": null,
         "input_length": 111,
         "output_length": 4842
+    },
+    {
+        "nl_request": "ensure VXLAN works over the BGP and end-hosts can ping each other.",
+        "yang_config": [
+            {
+                "device": "S0",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL",
+                            "VXLAN_TUNNEL_LIST"
+                        ],
+                        "value": {
+                            "name": "vxlan1000",
+                            "src_ip": "10.10.10.100"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "vxlan1000",
+                            "mapname": "map1000",
+                            "vlan": "Vlan1000",
+                            "vni": 1000
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_EVPN_NVO",
+                            "VXLAN_EVPN_NVO_LIST"
+                        ],
+                        "value": {
+                            "name": "evpn1000",
+                            "source_vtep": "vxlan1000"
+                        }
+                    }
+                ]
+            },
+            {
+                "device": "S1",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL",
+                            "VXLAN_TUNNEL_LIST"
+                        ],
+                        "value": {
+                            "name": "vxlan1000",
+                            "src_ip": "10.10.11.100"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "vxlan1000",
+                            "mapname": "map1000",
+                            "vlan": "Vlan1000",
+                            "vni": 1000
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_EVPN_NVO",
+                            "VXLAN_EVPN_NVO_LIST"
+                        ],
+                        "value": {
+                            "name": "evpn1000",
+                            "source_vtep": "vxlan1000"
+                        }
+                    }
+                ]
+            },
+            {
+                "device": "L0",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL",
+                            "VXLAN_TUNNEL_LIST"
+                        ],
+                        "value": {
+                            "name": "vxlan1000",
+                            "src_ip": "10.10.10.200"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "vxlan1000",
+                            "mapname": "map1000",
+                            "vlan": "Vlan1000",
+                            "vni": 1000
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_EVPN_NVO",
+                            "VXLAN_EVPN_NVO_LIST"
+                        ],
+                        "value": {
+                            "name": "evpn1000",
+                            "source_vtep": "vxlan1000"
+                        }
+                    }
+                ]
+            },
+            {
+                "device": "L1",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL",
+                            "VXLAN_TUNNEL_LIST"
+                        ],
+                        "value": {
+                            "name": "vxlan1000",
+                            "src_ip": "10.10.11.200"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "vxlan1000",
+                            "mapname": "map1000",
+                            "vlan": "Vlan1000",
+                            "vni": 1000
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_EVPN_NVO",
+                            "VXLAN_EVPN_NVO_LIST"
+                        ],
+                        "value": {
+                            "name": "evpn1000",
+                            "source_vtep": "vxlan1000"
+                        }
+                    }
+                ]
+            }
+        ],
+        "yang_modules": [
+            "sonic-vxlan",
+            "sonic-vnet",
+            "sonic-bgp-global",
+            "sonic-bgp-neighbor",
+            "sonic-interface",
+            "sonic-device_metadata"
+        ],
+        "yang_status": true,
+        "latencies": [
+            24.98705768585205,
+            21.181461811065674
+        ],
+        "total_time": 46.168519496917725,
+        "iterations": 0,
+        "error_logs": null,
+        "input_length": 66,
+        "output_length": 2280
+    },
+    {
+        "nl_request": "ensure VXLAN works over the BGP and end-hosts can ping each other.",
+        "yang_config": [
+            {
+                "device": "L0",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL",
+                            "VXLAN_TUNNEL_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan0",
+                            "src_ip": "10.10.10.200"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan0",
+                            "mapname": "map1",
+                            "vlan": "Vlan100",
+                            "vni": 10001
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_EVPN_NVO",
+                            "VXLAN_EVPN_NVO_LIST"
+                        ],
+                        "value": {
+                            "name": "evpn0",
+                            "source_vtep": "Vxlan0"
+                        }
+                    }
+                ]
+            },
+            {
+                "device": "L1",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL",
+                            "VXLAN_TUNNEL_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "src_ip": "10.10.11.200"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "mapname": "map2",
+                            "vlan": "Vlan200",
+                            "vni": 10002
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_EVPN_NVO",
+                            "VXLAN_EVPN_NVO_LIST"
+                        ],
+                        "value": {
+                            "name": "evpn1",
+                            "source_vtep": "Vxlan1"
+                        }
+                    }
+                ]
+            }
+        ],
+        "yang_modules": [
+            "sonic-bgp-common",
+            "sonic-bgp-global",
+            "sonic-bgp-neighbor",
+            "sonic-vxlan",
+            "sonic-vnet",
+            "sonic-interface",
+            "sonic-device_metadata"
+        ],
+        "yang_status": true,
+        "latencies": [
+            47.13389706611633,
+            13.390011310577393
+        ],
+        "total_time": 60.523908376693726,
+        "iterations": 0,
+        "error_logs": null,
+        "input_length": 66,
+        "output_length": 1038
+    },
+    {
+        "nl_request": "ensure VXLAN works over the BGP and end-hosts can ping each other.",
+        "yang_config": [
+            {
+                "device": "S0",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL",
+                            "VXLAN_TUNNEL_LIST"
+                        ],
+                        "value": {
+                            "name": "VXLAN_TUN0",
+                            "src_ip": "10.10.10.100"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_EVPN_NVO",
+                            "VXLAN_EVPN_NVO_LIST"
+                        ],
+                        "value": {
+                            "name": "EVPN_NVO0",
+                            "source_vtep": "VXLAN_TUN0"
+                        }
+                    }
+                ]
+            },
+            {
+                "device": "S1",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL",
+                            "VXLAN_TUNNEL_LIST"
+                        ],
+                        "value": {
+                            "name": "VXLAN_TUN0",
+                            "src_ip": "10.10.11.100"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_EVPN_NVO",
+                            "VXLAN_EVPN_NVO_LIST"
+                        ],
+                        "value": {
+                            "name": "EVPN_NVO0",
+                            "source_vtep": "VXLAN_TUN0"
+                        }
+                    }
+                ]
+            },
+            {
+                "device": "L0",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL",
+                            "VXLAN_TUNNEL_LIST"
+                        ],
+                        "value": {
+                            "name": "VXLAN_TUN0",
+                            "src_ip": "10.10.10.200"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_EVPN_NVO",
+                            "VXLAN_EVPN_NVO_LIST"
+                        ],
+                        "value": {
+                            "name": "EVPN_NVO0",
+                            "source_vtep": "VXLAN_TUN0"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "VXLAN_TUN0",
+                            "mapname": "VLAN100_MAP",
+                            "vlan": "Vlan100",
+                            "vni": 1000
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "VXLAN_TUN0",
+                            "mapname": "VLAN200_MAP",
+                            "vlan": "Vlan200",
+                            "vni": 2000
+                        }
+                    }
+                ]
+            },
+            {
+                "device": "L1",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL",
+                            "VXLAN_TUNNEL_LIST"
+                        ],
+                        "value": {
+                            "name": "VXLAN_TUN0",
+                            "src_ip": "10.10.11.200"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_EVPN_NVO",
+                            "VXLAN_EVPN_NVO_LIST"
+                        ],
+                        "value": {
+                            "name": "EVPN_NVO0",
+                            "source_vtep": "VXLAN_TUN0"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "VXLAN_TUN0",
+                            "mapname": "VLAN100_MAP",
+                            "vlan": "Vlan100",
+                            "vni": 1000
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "VXLAN_TUN0",
+                            "mapname": "VLAN200_MAP",
+                            "vlan": "Vlan200",
+                            "vni": 2000
+                        }
+                    }
+                ]
+            }
+        ],
+        "yang_modules": [
+            "sonic-vxlan",
+            "sonic-bgp-global",
+            "sonic-bgp-neighbor",
+            "sonic-bgp-peergroup",
+            "sonic-interface",
+            "sonic-device_metadata",
+            "sonic-vnet"
+        ],
+        "yang_status": true,
+        "latencies": [
+            24.850873947143555,
+            16.573533058166504,
+            17.916768074035645
+        ],
+        "total_time": 59.3411750793457,
+        "iterations": 1,
+        "error_logs": null,
+        "input_length": 66,
+        "output_length": 2308
+    },
+    {
+        "nl_request": "first ensure that the underlay connectivity has been established between leaf and spine routers. Then enable the overlay configuration on each of the leaf router. L2VNI configuration needs to be enabled for Intra vlan traffic and L3VNI configuration is needed for Inter vlan",
+        "yang_config": [
+            {
+                "device": "L0",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL",
+                            "VXLAN_TUNNEL_LIST"
+                        ],
+                        "value": {
+                            "name": "vni10010",
+                            "src_ip": "10.10.10.200"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "vni10010",
+                            "mapname": "map1",
+                            "vlan": "Vlan10",
+                            "vni": 10010
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_EVPN_NVO",
+                            "VXLAN_EVPN_NVO_LIST"
+                        ],
+                        "value": {
+                            "name": "vni20010",
+                            "source_vtep": "vni10010"
+                        }
+                    }
+                ]
+            },
+            {
+                "device": "L1",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL",
+                            "VXLAN_TUNNEL_LIST"
+                        ],
+                        "value": {
+                            "name": "vni10020",
+                            "src_ip": "10.10.11.200"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "vni10020",
+                            "mapname": "map2",
+                            "vlan": "Vlan20",
+                            "vni": 10020
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "sonic-vxlan:VXLAN_EVPN_NVO",
+                            "VXLAN_EVPN_NVO_LIST"
+                        ],
+                        "value": {
+                            "name": "vni20020",
+                            "source_vtep": "vni10020"
+                        }
+                    }
+                ]
+            }
+        ],
+        "yang_modules": [
+            "sonic-vxlan",
+            "sonic-vnet",
+            "sonic-vlan",
+            "sonic-vlan-sub-interface",
+            "sonic-interface",
+            "sonic-bgp-neighbor",
+            "sonic-loopback-interface"
+        ],
+        "yang_status": true,
+        "latencies": [
+            25.869900941848755,
+            10.89181137084961,
+            13.168730020523071
+        ],
+        "total_time": 49.930442333221436,
+        "iterations": 1,
+        "error_logs": null,
+        "input_length": 274,
+        "output_length": 1126
+    },
+    {
+        "nl_request": "first ensure that the underlay connectivity has been established between leaf and spine routers. Then enable the overlay configuration on each of the leaf router. L2VNI configuration needs to be enabled for Intra vlan traffic and L3VNI configuration is needed for Inter vlan",
+        "yang_config": [
+            {
+                "device": "L0",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vlan:sonic-vlan",
+                            "sonic-vlan:VLAN",
+                            "VLAN_LIST"
+                        ],
+                        "value": {
+                            "name": "Vlan10",
+                            "vlanid": 10,
+                            "description": "VLAN10"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vlan:sonic-vlan",
+                            "sonic-vlan:VLAN_INTERFACE",
+                            "VLAN_INTERFACE_LIST"
+                        ],
+                        "value": {
+                            "name": "Vlan10"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL",
+                            "VXLAN_TUNNEL_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "src_ip": "10.10.10.200"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "mapname": "map1",
+                            "vlan": "Vlan10",
+                            "vni": 10010
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_EVPN_NVO",
+                            "VXLAN_EVPN_NVO_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "source_vtep": "Vxlan1"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vrf:sonic-vrf",
+                            "VRF",
+                            "VRF_LIST"
+                        ],
+                        "value": {
+                            "name": "Vrf1",
+                            "vni": 5000
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "mapname": "map2",
+                            "vlan": "Vlan20",
+                            "vni": 5000
+                        }
+                    }
+                ]
+            },
+            {
+                "device": "L1",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vlan:sonic-vlan",
+                            "sonic-vlan:VLAN",
+                            "VLAN_LIST"
+                        ],
+                        "value": {
+                            "name": "Vlan10",
+                            "vlanid": 10,
+                            "description": "VLAN10"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vlan:sonic-vlan",
+                            "sonic-vlan:VLAN_INTERFACE",
+                            "VLAN_INTERFACE_LIST"
+                        ],
+                        "value": {
+                            "name": "Vlan10"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL",
+                            "VXLAN_TUNNEL_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "src_ip": "10.10.11.200"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "mapname": "map1",
+                            "vlan": "Vlan10",
+                            "vni": 10010
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_EVPN_NVO",
+                            "VXLAN_EVPN_NVO_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "source_vtep": "Vxlan1"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vrf:sonic-vrf",
+                            "VRF",
+                            "VRF_LIST"
+                        ],
+                        "value": {
+                            "name": "Vrf1",
+                            "vni": 5000
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "mapname": "map2",
+                            "vlan": "Vlan20",
+                            "vni": 5000
+                        }
+                    }
+                ]
+            }
+        ],
+        "yang_modules": [
+            "sonic-port",
+            "sonic-interface",
+            "sonic-vlan",
+            "sonic-vxlan",
+            "sonic-vnet",
+            "sonic-routing-policy-sets",
+            "sonic-static-route"
+        ],
+        "yang_status": true,
+        "latencies": [
+            26.811980724334717,
+            27.348408460617065,
+            24.44856023788452,
+            18.867603302001953
+        ],
+        "total_time": 97.47655272483826,
+        "iterations": 2,
+        "error_logs": null,
+        "input_length": 274,
+        "output_length": 2222
+    },
+    {
+        "nl_request": "first ensure that the underlay connectivity has been established between leaf and spine routers. Then enable the overlay configuration on each of the leaf router. L2VNI configuration needs to be enabled for Intra vlan traffic and L3VNI configuration is needed for Inter vlan",
+        "yang_config": [
+            {
+                "device": "L0",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL",
+                            "VXLAN_TUNNEL_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "src_ip": "10.10.10.200"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "mapname": "map1",
+                            "vlan": "Vlan10",
+                            "vni": 10010
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "mapname": "map2",
+                            "vlan": "Vlan20",
+                            "vni": 10020
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_EVPN_NVO",
+                            "VXLAN_EVPN_NVO_LIST"
+                        ],
+                        "value": {
+                            "name": "evpn_nvo1",
+                            "source_vtep": "Vxlan1"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "mapname": "map3",
+                            "vlan": "Vlan30",
+                            "vni": 10030
+                        }
+                    }
+                ]
+            },
+            {
+                "device": "L1",
+                "config": [
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL",
+                            "VXLAN_TUNNEL_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "src_ip": "10.10.11.200"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "mapname": "map1",
+                            "vlan": "Vlan10",
+                            "vni": 10010
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "mapname": "map2",
+                            "vlan": "Vlan20",
+                            "vni": 10020
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_EVPN_NVO",
+                            "VXLAN_EVPN_NVO_LIST"
+                        ],
+                        "value": {
+                            "name": "evpn_nvo1",
+                            "source_vtep": "Vxlan1"
+                        }
+                    },
+                    {
+                        "action": "append",
+                        "path": [
+                            "sonic-vxlan:sonic-vxlan",
+                            "VXLAN_TUNNEL_MAP",
+                            "VXLAN_TUNNEL_MAP_LIST"
+                        ],
+                        "value": {
+                            "name": "Vxlan1",
+                            "mapname": "map3",
+                            "vlan": "Vlan30",
+                            "vni": 10030
+                        }
+                    }
+                ]
+            }
+        ],
+        "yang_modules": [
+            "sonic-port",
+            "sonic-interface",
+            "sonic-vxlan",
+            "sonic-vlan",
+            "sonic-vlan-sub-interface",
+            "sonic-routing-policy-sets",
+            "sonic-vnet",
+            "sonic-loopback-interface",
+            "sonic-bgp-global",
+            "sonic-bgp-neighbor"
+        ],
+        "yang_status": true,
+        "latencies": [
+            33.327959299087524,
+            15.149681806564331,
+            18.085386991500854
+        ],
+        "total_time": 66.56302809715271,
+        "iterations": 1,
+        "error_logs": null,
+        "input_length": 274,
+        "output_length": 1780
     },
     {
         "nl_request": "If the IP address learned in the route is for directly connected neighbor then allow IP traffic for that route. Other wise deny.",

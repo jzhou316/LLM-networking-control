@@ -64,7 +64,7 @@
             "default_pfcwd_status": "disable",
             "hostname": "SPINE1",
             "hwsku": "Cisco-8102-C64",
-            "mac": "02:6c:48:39:28:69",
+            "mac": "02:c4:f8:b8:90:67",
             "platform": "x86_64-8102_64h_o-r0",
             "synchronous_mode": "enable"
         }
@@ -220,22 +220,12 @@
             "FLEX_COUNTER_STATUS": "enable"
         }
     },
-    "INTERFACE": {
-        "Ethernet0": {},
-        "Ethernet0|10.0.3.1/24": {},
-        "Ethernet8": {},
-        "Ethernet8|10.0.4.1/24": {}
-    },
     "KDUMP": {
         "config": {
             "enabled": "false",
             "memory": "0M-2G:256M,2G-4G:320M,4G-8G:384M,8G-:448M",
             "num_dumps": "3"
         }
-    },
-    "LOOPBACK_INTERFACE": {
-        "Loopback0": {},
-        "Loopback0|10.10.11.100/32": {}
     },
     "PORT": {
         "Ethernet0": {

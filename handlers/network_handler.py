@@ -1,14 +1,14 @@
-from json import dump, loads, dumps
+from json import dump, loads
 import requests, os
 
 class NetworkHandler:
     def __init__(self):
-        self.network = {}
+        pass
 
     def get_config_db_network_state(self, device):
         response = requests.get(f'http://10.10.20.22:6000/get_config_db_network_state/{device}')
-        hostname = response.json()["DEVICE_METADATA"]["localhost"]["hostname"]
         if response.status_code == 200:
+            hostname = response.json()["DEVICE_METADATA"]["localhost"]["hostname"]
             local_path = f'configs/sonic_configs/{hostname}/config_db.json'
             os.makedirs(os.path.dirname(local_path), exist_ok=True)
             with open(local_path, 'wb') as f:
@@ -33,10 +33,11 @@ class NetworkHandler:
             return False, f'Error: {response.status_code} - {error_message}'
     
     def update_network_state(self, device, config):
-        with open(f'sonic_configs/{device}_config_db.json', 'w') as f:
+        config_path = f'sonic_configs/{device}_config_db.json'
+        with open(config_path, 'w') as f:
             dump(loads(config), f, indent=4)
         send_endpoint = f'http://10.10.20.22:5000/update_network_state/{device}'
-        with open(f'sonic_configs/{device}_config_db.json', 'rb') as f:
+        with open(config_path, 'rb') as f:
             response = requests.post(send_endpoint, files={'file': f})
         if response.status_code == 200:
             return f'Successfully updated {device} config'

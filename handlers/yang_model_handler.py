@@ -66,7 +66,7 @@ class YangModelHandler:
         os.remove(tmpfile_path)
         return (True, "Data file loaded successfully.")
         
-    def fix_dumb_cisco_errors(self, data):
+    def fix_yang_mismatches(self, data):
         crm_config_fields = [
             "acl_counter_high_threshold", "acl_counter_low_threshold",
             "acl_entry_high_threshold", "acl_entry_low_threshold",
@@ -97,16 +97,16 @@ class YangModelHandler:
                         new_dict[key] = value
                 else:
                     # Recurse into nested dictionaries
-                    new_dict[key] = self.fix_dumb_cisco_errors(value)
+                    new_dict[key] = self.fix_yang_mismatches(value)
             return new_dict
         elif isinstance(data, list):
             # Process each item in the list
-            return [self.fix_dumb_cisco_errors(item) for item in data]
+            return [self.fix_yang_mismatches(item) for item in data]
         else:
             # If it's not a dictionary or list, return it as is
             return data
 
-    def reverse_fix_dumb_cisco_errors(self, data):
+    def reverse_fix_yang_mismatches(self, data):
         crm_config_fields = [
             "acl_counter_high_threshold", "acl_counter_low_threshold",
             "acl_entry_high_threshold", "acl_entry_low_threshold",
@@ -137,11 +137,11 @@ class YangModelHandler:
                         new_dict[key] = value
                 else:
                     # Recurse into nested dictionaries
-                    new_dict[key] = self.reverse_fix_dumb_cisco_errors(value)
+                    new_dict[key] = self.reverse_fix_yang_mismatches(value)
             return new_dict
         elif isinstance(data, list):
             # Process each item in the list
-            return [self.reverse_fix_dumb_cisco_errors(item) for item in data]
+            return [self.reverse_fix_yang_mismatches(item) for item in data]
         else:
             # If it's not a dictionary or list, return it as is
             return data

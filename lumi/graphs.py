@@ -17,54 +17,80 @@ df_json_campi = pd.json_normalize(json_data_campi)
 df_json_alpha = pd.json_normalize(json_data_alpha)
 
 # Add a new column to distinguish the datasets
-df_json_campi['source'] = 'Campi'
-df_json_alpha['source'] = 'Alpha'
+df_json_campi['source'] = 'Campi (Time)'
+df_json_alpha['source'] = 'Alpha (Time)'
 
 # Combine the dataframes
 df_combined = pd.concat([df_json_campi, df_json_alpha], ignore_index=True)
 
-# Set up the figure and axes
-fig, axes = plt.subplots(2, 2, figsize=(20, 14))
+# Calculate means and standard deviations
+df_grouped = df_combined.groupby(['iterations', 'source'])['time'].agg(['mean', 'std']).reset_index()
 
-# Define a color palette suitable for scientific research
-palette = sns.color_palette("Set2")
+# Calculate the quantity
+df_combined['quantity'] = 1
+df_quantity = df_combined.groupby(['iterations', 'source'])['quantity'].sum().reset_index()
+df_quantity['source'] = df_quantity['source'].replace({'Campi (Time)': 'Campi (Quantity)', 'Alpha (Time)': 'Alpha (Quantity)'})
 
-# Scatter plot for iterations vs processing time
-sns.scatterplot(ax=axes[0, 0], x='iterations', y='time', hue='source', style='source', palette=palette, data=df_combined, alpha=0.6, s=100)
-axes[0, 0].set_title('Iterations vs Processing Time', fontsize=16)
-axes[0, 0].set_xlabel('Iterations', fontsize=14)
-axes[0, 0].set_ylabel('Time (seconds)', fontsize=14)
-axes[0, 0].legend(title='Source', loc='upper left')
-axes[0, 0].grid(True)
+# Set up the figure and axes with a more rectangular aspect ratio
+fig, ax1 = plt.subplots(figsize=(14, 6))
 
-# Box plot for processing times per iteration
-sns.boxplot(ax=axes[0, 1], x='iterations', y='time', hue='source', palette=palette, data=df_combined)
-axes[0, 1].set_title('Processing Times vs. Iteration with Distribution', fontsize=16)
-axes[0, 1].set_xlabel('Iterations', fontsize=14)
-axes[0, 1].set_ylabel('Time (seconds)', fontsize=14)
-axes[0, 1].legend(title='Source', loc='upper left')
-axes[0, 1].grid(True)
+# Define custom colors
+palette = {'Campi (Time)': 'red', 'Alpha (Time)': '#377eb8'}
 
-# Histogram for processing times with separate bars
-sns.histplot(ax=axes[1, 0], data=df_combined, x='time', hue='source', multiple='dodge', bins=20, shrink=0.8, palette=palette, alpha=0.7)
-axes[1, 0].set_title('Distribution of Processing Times', fontsize=16)
-axes[1, 0].set_xlabel('Time (seconds)', fontsize=14)
-axes[1, 0].set_ylabel('Frequency', fontsize=14)
-axes[1, 0].grid(True)
+# Line plot with error bars for processing times per iteration
+sns.lineplot(ax=ax1, x='iterations', y='mean', hue='source', palette=palette, data=df_grouped, marker='o', markersize=10, ci=None, linewidth=3, style='source', markers=['o', 's'])
 
-# Distribution of output length
-sns.histplot(ax=axes[1, 1], data=df_combined, x='nile_length', hue='source', multiple='dodge', bins=20, shrink=0.8, palette=palette, alpha=0.7)
-axes[1, 1].set_title('Distribution of NILE Output Lengths', fontsize=16)
-axes[1, 1].set_xlabel('NILE Length', fontsize=14)
-axes[1, 1].set_ylabel('Frequency', fontsize=14)
-axes[1, 1].grid(True)
+# Add error bars with horizontal lines at the ends
+for name, group in df_grouped.groupby('source'):
+    ax1.errorbar(group['iterations'], group['mean'], yerr=group['std'], fmt='o', color=palette[name], capsize=5, capthick=1, elinewidth=1)
+
+ax1.set_xlabel('Number of Correction Iterations', fontsize=20)
+ax1.set_ylabel('Time (seconds)', fontsize=20)
+ax1.tick_params(axis='both', which='major', labelsize=16)
+ax1.grid(True, which='major', axis='both', linestyle='-', linewidth='0.5')
+ax1.grid(True, which='minor', axis='both', linestyle=':', linewidth='0.5')
+ax1.set_xticks(range(0, df_combined['iterations'].max() + 1))
+ax1.set_yticks(range(0, int(df_grouped['mean'].max()) + 5, 5))  # Adjust spacing as needed
+
+# Create a second y-axis for the quantity
+ax2 = ax1.twinx()
+
+bar_width = 0.35
+iterations = df_quantity['iterations'].unique()
+
+# Ensure that the quantities align properly with the iterations
+campi_quantities = df_quantity[df_quantity['source'] == 'Campi (Quantity)'].set_index('iterations').reindex(iterations, fill_value=0)['quantity']
+alpha_quantities = df_quantity[df_quantity['source'] == 'Alpha (Quantity)'].set_index('iterations').reindex(iterations, fill_value=0)['quantity']
+
+bars_campi = ax2.bar(iterations - bar_width/2, campi_quantities, bar_width, alpha=0.3, label='Campi (Count)', color='red')
+bars_alpha = ax2.bar(iterations + bar_width/2, alpha_quantities, bar_width, alpha=0.3, label='Alpha (Count)', color='#377eb8')
+
+ax2.set_ylabel('Count', fontsize=20)
+ax2.tick_params(axis='both', which='major', labelsize=16)
+ax2.grid(True, which='major', axis='y', linestyle='--', linewidth='0.5', dashes=(5, 10))
+ax2.set_yticks(range(0, int(df_quantity['quantity'].max()) + 10, 10))  # Adjust spacing as needed
+
+# Annotate the bar at iteration 8 with "Failed"
+for bar in bars_campi:
+    if bar.get_x() + bar.get_width() / 2 > 7:
+        ax2.text(bar.get_x() + bar.get_width() / 2, bar.get_height(), 'Failed', ha='center', va='bottom', fontsize=14, color='red', weight='bold')
+
+# Combine legends
+handles1, labels1 = ax1.get_legend_handles_labels()
+handles2, labels2 = ax2.get_legend_handles_labels()
+
+# Ensure ordering of legend is Alpha (Time), Campi (Time), Alpha (Quantity), Campi (Quantity)
+ordered_handles = [handles1[0], handles1[1], handles2[1], handles2[0]]
+ordered_labels = [labels1[0], labels1[1], labels2[1], labels2[0]]
+
+ax1.legend(ordered_handles, ordered_labels, loc='lower right', fontsize=16, title_fontsize=18, bbox_to_anchor=(1, 0.2))
 
 # Adjust layout and aesthetics
-plt.tight_layout()
 sns.set_style("whitegrid")
+plt.tight_layout()
 
-# Save the combined plot
-fig.savefig('combined_iterations_vs_time_distribution_pretty_v2.png')
+# Save the plot
+plt.savefig('lumi_latency.png')
 
 # Show plot
 plt.show()

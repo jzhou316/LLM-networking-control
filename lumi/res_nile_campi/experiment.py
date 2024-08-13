@@ -61,15 +61,15 @@ def calculate_fine_grained_accuracy(intent1, intent2):
     words2 = parse_intent(intent2.lower())
     print(words1)
     print(words2)
-    # new_list = []
-    # for word in words1:
-    #     if word not in words2:
-    #         new_list.append(word)
-    # for word in words2:
-    #     if word not in words1:
-    #         new_list.append(word)
-    # print(new_list)
-    # print()
+    new_list = []
+    for word in words1:
+        if word not in words2:
+            new_list.append(word)
+    for word in words2:
+        if word not in words1:
+            new_list.append(word)
+    print(new_list)
+    print()
     if not words1 or not words2:
         return 0
     

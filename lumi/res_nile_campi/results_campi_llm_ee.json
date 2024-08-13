@@ -33,9 +33,9 @@
         "text": "University Housing monitors only the amount of traffic",
         "extracted_entities": {
             "group": "University Housing",
-            "traffic": "amount of traffic"
+            "traffic": "traffic"
         },
-        "nile_statement": "define intent monitorTraffic: for group('UniversityHousing') allow traffic('amountOfTraffic')",
+        "nile_statement": "define intent monitorTraffic: for group('University Housing') allow traffic('Traffic')",
         "grammar_check": true,
         "iterations": 1,
         "time": 7.407601833343506,
@@ -251,7 +251,7 @@
             "group": "University",
             "operation": "allow"
         },
-        "nile_statement": "define intent allowPlayStation2: for group('University') allow service('PlayStation2') add middlebox('firewall')",
+        "nile_statement": "define intent allowPlayStation2: for group('University') allow service('Sony Playstation 2') add middlebox('firewall')",
         "grammar_check": true,
         "iterations": 2,
         "time": 11.54923391342163,
@@ -375,7 +375,7 @@
             "group": "ResNet and UIC wireless",
             "start": "midnight"
         },
-        "nile_statement": "define intent dataTransferLimit: for group('ResNet') set quota('any', '6', 'gb/d') start datetime('midnight') end datetime('nextMidnight')",
+        "nile_statement": "define intent dataTransferLimit: for group('ResNet') set quota('any', '6', 'gb/d') start hour('midnight') end hour('next midnight')",
         "grammar_check": true,
         "iterations": 2,
         "time": 14.600321531295776,
@@ -444,7 +444,7 @@
             ],
             "qos_unit": "mb/hr"
         },
-        "nile_statement": "define intent quotaIntent: for group('students') set quota('download', '5000', 'mb/d'), quota('upload', '2000', 'mb/d')",
+        "nile_statement": "define intent quotaIntent: for group('students') set quota('download', '5000', 'mb/h'), quota('upload', '2000', 'mb/h')",
         "grammar_check": true,
         "iterations": 1,
         "time": 12.15344524383545,
@@ -479,7 +479,7 @@
             "qos_unit_2": "mbps",
             "target": "individual"
         },
-        "nile_statement": "define intent bandwidthLimit: for endpoint('individual') set quota('any', '18', 'gb/wk') set bandwidth('max', '2', 'mbps')",
+        "nile_statement": "define intent bandwidthLimit: for endpoint('individual') set quota('any', '18', 'gb') set bandwidth('max', '2', 'mbps')",
         "grammar_check": true,
         "iterations": 1,
         "time": 12.461884021759033,
@@ -539,7 +539,7 @@
                 "UIC wireless-connected devices"
             ]
         },
-        "nile_statement": "define intent restrictServices: for group('ResNet'), group('UICwirelessconnecteddevices') block protocol('ftp'), protocol('telnet'), service('peertopeer'), protocol('http'), protocol('irc'), protocol('dns'), service('mailservers')",
+        "nile_statement": "define intent restrictServices: for endpoint('ResNet'), endpoint('UICwirelessconnecteddevices') block protocol('ftp'), protocol('telnet'), service('peertopeer'), protocol('http'), protocol('irc'), protocol('dns'), service('mailservers')",
         "grammar_check": true,
         "iterations": 5,
         "time": 27.721473217010498,
@@ -678,7 +678,7 @@
                 "Custom Unit Firewalls"
             ]
         },
-        "nile_statement": "define intent securitySolutions: for group('all') add middlebox('NetworkBorderInfrastructureSystem'), middlebox('IntrusionPreventionSystem'), middlebox('Firewalls'), middlebox('CustomUnitFirewalls')",
+        "nile_statement": "define intent securitySolutions: for group('all') add middlebox('NetworkBorderInfrastructureSystem'), middlebox('intrusion prevention system'), middlebox('firewalls'), middlebox('custom unit firewalls')",
         "grammar_check": true,
         "iterations": 2,
         "time": 14.243868350982666,
@@ -691,7 +691,7 @@
             "traffic": "traffic",
             "operation": "monitors"
         },
-        "nile_statement": "define intent monitorIntent: for traffic('networkTraffic') add middlebox('trafficMonitor')",
+        "nile_statement": "define intent monitorIntent: for traffic('network Traffic') add middlebox('trafficMonitor')",
         "grammar_check": true,
         "iterations": 1,
         "time": 12.966514825820923,
@@ -704,7 +704,7 @@
             "operation": "restrict",
             "traffic": "NETBIOS"
         },
-        "nile_statement": "define intent restrictTraffic: block protocol(netbios)",
+        "nile_statement": "define intent restrictTraffic: block protocol('netbios')",
         "grammar_check": false,
         "iterations": 8,
         "time": 40.2987220287323,
@@ -781,7 +781,7 @@
             "service": "H323 video conferencing",
             "traffic": "video and audio conferencing products that use the H.323"
         },
-        "nile_statement": "define intent qosIntent: for service('H323') add middlebox('firewall') block service('H323')",
+        "nile_statement": "define intent qosIntent: for service('H323') add middlebox('firewall') block traffic('H323')",
         "grammar_check": true,
         "iterations": 3,
         "time": 24.127521753311157,
@@ -795,7 +795,7 @@
             "middlebox": "network traffic monitor",
             "target": "network"
         },
-        "nile_statement": "define intent inspectIntent: for traffic('network') add middlebox('networkTrafficMonitor')",
+        "nile_statement": "define intent inspectIntent: for target('network') add middlebox('networkTrafficMonitor')",
         "grammar_check": true,
         "iterations": 1,
         "time": 13.098721981048584,

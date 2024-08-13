@@ -21,7 +21,7 @@ st.sidebar.subheader("User Inputs")
 config_request = st.sidebar.text_area("Natural Language Query:", height=150)
 
 # Load handlers
-yang_dir = "tests/libyang-python-tests/sample-yang-models"
+yang_dir = "yang_modules"
 nh = NetworkHandler()
 ymh = YangModelHandler(yang_dir=yang_dir)
 ch = OpenAIChatHandler()
@@ -51,13 +51,15 @@ async def main():
     modified_network_states = {}
     pre_verifier_expander = st.expander("Run Verifier on Default Network States")
     for device in devices:
-        status_config_db, path_config_db = nh.get_config_db_network_state(device)
+        # status_config_db, path_config_db = nh.get_config_db_network_state(device)
+        mapping = {'S0': 'SPINE0', 'S1': 'SPINE1', 'L0': 'LEAF0', 'L1': 'LEAF1'}
+        path_config_db = f"configs/sonic_configs/{mapping[device]}/config_db.json"
         with open(path_config_db, 'r') as f:
             content = load(f)
             names[device] = content["DEVICE_METADATA"]["localhost"]["hostname"]
             network_states[device] = dumps(content)
         network_states[device] = loads(ymh.configdb_to_yang(network_states[device]))
-        network_states[device] = ymh.fix_dumb_cisco_errors(network_states[device])
+        network_states[device] = ymh.fix_yang_mismatches(network_states[device])
 
         # Uncomment this line to update FRR file (for BGP and OSPF configurations)
         # status_frr, path_frr = nh.get_frr_network_state(device, names[device])
@@ -78,7 +80,7 @@ async def main():
         st.subheader("LLM: Chain of thought and feedback reasoning")
         times = []
 
-        with st.container(height=500):
+        with st.container(height=600):
             t0 = time.time()
             with st.chat_message("user"):
                 st.write("Find the relevant modules for the given query:")
@@ -180,7 +182,8 @@ async def main():
         if success:
             st.subheader("Final configuration:")
             result = ch.extract_python_literal(generate_config)
-            st.write(result)
+            with st.container(height=600):
+                st.write(result)
             dh.insert_configuration(nl_request=config_request.strip(), json_config=result, yang_status=True, modules=relevant_modules, latencies=times, iterations=iterations, comments=None)
         else:
             st.subheader(f"Failed after {iterations} iterations of feedback. Most recent configuration:")

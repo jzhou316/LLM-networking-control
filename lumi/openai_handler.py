@@ -8,16 +8,16 @@ import re, ast, os
 OPENAI_API_KEY = "sk-proj-qJ1qUAx4jc1ltuUsYjl4T3BlbkFJKKwhXNSCV6Nc4Kf5iSTI"
 LANGCHAIN_API_KEY = "ls__00910ef8094d47719d8412b32fa933cc"
 
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
+os.environ["LANGCHAIN_PROJECT"] = "LLM for network config"
+os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
+os.environ["LANGCHAIN_API_KEY"] = LANGCHAIN_API_KEY
 langchain.verbose = False
 
 class OpenAIChatHandler:
     def __init__(self):
         self.llm = ChatOpenAI(temperature=0.2,  openai_api_key=OPENAI_API_KEY, model="gpt-4o")
         self.store = {}
-        os.environ["LANGCHAIN_TRACING_V2"] = "true"
-        os.environ["LANGCHAIN_PROJECT"] = "LLM for network config"
-        os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
-        os.environ["LANGCHAIN_API_KEY"] = LANGCHAIN_API_KEY
     
     def get_session_history(self, session_id: str):
         if session_id not in self.store:

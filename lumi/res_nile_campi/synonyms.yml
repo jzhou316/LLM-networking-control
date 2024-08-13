@@ -127,6 +127,7 @@ nlu:
       - H323 video conferencing
       - h323videoconferencing
       - video and audio conferencing products that use the H.323
+      - h323
   - synonym: HR
     examples: |
       - HR
@@ -160,10 +161,12 @@ nlu:
     examples: |
       - PUCRS
       - PUC
-  - synonym: Sony PlayStation 2
+  - synonym: playstation2
     examples: |
+      - playstation2
       - Sony Playstation 2
       - PlayStation 2
+      - playstation 2
       - playstation2
       - ps2
   - synonym: Servers
@@ -277,6 +280,7 @@ nlu:
     examples: |
       - campus
       - entire campus
+      - entirecampus
   - synonym: classrooms
     examples: |
       - classroom
@@ -300,12 +304,14 @@ nlu:
       - student housing
       - domitories
       - residents
+      - resident
       - student dorms
       - University Housing
       - university housing
       - universityhousing
       - mitnet
       - resnet
+      - housingstudentjudicialaffairs
   - synonym: download
     examples: |
       - Download
@@ -420,6 +426,7 @@ nlu:
       - guest users
       - RHIT-OPEN wireless network
       - RHIT-OPEN
+      - rhit-open
       - rhitopen
   - synonym: hosts
     examples: |
@@ -702,12 +709,15 @@ nlu:
     examples: |
       - flow
       - type of traffic
+      - alltraffic
   - synonym: traffic monitor
     examples: |
       - traffic monitor
+      - trafficmonitor
       - using notification
       - system traffic monitor
       - network traffic monitor
+      - networktrafficmonitor
       - monitors
       - network throughput monitor
       - networkthroughputmonitor
@@ -725,6 +735,7 @@ nlu:
       - unit firewall
       - custom unit firewall
       - customunitfirewtraffics
+      - customunitfirewalls
   - synonym: unset
     examples: |
       - dismiss
@@ -800,3 +811,12 @@ nlu:
     examples: |
       - sorenson videophone 200
       - sorensonvideophone200
+  - synonym: overuse notification
+    examples: |
+      - overuse notification
+      - notifications
+      - notification
+  - synonym: ftp service
+    examples: |
+      - ftp service
+      - ftpservices
