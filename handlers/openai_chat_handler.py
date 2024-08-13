@@ -5,8 +5,8 @@ from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
 import re, ast, os
 
-OPENAI_API_KEY = "sk-proj-AnrJzGfapdPRR2allW5WT3BlbkFJdfZquZZbcGOFlIvVeoQb"
-LANGCHAIN_API_KEY = "ls__00910ef8094d47719d8412b32fa933cc"
+OPENAI_API_KEY = ""
+LANGCHAIN_API_KEY = ""
 
 
 os.environ["LANGCHAIN_TRACING_V2"] = "true"
