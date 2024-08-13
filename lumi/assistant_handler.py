@@ -5,7 +5,7 @@ import json
 import ast
 from openai import OpenAI
 
-OPENAI_API_KEY = "sk-proj-qJ1qUAx4jc1ltuUsYjl4T3BlbkFJKKwhXNSCV6Nc4Kf5iSTI"
+OPENAI_API_KEY = ""
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 class AssistantHandler:
