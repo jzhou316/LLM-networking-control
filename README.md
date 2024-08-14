@@ -12,7 +12,7 @@ We use LLMs to translate natural language requests into configurations in SONiC.
 4. Given the outputs from LLM Agents 1 and 2, **LLM Agent 3** performs the configuration. It outputs a YANG configuration that satisfies the user query.
 5. We run ```pyang``` (a YANG verifier) to check that the LLM output satisfies the syntax and constraints described in the YANG grammar. If there is an error, **LLM Agent 4** attempts to correct the configuration based on the error log. This is repeated until the configuration passes the pyang tests, or until a specified number of iterations have failed.
 
-![image](data/images/llm_component.png | width=100)
+<img src="data/images/llm_component.png" width="80" height="80">
 
 We use GPT-4 for all LLM agents. Instructions are provided to the agents via prompting. 
 
