@@ -4,13 +4,13 @@ We develop a system that leverages LLMs to automatically configure network switc
 
 ## Description
 
-We use LLMs to translate natural language requests into configurations in [SONiC](https://sonicfoundation.dev/). To enforce a structure in the LLM outputs, the system first converts the natural language query into a YANG data file. We use YANG modules to explicitly define a grammar that the LLM should adhere to. The end-to-end process is as follows:
+We use LLMs to translate natural language requests into configurations in [SONiC](https://sonicfoundation.dev/). To enforce a structure in the LLM outputs, first we convert the natural language query into a YANG data file. This YANG output follows an explicit grammar that is defined by a set of provided YANG modules. 
 
-1. A user describes a configuration objective in *natural language* (NL). 
-2. **LLM Agent 1** identifies the YANG modules that are relevant to this specific query.
-3. **LLM Agent 2** performs dense retrieval on a vector database of the configuration files and identifies the parts of the network state that are relevant to this query.
-4. Given the outputs from LLM Agents 1 and 2, **LLM Agent 3** performs the configuration. It outputs a YANG configuration that satisfies the user query.
-5. We run ```pyang``` (a YANG verifier) to check that the LLM output satisfies the syntax and constraints described in the YANG grammar. If there is an error, **LLM Agent 4** attempts to correct the configuration based on the error log. This is repeated until the configuration passes the pyang tests, or until a specified number of iterations have failed.
+The user begins by describing a configuration objective in *natural language* (NL). Thenend-to-end process is as follows:
+
+**Retrieval Stage**: *LLM Agent 1* performs dense retrieval on a vector database of the configuration files and identifies the parts of the network state that are relevant to this query. Asynchronously, *LLM Agent 2* identifies the YANG modules that are relevant to this specific query.
+**Configuration Stage**: Given the outputs from LLM Agents 1 and 2, *LLM Agent 3* performs the configuration. It outputs a YANG configuration that satisfies the user query.
+**Verification Stage**: We run the verifier pyang to check that the LLM output satisfies the syntax and constraints described in the YANG grammar. If there is an error, *LLM Agent 4* attempts to correct the configuration based on the error log. The verification stage is repeated until the configuration passes the pyang tests, or until a specified number of iterations have failed.
 
 ![llm_components](data/images/llm_components.png)
 
