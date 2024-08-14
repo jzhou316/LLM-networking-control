@@ -1,10 +1,10 @@
-# LLM for Network Configuration Project
+# LLMs for Network Configuration
 
 We develop a system that leverages LLMs to automatically configure network switch devices based on natural language requests. 
 
 ## Description
 
-We use LLMs to translate natural language requests into configurations in SONiC. To enforce a structure in the LLM outputs,  the system first converts the natural language query into a YANG data file. We use YANG modules to explicitly define a grammar that the LLM should adhere to. The end-to-end process is as follows:
+We use LLMs to translate natural language requests into configurations in SONiC. To enforce a structure in the LLM outputs, the system first converts the natural language query into a YANG data file. We use YANG modules to explicitly define a grammar that the LLM should adhere to. The end-to-end process is as follows:
 
 1. A user describes a configuration objective in *natural language* (NL). 
 2. **LLM Agent 1** identifies the YANG modules that are relevant to this specific query.
@@ -12,7 +12,13 @@ We use LLMs to translate natural language requests into configurations in SONiC.
 4. Given the outputs from LLM Agents 1 and 2, **LLM Agent 3** performs the configuration. It outputs a YANG configuration that satisfies the user query.
 5. We run ```pyang``` (a YANG verifier) to check that the LLM output satisfies the syntax and constraints described in the YANG grammar. If there is an error, **LLM Agent 4** attempts to correct the configuration based on the error log. This is repeated until the configuration passes the pyang tests, or until a specified number of iterations have failed.
 
+![image](data/images/llm_component.png)
+
 We use GPT-4 for all LLM agents. Instructions are provided to the agents via prompting. 
+
+### Requirements and Installation
+
+
 
 ### Executing program
 
