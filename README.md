@@ -11,7 +11,7 @@ We use LLMs to translate natural language requests into configurations in [SONiC
 |Natural Language Request|YANG|SONiC ConfigDB|
 |---|---|---|
 |Configure connected interfaces between leaf and spine devices in separate class A IP network segments. Configure each leaf connected to the end-hosts appropriately so there is no conflict in IP addressing done for interfaces between leaf and spine devices.|![ip_config_yang](data/images/ip_config_yang.png)|![ip_config_sonic](data/images/ip_config_sonic.png)|
-|Please set up a policy on the Ethernet0 interface that drops all incoming traffic destined for the IP address 10.0.0.1. This rule should have the highest priority. Additionally, drop any traffic originating from the IP address 10.1.0.1 on source port 53. This second rule should have a lower priority than the first.|![acl_config_yang](data/images/acl_config_yang.png)||
+|Please set up a policy on the Ethernet0 interface that drops all incoming traffic destined for the IP address 10.0.0.1. This rule should have the highest priority. Additionally, drop any traffic originating from the IP address 10.1.0.1 on source port 53. This second rule should have a lower priority than the first.|![acl_config_yang](data/images/acl_config_yang.png)|![acl_config_sonic](data/images/acl_config_sonic.png)|
 
 ### Methodology
 
