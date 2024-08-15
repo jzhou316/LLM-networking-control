@@ -38,14 +38,6 @@ Finally, run the following to open the Streamlit web interface. Via this interfa
 streamlit run main.py
 ```
 
-### Executing program
-
-We configure SONiC devices running in a sandbox environment. The files from ```/server``` are first loaded into the sandbox environment. A REST API is used to communicate between the server-side network devices and the client-side LLM system. 
-
-Next, the server code loads the configuration files to the client side and allows new configurations to be pushed back to the network devices. 
-
-On the client side, a Streamlit web interface allows the user to submit a natural language query. The interface will display the reasoning steps taken by the LLM. If the configuration is successful, the result is automatically appended to ```data/results.json```
-
 
 ## License
 
