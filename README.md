@@ -32,7 +32,7 @@ Next, you will need to supply API keys for OpenAI and LangChain. Replace the emp
 
 Static SONiC configuration files have been provided in `configs/sonic_configs`. We also support real-time configurations by providing a script in `handlers/network_handler.py` to interact with the Cisco 8000 Emulator Sandbox for SONiC. You will need to set up a [Cisco 8000 SONiC Notebook sandbox environment](https://devnetsandbox.cisco.com/DevNet). Once you have set up your SONiC environment, upload the script `server/server.py` to the environment and run the file: `python3 server.py`. This will set up a RESTAPI to communicate between the sandbox environment and the local repository. 
 
-Finally, run the following to open the Streamlit web interface. Via this interface, natural language queries are provided to the LLM system, and the user can check the intermediate outputs from the LLM.
+Finally, run the following to open the Streamlit web interface. Via this interface, natural language queries are provided to the LLM system. The user can check the intermediate outputs from the LLM, as well as the final YANG and SONiC configurations.
 
 ```
 streamlit run main.py
