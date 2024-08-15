@@ -8,56 +8,6 @@ We use LLMs to translate natural language requests into configurations in [SONiC
 
 ### Configuration Examples
 
-|Natural Language|YANG|SONiC|
-|---|---|---|
-|Configure connected interfaces between leaf and spine devices in separate class A IP network segments. Configure each leaf connected to the end-hosts appropriately so there is no conflict in IP addressing done for interfaces between leaf and spine devices.| ```{  "sonic-interface:sonic-interface": {
-    "INTERFACE": {
-      "INTERFACE_LIST": [
-        {
-          "name": "Ethernet176"
-        },
-        {
-          "name": "Ethernet180"
-        }
-      ],
-      "INTERFACE_IPPREFIX_LIST": [
-        {
-          "name": "Ethernet176",
-          "ip-prefix": "10.0.0.1/24"
-        },
-        {
-          "name": "Ethernet180",
-          "ip-prefix": "10.1.0.1/24"
-        }
-      ]
-    }
-  }
-}, {
-  "sonic-interface:sonic-interface": {
-    "INTERFACE": {
-      "INTERFACE_LIST": [
-        {
-          "name": "Ethernet176"
-        },
-        {
-          "name": "Ethernet180"
-        }
-      ],
-      "INTERFACE_IPPREFIX_LIST": [
-        {
-          "name": "Ethernet176",
-          "ip-prefix": "10.2.0.1/24"
-        },
-        {
-          "name": "Ethernet180",
-          "ip-prefix": "10.3.0.1/24"
-        }
-      ]
-    }
-  }
-}```
-|something|
-
 ### Methodology
 
 The user begins by describing a configuration objective in *natural language* (NL). There are three key stages:
