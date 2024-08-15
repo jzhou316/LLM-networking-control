@@ -20,7 +20,7 @@ After the YANG configuration has been verified, a compiler translates it into SO
 
 We use GPT-4 for all LLM agents. Instructions are provided to the agents via prompting. 
 
-### Requirements and Installation
+## Requirements and Installation
 
 First, clone the repository and install the required dependencies:
 ```
