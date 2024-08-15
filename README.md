@@ -28,7 +28,11 @@ git clone git@github.com:jzhou316/LLM-networking-control.git
 pip install -r requirements.txt
 ```
 
-Next, you will need to supply API keys for OpenAI and LangChain. Replace the empty values for the fields `OPENAI_API_KEY` and `LANGCHAIN_API_KEY` in `handlers/data/.env`. 
+Next, you will need to supply API keys for OpenAI and LangChain. Replace the empty values for the fields `OPENAI_API_KEY` and `LANGCHAIN_API_KEY` in `handlers/.env`. 
+
+Static SONiC configuration files have been provided in `configs/sonic_configs`. We also support real-time configurations by providing a script in `handlers/network_handler.py` to interact with the Cisco 8000 Emulator Sandbox for SONiC. You will need to set up a [Cisco 8000 SONiC Notebook sandbox environment](https://devnetsandbox.cisco.com/DevNet). Once you have set up your SONiC environment, upload the script `server/server.py` to the environment. This will set up a RESTAPI to communicate between the sandbox environment and the local repository.
+
+
 
 ### Executing program
 
