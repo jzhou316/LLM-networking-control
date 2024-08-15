@@ -9,8 +9,10 @@ We use LLMs to translate natural language requests into configurations in [SONiC
 ### Configuration Examples
 
 |Natural Language|YANG|SONiC|
-|----------------|----|-----|
-|todo            |    |     |
+|---|---|---|
+|Configure connected interfaces between leaf and spine devices in separate class A IP network segments. Configure each leaf connected to the end-hosts appropriately so there is no conflict in IP addressing done for interfaces between leaf and spine devices.| something|something|
+
+### Methodology
 
 The user begins by describing a configuration objective in *natural language* (NL). There are three key stages:
 
