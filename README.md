@@ -10,8 +10,7 @@ We use LLMs to translate natural language requests into configurations in [SONiC
 
 |Natural Language|YANG|SONiC|
 |---|---|---|
-|Configure connected interfaces between leaf and spine devices in separate class A IP network segments. Configure each leaf connected to the end-hosts appropriately so there is no conflict in IP addressing done for interfaces between leaf and spine devices.| ```{
-  "sonic-interface:sonic-interface": {
+|Configure connected interfaces between leaf and spine devices in separate class A IP network segments. Configure each leaf connected to the end-hosts appropriately so there is no conflict in IP addressing done for interfaces between leaf and spine devices.| ```{  "sonic-interface:sonic-interface": {
     "INTERFACE": {
       "INTERFACE_LIST": [
         {
@@ -33,8 +32,7 @@ We use LLMs to translate natural language requests into configurations in [SONiC
       ]
     }
   }
-},
-{
+}, {
   "sonic-interface:sonic-interface": {
     "INTERFACE": {
       "INTERFACE_LIST": [
