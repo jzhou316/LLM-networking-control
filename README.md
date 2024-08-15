@@ -38,6 +38,7 @@ Finally, run the following to open the Streamlit web interface. Via this interfa
 streamlit run main.py
 ```
 Here is an illustration of a user performing a VLAN configuration using our Streamlit interface. 
+
 ![visualization](data/images/visualization.png)
 
 ## License
