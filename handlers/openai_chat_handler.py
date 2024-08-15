@@ -3,16 +3,12 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_community.chat_message_histories import ChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
+from dotenv import load_dotenv
 import re, ast, os
 
-OPENAI_API_KEY = ""
-LANGCHAIN_API_KEY = ""
-
-
-os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_PROJECT"] = "LLM for network config"
-os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
-os.environ["LANGCHAIN_API_KEY"] = LANGCHAIN_API_KEY
+load_dotenv()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+LANGCHAIN_API_KEY = os.getenv("LANGCHAIN_API_KEY")
 langchain.verbose = False
 
 class OpenAIChatHandler:
