@@ -27,7 +27,7 @@ After the YANG configuration has been verified, a compiler translates it into SO
 
 ![llm_components](data/images/llm_components.png)
 
-We use GPT-4 for all LLM agents. Instructions are provided to the agents via prompting. 
+We use GPT-4 for all LLM agents. Instructions are provided to the agents via prompt templates found in `prompt_templates/`.
 
 ## Requirements and Installation
 
