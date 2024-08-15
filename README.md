@@ -22,7 +22,13 @@ We use GPT-4 for all LLM agents. Instructions are provided to the agents via pro
 
 ### Requirements and Installation
 
+First, clone the repository and install the required dependencies:
+```
+git clone git@github.com:jzhou316/LLM-networking-control.git
+pip install -r requirements.txt
+```
 
+Next, you will need to supply API keys for OpenAI and LangChain. Replace the empty values for the fields `OPENAI_API_KEY` and `LANGCHAIN_API_KEY` in `handlers/data/.env`. 
 
 ### Executing program
 
