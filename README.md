@@ -6,6 +6,12 @@ We develop a system that leverages LLMs to automatically configure network switc
 
 We use LLMs to translate natural language requests into configurations in [SONiC](https://sonicfoundation.dev/). To enforce a structure in the LLM outputs, first we convert the natural language query into a YANG data file. This YANG output follows an explicit grammar that is defined by a set of provided YANG modules. Then we translate the YANG configuration into SONiC via a deterministic translation of the configuration commands.
 
+### Configuration Examples
+
+|Natural Language|YANG|SONiC|
+|----------------|----|-----|
+|todo            |    |     |
+
 The user begins by describing a configuration objective in *natural language* (NL). There are three key stages:
 
 **Retrieval Stage**: *LLM Agent 1* performs dense retrieval on a vector database of the configuration files and identifies the parts of the network state that are relevant to this query. Asynchronously, *LLM Agent 2* identifies the YANG modules that are relevant to this specific query.
