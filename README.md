@@ -28,11 +28,13 @@ git clone git@github.com:jzhou316/LLM-networking-control.git
 pip install -r requirements.txt
 ```
 
-Next, you will need to supply API keys for OpenAI and LangChain. Replace the empty values for the fields `OPENAI_API_KEY` and `LANGCHAIN_API_KEY` in `handlers/.env`. 
+Next, you will need to supply API keys for OpenAI and LangChain. Replace the empty values with your API keys in the fields `OPENAI_API_KEY` and `LANGCHAIN_API_KEY` found in `handlers/.env`. 
+
+## SONiC Configuration with Natural Language
 
 Static SONiC configuration files have been provided in `configs/sonic_configs`. We also support real-time configurations by providing a script in `handlers/network_handler.py` to interact with the Cisco 8000 Emulator Sandbox for SONiC. You will need to set up a [Cisco 8000 SONiC Notebook sandbox environment](https://devnetsandbox.cisco.com/DevNet). Once you have set up your SONiC environment, upload the script `server/server.py` to the environment and run the file: `python3 server.py`. This will set up a RESTAPI to communicate between the sandbox environment and the local repository. 
 
-Finally, run the following to open the Streamlit web interface. Via this interface, natural language queries are provided to the LLM system. The user can check the intermediate outputs from the LLM, as well as the final YANG and SONiC configurations.
+Run the following to open the Streamlit web interface. Natural language queries are provided to the LLM system via the interface. Moreover, the user can check the intermediate outputs from the LLM, as well as the final YANG and SONiC configurations.
 
 ```
 streamlit run main.py
