@@ -185,6 +185,11 @@ async def main():
             with st.container(height=600):
                 st.write(result)
             dh.insert_configuration(nl_request=config_request.strip(), json_config=result, yang_status=True, modules=relevant_modules, latencies=times, iterations=iterations, comments=None)
+            st.subheader("Translated into SONiC")
+            with st.container(height=600):
+                for device in devices:
+                    st.write(f"({device}) {names[device]}")
+                    st.write(ymh.yang_to_configdb(dumps(network_states[device], indent=4)))
         else:
             st.subheader(f"Failed after {iterations} iterations of feedback. Most recent configuration:")
             try:
