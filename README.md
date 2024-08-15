@@ -10,7 +10,7 @@ We use LLMs to translate natural language requests into configurations in [SONiC
 
 |Natural Language Request|YANG|SONiC ConfigDB|
 |---|---|---|
-|Configure connected interfaces between leaf and spine devices in separate class A IP network segments. Configure each leaf connected to the end-hosts appropriately so there is no conflict in IP addressing done for interfaces between leaf and spine devices.|![ip_config_yang](data/images/ip_config_yang.png)|
+|Configure connected interfaces between leaf and spine devices in separate class A IP network segments. Configure each leaf connected to the end-hosts appropriately so there is no conflict in IP addressing done for interfaces between leaf and spine devices.|![ip_config_yang](data/images/ip_config_yang.png)|![ip_config_sonic](data/images/ip_config_sonic.png)|
 
 ### Methodology
 
