@@ -38,8 +38,10 @@ class AssistantHandler:
         self.upload_files_to_yang_vs()
     
     def create_state_assistant(self):
+        with open("../prompt_templates/fdb_assistant.txt", "r") as f:
+            instructions = f.read()
         return client.beta.assistants.create(
-            instructions="You are an assistant whose job is to understand network configuration files. You are provided these network configuration files from a SONiC clos network. For your information, the configuration files describe a network with four devices, Spine0, Spine1, Leaf0, and Leaf1. The user is trying to perform a configuration objective, but they do not know what the current state of the network is. Based on the provided network configuration files, you will help the user understand the current state of the network, providing any details that will aid in their configuration. For example, you may need to provide the current IP address of a device, the active interfaces on each device, the current VLAN configuration, or the current BGP neighbors. It will help you to know that each device has an IP address, but each interface might also have its own IP address. You should describe the network state for every device, so that the user at least knows which devices are in the network. You should not explain how to perform the configuration. Your primary task is to provide information about the current state of the network. At the end, you should also describe how you would perform the configuration. \n\n It is imperative that your response is entirely accurate based on the information about the network state from the vector store. Please explicitly use the vector store as evidence for your decisions.",
+            instructions=instructions,
             name="Network Config",
             tools=[{"type": "file_search"}, {"type": "code_interpreter"}], 
             temperature=0.1,
@@ -47,8 +49,10 @@ class AssistantHandler:
         )
 
     def create_fdb_assistant(self):
+        with open("../prompt_templates/fdb_assistant.txt", "r") as f:
+            instructions = f.read()
         return client.beta.assistants.create(
-            instructions="You are an assistant to a network operator. The network operator wants to perform a configuration on a SONIC clos network, and their configuration code will be given to you in a YANG ABNF data format. However, the configuration does not pass the YANG validator tests. The compile error logs are given to you. You can use file retrieval and the code interpreter to look into a vector store containing all of the YANG modules, which specify the grammar that the YANG configuration must adhere to. Please correct the YANG configuration that is given to you, and return the correct version delineated clearly as a standalone list within a single, complete Python snippet (see below). For automatic extraction purposes, the solution should be the only Python block in your output. \n\n```python\n[\n\t<configuration>\n]\n```",
+            instructions=instructions,
             name="YANG Grammar Corrector",
             tools=[{"type": "file_search"}, {"type": "code_interpreter"}], 
             temperature=0.1,
