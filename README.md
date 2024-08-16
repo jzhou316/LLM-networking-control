@@ -52,6 +52,13 @@ Here is an illustration of a user performing a VLAN configuration using our Stre
 
 ![visualization](data/images/visualization.png)
 
+## Citation
+
+Coming soon.
+
+Work done by Samuel Lin, Jiawei Zhou, and Minlan Yu.
+
+
 ## License
 
 See the LICENSE.md file for details
