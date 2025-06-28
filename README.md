@@ -1,6 +1,6 @@
 # LLMs for Network Configuration
 
-We develop a system that leverages LLMs to automatically configure network switch devices based on natural language requests. 
+We develop an agentic system that leverages LLMs to automatically configure network switch devices based on natural language requests. 
 
 ## Description
 
