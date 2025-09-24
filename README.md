@@ -54,7 +54,19 @@ Here is an illustration of a user performing a VLAN configuration using our Stre
 
 ## Citation
 
-Coming soon.
+```
+@article{lin2025llm,
+  title={An LLM-based Agentic Framework for Accessible NetworkControl},
+  author={Lin, Samuel and Zhou, Jiawei and Yu, Minlan},
+  journal={ACM SIGMETRICS Performance Evaluation Review},
+  volume={53},
+  number={2},
+  pages={15--20},
+  year={2025},
+  publisher={ACM New York, NY, USA}
+}
+```
+
 
 Work done by Samuel Lin, Jiawei Zhou, and Minlan Yu.
 
